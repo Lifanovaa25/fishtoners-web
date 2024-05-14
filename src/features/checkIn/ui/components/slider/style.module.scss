@@ -1,0 +1,114 @@
+
+.slider {
+    position: relative;
+
+    margin-top: 23px;
+    width: 100%;
+    max-width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    --slide-height: 129px;
+    --slide-size: 94px;
+}
+
+.embla__viewport {
+    width: 100% ;
+    max-width: 306.79px;
+    height: 129px;
+    overflow: hidden;
+
+    @media (max-width: 390px) {
+        max-width: 200.79px;
+    }
+}
+
+.embla__container {
+    width: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: flex-start;
+    gap:12px;
+    touch-action: pan-y;
+}
+
+.embla__slide {
+    position: relative;
+
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+
+    background-image:url(../../assets/slide.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: var(--slide-height);
+}
+
+.slide_disable {
+    background-image:url(../../assets/slide-disable.png);
+}
+
+.slide_worm {
+    width: 58px;
+    height: 61px;
+    margin: auto;
+}
+
+.slide_text {
+    font-size: 17px;
+    line-height: 21.49px;
+    white-space: nowrap;
+
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.embla__controls {
+    width: 100%;
+}
+
+.embla__button {
+    position: absolute;
+    appearance: none;
+    background-color: transparent;
+    touch-action: manipulation;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+        transform: scale(1.22) translateY(-50%);
+    }
+
+    transition: all 0.2s ease;
+}
+
+.embla__button_next {
+    transform: translateY(-50%) rotate(180deg);
+    right: 0;
+
+    &:hover {
+        transform: scale(1.22) translateY(-50%) rotate(180deg);
+    }
+}
+
+// .embla__button:disabled {
+//     color: var(--detail-high-contrast);
+// }

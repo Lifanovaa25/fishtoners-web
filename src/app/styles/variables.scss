@@ -1,0 +1,40 @@
+@font-face {
+  src: url("./fonts/EpilepsySans/Epilepsy\ Sans.ttf") format("ttf"),
+  url("./fonts/EpilepsySans/Epilepsy\ Sans.eot") format("eot"),
+  url("./fonts/EpilepsySans/Epilepsy\ Sans.woff2") format("woff2");
+  font-family: "Epilepsy Sans";
+}
+@font-face {
+  src: url("./fonts/Tobi-Light.woff2") format("woff2");
+  font-family: "Tobi-Light";
+}
+
+@font-face {
+  src: url("./fonts/Tobi-Black.woff2") format("woff2");
+  font-family: "Tobi-Black";
+}
+
+@font-face {
+  src: url("./fonts/Bauhaus.woff2") format("woff2");
+  font-family: "BAUHS93";
+}
+
+:root {
+  --fm-main: "Epilepsy Sans", sans-serif;
+  // --fm-main: "Tobi-Black", sans-serif;
+  --fm-additional: "Tobi-Light", sans-serif;
+  --fm-number: "BAUHS93", sans-serif;
+
+  // --font-weight-main: 400;
+  --font-weight-main: 700;
+
+  // colors
+  --main-color: #FFFFFF;
+  --acsent-color: #170C4A;
+  --button-color: #3d3665;
+  --theme-bg: #0040c1;
+  --box-bg: hsla(232, 52%, 17%, 0.64);
+
+  // borders
+  --main-br: 12px;
+}

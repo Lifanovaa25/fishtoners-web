@@ -1,0 +1,22 @@
+.button {
+    width: 100%;
+    height: 40px;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+
+.sound_bg {
+    width: 41px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--main-color);
+    border-radius: 10px;
+}
+
+.play_off {
+    opacity: 0.2;
+}

@@ -1,0 +1,72 @@
+@import "reset";
+@import "variables";
+@import "toast";
+
+body {
+  overflow: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+#root, button {
+  color: var(--main-color);
+  // background: var(--theme-bg);
+
+  font-family: var(--fm-main);
+  font-weight: var(--font-weight-main);
+}
+
+.shadow {
+  text-shadow: 0 0 7.4px rgba(0, 0, 0, 0.87);
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+
+  // background-image: url('../assets/Background.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size:100% 100%;
+
+  @media (max-width: 500px) {
+    background-size:cover;
+  }
+  .bgvideo {
+    position: fixed;
+    right: -2px;
+    bottom: 0;
+    min-width: 101%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -9999;
+  }
+  &::-webkit-scrollbar {
+      background-color: var(--color-main);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(21, 27, 66, 1);
+  }
+  
+  // &::-webkit-scrollbar-thumb:hover {
+  //     background: var(--acsent-dark-color);
+  // }
+  
+  &::-webkit-scrollbar:vertical {
+    width: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:horizontal {
+    height: 100%;
+  }
+  
+  &::-webkit-scrollbar-corner {
+    background-color: var(--color-main);
+  }
+}

@@ -1,0 +1,158 @@
+
+
+.leaderboard_item {
+    width: 100%;
+    // max-width: 182px;
+    height: 40px;
+    padding: 4.62px 10px;
+
+    background-image:url(../../assets/item_bg.png);
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+
+    display: flex;
+    align-items: center;
+    gap:15px;
+
+    @media (max-width: 410px) {
+        gap:10px;
+    }
+
+    @media (max-width: 350px) {
+        padding: 4.62px 7px;
+    }
+}
+
+.item_place {
+    font-size: 28px;
+    line-height: 35.11px;
+
+    @media (max-width: 450px) {
+        font-size: 23px;
+    }
+
+    @media (max-width: 410px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 370px) {
+        font-size: 15px;
+    }
+}
+
+.item_body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.item_left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.item_avatar {
+    height: 31px;
+    width: 31px;
+    border-radius: 50%;
+
+    & > img {
+        border-radius: inherit;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    } 
+
+    @media (max-width: 440px) {
+        height: 29px;
+        width: 29px;
+    }
+
+    @media (max-width: 410px) {
+        height: 25px;
+        width: 25px;
+    }
+
+    @media (max-width: 370px) {
+        height: 23px;
+        width: 23px;
+    }
+}
+
+.names {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+
+    & .full_name {
+        font-size: 15px;
+        line-height: 16.3px;
+    }
+
+    & .username {
+        font-size: 9px;
+        line-height: 8.78px;
+    }
+
+    @media (max-width: 450px) {
+        gap:3px;
+
+        & .full_name {
+            font-size: 13px;
+        }
+    
+        & .username {
+            font-size: 8px;
+        }
+    }
+    
+    @media (max-width: 410px) {
+        gap:0;
+
+        & .full_name {
+            font-size: 12px;
+        }
+    
+        & .username {
+            font-size: 8px;
+        }
+    }
+
+    @media (max-width: 360px) {
+        & .full_name {
+            font-size: 10px;
+        }
+    
+        & .username {
+            font-size: 7px;
+        }
+    }
+
+    @media (max-width: 310px) {
+        & .full_name {
+            font-size: 9px;
+        }
+    }
+}
+
+.points_count {
+    font-family: var(--fm-number);
+    font-size: 16px;
+    line-height: 19px;
+
+    
+    @media (max-width: 450px) {
+        font-size: 13px;
+    }
+
+    @media (max-width: 350px) {
+        font-size: 10px;
+    }
+}
