@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="none"><rect width="6.278" height="25.11" x="17.756" fill="#151B42" rx="3.139" transform="rotate(45 17.756 0)"/><rect width="6.278" height="25.11" fill="#151B42" rx="3.139" transform="scale(-1 1) rotate(45 -2.432 -5.872)"/></svg>
+<svg width="42" height="35" viewBox="0 0 42 35" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="42" height="35" fill="url(#pattern0_37_6)" fill-opacity="0.8"/>
+<rect x="11.5125" y="5.69763" width="29.9488" height="6.01936" transform="rotate(37.1361 11.5125 5.69763)" fill="url(#pattern1_37_6)"/>
+<rect x="7.81396" y="24.1161" width="29.9488" height="6.01936" transform="rotate(-37.8639 7.81396 24.1161)" fill="url(#pattern2_37_6)"/>
+<defs>
+<pattern id="pattern0_37_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_37_6" transform="matrix(0.0232558 0 0 0.0333333 -0.0465116 -0.1)"/>
+</pattern>
+<pattern id="pattern1_37_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image1_37_6" transform="matrix(0.0285714 0 0 0.2 -0.114286 -0.4)"/>
+</pattern>
+<pattern id="pattern2_37_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image1_37_6" transform="matrix(0.0285714 0 0 0.2 -0.114286 -0.4)"/>
+</pattern>
+<image id="image0_37_6" width="47" height="36" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAkCAYAAAAZ4GNvAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA2UlEQVRYhe2ZwQ2AIAxFwXhwABdychdyAG94KkEFKTHa34Z38iDw+FSi6EMITiuDtMAbVMuPdDHNS0u7L2rNc2/ct9U5l8gz+PrhSPtnTYRbNn8/1azxaslLbkU0dnEVnpJH2UOLHiV5FHEi66N6q8zJo6VO3Lyu8qjixMnPXNmoIZVHLxkieppJXh1dXoouL4UZefZnmDDR00zy6rjKo5fOyS+XPOoEbl6myoZASz/r85Q8ygSKHrVzG2oo8a5fDY9b83+vAmu8lrPKtEPRg9bYoP9cEEK1/AF1cxxLDrOJQAAAAABJRU5ErkJggg=="/>
+<image id="image1_37_6" width="44" height="10" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAKCAYAAADPcbwqAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAQ0lEQVQ4jWP8//8/w1ACTAPtAFIBCw7xwRDsjNgEsYXwYHAsAwMOdwy5JDEsHIw17QwAwOoOXJlusDgaAwyLJDGoAQBr6gYWxg+VWAAAAABJRU5ErkJggg=="/>
+</defs>
+</svg>

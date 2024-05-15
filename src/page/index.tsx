@@ -9,10 +9,15 @@ import { useUnit } from 'effector-react';
 import { $userProfile } from 'shared/config/user';
 import { Loader } from 'shared/ui/loader';
 import { Wallet } from 'widgets/wallet/ui';
+import { BottomMenu } from 'widgets/bottomMenu';
+import { useState } from 'react';
+import { useAppSelector } from 'hooks/redux';
+import { Game } from 'features/game';
 
 const DashBoardPage = () => {
   const { t } = useTranslation();
   const profile = useUnit($userProfile)
+  const { activeTab } = useAppSelector((state) => state.appSlice);
 
   return (
     <>
@@ -21,12 +26,17 @@ const DashBoardPage = () => {
         {!profile ?
           <>
             <Header />
-            {/* <img
-              src={title}
-              className={s.title}
-            /> */}
-            <CheckIn />
-            <Wallet />
+            {activeTab === '0' && <>
+              <CheckIn />
+            </>}
+            {activeTab === '1' &&
+              <>
+                <Game />
+                <Wallet />
+              </>
+            }
+
+            <BottomMenu />
           </> :
           <> <img
             src={title}
@@ -35,13 +45,6 @@ const DashBoardPage = () => {
             <Loader />
           </>}
 
-        {/* <h2 className={s.subtitle}>{t('subtitle')}</h2> */}
-
-        {/* <CheckIn /> */}
-
-        {/* <ReferralLink /> */}
-
-        {/* <Leaderboard /> */}
       </div>
     </>
   );

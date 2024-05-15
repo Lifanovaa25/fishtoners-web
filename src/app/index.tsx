@@ -9,9 +9,9 @@ const DashBoardPage = lazy(async () => {
     return import('page');
 });
 
-
 const App = () => (
     <WithInitData>
+        
         <DashBoardPage />
     </WithInitData>
 )

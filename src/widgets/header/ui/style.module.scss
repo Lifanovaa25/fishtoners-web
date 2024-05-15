@@ -1,17 +1,75 @@
-.header {
+.header,
+.header_wrap {
     width: 100%;
-    padding: 14px 19px;
-    padding-bottom: 23px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 3px;
+
+    height: 77px;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    width: 100%;
+    padding: 14px 19px;
+    padding-bottom: 23px;
     background-image: url(./assets/header_bg.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 77px;
+}
+
+.header_game {
+    background-image: url(./assets/header_game_bg.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 103px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 7px;
+
+    .header {
+        padding-bottom: 5px;
+        background-image: none;
+        height: fit-content;
+    }
+
+    .progress {
+        background-image: url(./assets/progress_line.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 183px;
+        height: 27px;
+        position: relative;
+        padding: 7px 8px;
+
+        .indicator_img {
+            position: absolute;
+            right: -6px;
+            top: -2px;
+            transition: all .5s;
+        }
+
+        .line {
+            overflow: hidden;
+            width: 0%;
+            max-width: 137px;
+            transition: all .5s;
+
+            .line_img {
+                width: 137px;
+                height: 13px;
+            }
+
+        }
+    }
 }
 
 .points {
