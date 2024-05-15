@@ -10,7 +10,8 @@ body {
   min-height: 100vh;
 }
 
-#root, button {
+#root,
+button {
   color: var(--main-color);
   // background: var(--theme-bg);
 
@@ -27,14 +28,21 @@ body {
   height: 100vh;
   overflow-y: auto;
 
+  background-image: url('../assets/Background_prev.png');
   // background-image: url('../assets/Background.png');
   background-position: center center;
   background-repeat: no-repeat;
-  background-size:100% 100%;
+  background-size: 100% 100%;
+
+  >div {
+    position: relative;
+    z-index: 1;
+  }
 
   @media (max-width: 500px) {
-    background-size:cover;
+    background-size: cover;
   }
+
   .bgvideo {
     position: fixed;
     right: -2px;
@@ -43,29 +51,30 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -9999;
+    z-index: 0;
   }
+
   &::-webkit-scrollbar {
-      background-color: var(--color-main);
+    background-color: var(--color-main);
   }
-  
+
   &::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background: rgba(21, 27, 66, 1);
   }
-  
+
   // &::-webkit-scrollbar-thumb:hover {
   //     background: var(--acsent-dark-color);
   // }
-  
+
   &::-webkit-scrollbar:vertical {
     width: 3px;
   }
-  
+
   &::-webkit-scrollbar-thumb:horizontal {
     height: 100%;
   }
-  
+
   &::-webkit-scrollbar-corner {
     background-color: var(--color-main);
   }

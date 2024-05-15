@@ -5,27 +5,42 @@ import { useTranslation } from 'react-i18next';
 import { Leaderboard } from 'widgets/leaderboard';
 import { CheckIn } from 'features/checkIn';
 import title from 'shared/assets/title.png'
+import { useUnit } from 'effector-react';
+import { $userProfile } from 'shared/config/user';
+import { Loader } from 'shared/ui/loader';
 
 const DashBoardPage = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const profile = useUnit($userProfile)
 
-  return(
+  return (
     <>
-  
-    <div className={s.page}>
-        <Header />
-        <img 
-          src={title}
-          className={s.title}
-        />
-        <h2 className={s.subtitle}>{t('subtitle')}</h2>
-        
-        <CheckIn />
 
-        <ReferralLink />
+      <div className={s.page}>
+        {!profile ?
+          <>
+            <Header />
+            {/* <img
+              src={title}
+              className={s.title}
+            /> */}
+            <CheckIn />
+          </> :
+          <> <img
+            src={title}
+            className={s.title}
+          />
+            <Loader />
+          </>}
 
-        <Leaderboard />
-    </div>
+        {/* <h2 className={s.subtitle}>{t('subtitle')}</h2> */}
+
+        {/* <CheckIn /> */}
+
+        {/* <ReferralLink /> */}
+
+        {/* <Leaderboard /> */}
+      </div>
     </>
   );
 };

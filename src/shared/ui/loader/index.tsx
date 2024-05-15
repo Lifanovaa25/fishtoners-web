@@ -9,7 +9,15 @@ interface LoaderProps {
 export const Loader = ({
     className
 }: LoaderProps) => {
-    return(
-        <div className={clsx(className, s.loader)} />
+    return (
+        // <div className={clsx(className, s.loader)} />
+        <div className={clsx(className, s.loader_line)}>
+            <p className={s.loader_p}>Loading...</p>
+            <div className={s.loader_line_new}>
+                <div className={s.animation}>
+                    <div className={s.line}></div>
+                    </div>
+            </div>
+        </div>
     )
 }

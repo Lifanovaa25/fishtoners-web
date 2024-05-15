@@ -9,7 +9,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 
 import s from './style.module.scss';
 
-import {worms} from '../../assets/worms'
+import {fishes} from '../../assets/fishes'
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { CURRENT_UNIXTIME, DAY_UNIXTIME } from 'shared/config';
@@ -50,8 +50,9 @@ export const Slider: React.FC = () => {
               key={index}
             >
               <img
-                className={s.slide_worm}
-                src={worms[index]}
+                className={s.slide_fishes}
+                // className={s.slide_worm}
+                src={fishes[index]}
                 alt=''
               />
 
@@ -68,4 +69,3 @@ export const Slider: React.FC = () => {
     </section>
   )
 }
-
