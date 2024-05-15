@@ -24,6 +24,7 @@
       },
       "button": "재시작"
     },
+  "Collect" : "Collect",
     "notifications": {
       "language": "언어가 변경되었습니다.",
       "claim": "성공했습니다.",

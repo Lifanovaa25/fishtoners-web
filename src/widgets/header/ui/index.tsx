@@ -1,7 +1,8 @@
 
 import { useToogle } from 'shared/lib/toggle';
 import hooks from './assets/hooks.svg'
-import worms from 'shared/assets/worm.svg'
+import fish from './assets/fish.svg'
+import brill from './assets/brilliant.svg'
 import { Menu, InfoModal } from './components';
 
 import s from './style.module.scss'
@@ -17,8 +18,8 @@ export const Header = () => {
         <header className={s.header}>
             <div className={s.points}>
                 <img 
-                    width='29.8px'
-                    height='22px'
+                    width='21px'
+                    height='21px'
                     src={hooks} 
                 />
 
@@ -27,14 +28,23 @@ export const Header = () => {
 
             <div className={s.points}>
                 <img 
-                    width='22px'
-                    height='23px'
-                    src={worms}
+                    width='26px'
+                    height='25px'
+                    src={fish}
                 />
 
                 {profile?.days_points ?? 0}
             </div>
 
+            <div className={s.points}>
+                <img 
+                    width='23px'
+                    height='23px'
+                    src={brill}
+                />
+
+                {profile?.days_points ?? 0}
+            </div>
             <div onClick={onSetStateMenu} className={s.menu}>
                 <div className={s.menu_item} />
                 <div className={s.menu_item} />

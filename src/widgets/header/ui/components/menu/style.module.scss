@@ -12,22 +12,23 @@
 }
 
 .menu {
-    min-width: 175px;
-    height: 145px;
+    height: 352px;
+    width: 212px;
     
     position: absolute;
     top:14px;
     right: 24px;
     z-index: 3;
 
-    padding: 6px;
+    padding: 10px 14px 14px 14px;
     border-radius: var(--main-br);
 
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
 
-    background-color: var(--acsent-color);
+    // background-color: var(--acsent-color);
+    background-color: #170c4ad6;
 }
 
 .close {
@@ -44,4 +45,3 @@
     opacity: 1;
     display: block;
 }
-

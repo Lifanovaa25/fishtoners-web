@@ -3,6 +3,7 @@ import s from './style.module.scss'
 import { BackgroundMusic } from 'features/background-music'
 import clsx from 'clsx';
 import { InfoBtn } from '../info';
+import { DepositBtn } from '../Deposit';
 
 interface MenuProps {
     onSetState: () => void,
@@ -25,6 +26,8 @@ export const Menu = ({
                     onSetState={onSetState}
                     onSetModal={onSetModal}
                 />
+                <DepositBtn   onSetState={onSetState}
+                    onSetModal={onSetModal}/>
             </div>
 
             <div 

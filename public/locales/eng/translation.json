@@ -24,6 +24,7 @@
     },
     "button": "Restart"
   },
+  "Collect" : "Collect",
   "notifications": {
     "language": "You have changed the language.",
     "claim": "Successful.",

@@ -8,6 +8,7 @@ import title from 'shared/assets/title.png'
 import { useUnit } from 'effector-react';
 import { $userProfile } from 'shared/config/user';
 import { Loader } from 'shared/ui/loader';
+import { Wallet } from 'widgets/wallet/ui';
 
 const DashBoardPage = () => {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ const DashBoardPage = () => {
               className={s.title}
             /> */}
             <CheckIn />
+            <Wallet />
           </> :
           <> <img
             src={title}

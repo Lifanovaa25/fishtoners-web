@@ -1,7 +1,7 @@
 .slider {
     position: relative;
 
-    margin-top: 23px;
+    margin-top: 20px;
     width: 100%;
     max-width: 100%;
 
@@ -12,6 +12,8 @@
     --slide-height: 305px;
     // --slide-height: 129px;
     --slide-size: 94px;
+
+    margin-bottom: 13px;
 }
 
 .embla__viewport {
@@ -122,3 +124,14 @@
 // .embla__button:disabled {
 //     color: var(--detail-high-contrast);
 // }
+.collect_btn {
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 39px;
+    color: #fff;
+    width: 185px;
+    height: 55px;
+    padding: 16px;
+    top: 250px;
+    position: absolute;
+}
