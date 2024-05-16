@@ -13,11 +13,14 @@ import { BottomMenu } from 'widgets/bottomMenu';
 import { useState } from 'react';
 import { useAppSelector } from 'hooks/redux';
 import { Game } from 'features/game';
+import { Shop } from 'features/shop';
+import { useToogle } from 'shared/lib/toggle';
 
 const DashBoardPage = () => {
   const { t } = useTranslation();
   const profile = useUnit($userProfile)
   const { activeTab } = useAppSelector((state) => state.appSlice);
+  const [isOpenMenu, onSetStateMenu] = useToogle();
 
   return (
     <>
@@ -33,6 +36,11 @@ const DashBoardPage = () => {
               <>
                 <Game />
                 <Wallet />
+              </>
+            }
+            {activeTab === '2' &&
+              <>
+                <Shop onSetState={onSetStateMenu}/>
               </>
             }
 

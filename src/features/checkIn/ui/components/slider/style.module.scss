@@ -135,3 +135,14 @@
     top: 250px;
     position: absolute;
 }
+
+.position {
+    top: 250px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

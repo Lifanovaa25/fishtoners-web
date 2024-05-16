@@ -18,21 +18,23 @@ export const Menu = ({
 }: MenuProps) => {
 
     return (
-        <div className={clsx(s.menu_background, {[s.is_open]: isOpen})}>
+        <div className={clsx(s.menu_background, { [s.is_open]: isOpen })}>
             <div className={s.menu}>
                 <ChangeLanguage />
                 <BackgroundMusic />
-                <InfoBtn 
+                <InfoBtn
                     onSetState={onSetState}
                     onSetModal={onSetModal}
                 />
-                <DepositBtn   onSetState={onSetState}
-                    onSetModal={onSetModal}/>
+                <DepositBtn
+                    onSetState={onSetState}
+                    onSetModal={onSetModal}
+                />
             </div>
 
-            <div 
+            <div
                 onClick={onSetState}
-                className={s.close} 
+                className={s.close}
             />
         </div>
     )

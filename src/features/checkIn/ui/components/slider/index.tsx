@@ -16,6 +16,7 @@ import { CURRENT_UNIXTIME, DAY_UNIXTIME } from 'shared/config';
 import { useUnit } from 'effector-react';
 import { $userProfile } from 'shared/config/user';
 import { Button } from 'shared/ui/button';
+import { GmClaim } from '../Gm-claim';
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' };
 const SLIDE_COUNT = 14;
@@ -61,6 +62,9 @@ export const Slider: React.FC = () => {
               {/* <p className={s.slide_text}>{t('days')} {index + 1}</p> */}
 
               <Button className={s.collect_btn} isActive>{t('Collect')}</Button>
+              <div className={s.position}>
+                <GmClaim />
+              </div>
 
             </div>
           ))}

@@ -1,0 +1,124 @@
+.shop_modal_background {
+    // opacity: 0;
+    // display: none;
+    position: absolute;
+    // width: 100%;
+    // height: 100%;
+    // top:0;
+    // left: 0;
+    // z-index: 1;
+    background-color: #00000080;
+
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.close {
+    position: absolute;
+    top: 21px;
+    right: 20px;
+    z-index: 2;
+}
+
+.is_open {
+    opacity: 1;
+    display: block;
+}
+
+.shop_modal_container {
+    width: 366px;
+    height: 496px;
+    position: relative;
+    background: url(./assets/shop_bg.png) center center / cover no-repeat;
+    margin: 0 auto;
+    top: 165px;
+    padding: 14px;
+    padding-top: 36px;
+}
+
+.shop_bg {
+    background: url(./assets/shelf_bg.png) center center / cover no-repeat;
+    width: 321px;
+    height: 448px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.shalf_items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .shelf_item {
+        position: relative;
+        height: 120px;
+        z-index: 9;
+
+        &::after {
+            content: '';
+            background: url(./assets/shelf.png) center center / cover no-repeat;
+            min-width: 338px;
+            min-height: 53px;
+            bottom: 0;
+            left: -8px;
+            position: absolute;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // gap: 26px;
+            height: 128px;
+            // padding: 0 13px;
+            min-width: 338px;
+
+            // width: 286px;
+            // min-width: 286px;
+            // max-width: 286px;
+            
+        }
+
+        .text {
+            background: url(./assets/bg.png) center center / cover no-repeat;
+            padding: 9px;
+            font-family: var(--fm-main);
+            font-weight: 700;
+            font-size: 15px;
+            text-align: center;
+            color: #fff;
+            width: 116px;
+            height: 35px;
+        }
+    }
+}
+
+.img {
+    width: 109px;
+}
+
+.amount {
+    // padding: 9px 14px;
+    padding: 4px;
+    background: url(./assets/amount_bg.png) center center / cover no-repeat;
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 53px;
+    min-width: 53px;
+    height: 35px;
+    margin-left: 26px;
+}

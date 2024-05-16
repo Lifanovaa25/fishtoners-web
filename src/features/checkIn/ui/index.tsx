@@ -16,7 +16,6 @@ export const CheckIn = () => {
                     <Slider />
                     <Leaderboard />
 
-                    {/* <GmClaim /> */}
                 </>
              
         </div>

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 export const GmClaim = () => {
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     const [profile, onUpdateUserGm] = useUnit([$userProfile, api.users.update.updateUserGmFx]);
     const nextCheckIn = (profile?.last_claim ?? 0) + DAY_UNIXTIME - CURRENT_UNIXTIME
     const isClaim = profile && (
@@ -19,31 +19,33 @@ export const GmClaim = () => {
     );
 
     const onClaim = () => {
-        if(isClaim) {
+        if (isClaim) {
             onUpdateUserGm({})
             toast(t('notifications.claim'), {
                 type: 'success'
             })
         }
-    } 
-    
-    return(
+    }
+
+    return (
         <button
             onClick={onClaim}
-            className={clsx(s.gm_btn, {[s.gm_disable]: !isClaim})}
+            className={clsx(s.gm_btn, { [s.gm_disable]: !isClaim })}
         >
             <span className={clsx(s.text, "shadow")}>
-                {!isClaim ? 
+                {!isClaim ?
                     <span className={s.disable_text}>
                         Next check in
-                        <TimerClaim 
-                            remained={nextCheckIn}
-                        />
+                        <div className={s.timer}>
+                            <TimerClaim
+                                remained={nextCheckIn}
+                            />
+                        </div>
                     </span>
                     :
                     'GM'
                 }
-        
+
             </span>
         </button>
     )
@@ -53,14 +55,14 @@ const formatTime = (time: number) => time < 10 ? `0${time}` : time;
 const formatHours = (days: number, hours: number) => formatTime(days * 24 + hours);
 
 const TimerClaim = ({
-    remained 
-}: {remained: number}) => {
-    return(
+    remained
+}: { remained: number }) => {
+    return (
         <Countdown
             date={Date.now() + remained * 1000}
             renderer={({ days, hours, minutes, seconds }) => (
                 ` ${formatHours(days, hours)}:${formatTime(minutes)}:${formatTime(seconds)}`
             )}
-        /> 
+        />
     )
 }
