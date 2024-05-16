@@ -1,4 +1,4 @@
-import clsx from "clsx"
+
 import close_modal from './../../../widgets/header/ui/assets/close_modal.svg';
 
 import s from './style.module.scss'
@@ -9,7 +9,7 @@ import img3 from './assets/3.svg'
 import brill from './assets/brill.svg'
 interface ShopProps {
     onSetState: () => void,
-
+    isOpen: boolean;
 }
 
 export const Shop = ({
@@ -48,16 +48,16 @@ export const Shop = ({
                     />
                 </div><div className={s.shop_bg}>
                     {test?.map((item, index) =>
-                        <div className={s.shalf_items}>
+                        <div className={s.shalf_items} key={index}>
                             <div className={s.shelf_item}>
                                 <div className={s.content}>
                                     <div className={s.img}>
-                                       <img src={item.img} />
-                                     
+                                        <img src={item.img} />
+
                                     </div>
                                     <div className={s.text}>{item.text}</div>
-<div className={s.amount}>
-    <img src={brill} alt="" />{item.amount}</div>
+                                    <div className={s.amount}>
+                                        <img src={brill} alt="" />{item.amount}</div>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@ import hooks from './assets/hooks.svg'
 import fish from './assets/fish.svg'
 import brill from './assets/brilliant.svg'
 import no from './assets/ind_no.svg'
-import yes from './assets/ind_yes.svg'
+// import yes from './assets/ind_yes.svg'
 import line from './assets/prog_line.svg'
 import { Menu, InfoModal } from './components';
 

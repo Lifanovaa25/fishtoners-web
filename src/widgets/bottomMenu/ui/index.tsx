@@ -3,7 +3,6 @@
 import s from './style.module.scss'
 
 import { Button } from 'shared/ui/button';
-import { useState } from 'react';
 
 import profile from './assets/profile.svg'
 import daily from './assets/daily.svg'
@@ -42,7 +41,7 @@ export const BottomMenu = () => {
         <div className={s.menu}>
 
             {tabs.map((tab, index) =>
-                <Button key={tab.id}
+                <Button key={index}
                     className={
                         activeTab === tab.id
                             ?[s.menu_btn, s.active].join(' ')

@@ -1,8 +1,7 @@
-import { ReferralLink } from 'features/referral-link';
+// import { ReferralLink } from 'features/referral-link';
 import s from './style.module.scss';
 import { Header } from 'widgets/header';
-import { useTranslation } from 'react-i18next';
-import { Leaderboard } from 'widgets/leaderboard';
+
 import { CheckIn } from 'features/checkIn';
 import title from 'shared/assets/title.png'
 import { useUnit } from 'effector-react';
@@ -10,22 +9,22 @@ import { $userProfile } from 'shared/config/user';
 import { Loader } from 'shared/ui/loader';
 import { Wallet } from 'widgets/wallet/ui';
 import { BottomMenu } from 'widgets/bottomMenu';
-import { useState } from 'react';
+
 import { useAppSelector } from 'hooks/redux';
 import { Game } from 'features/game';
 import { Shop } from 'features/shop';
 import { useToogle } from 'shared/lib/toggle';
 
 const DashBoardPage = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const profile = useUnit($userProfile)
   const { activeTab } = useAppSelector((state) => state.appSlice);
-  const [isOpenMenu, onSetStateMenu] = useToogle();
+  const [isOpen, onSetState] = useToogle();
 
   return (
     <>
 
-      <div className={s.page}>
+      <div className={s.page} >
         {!profile ?
           <>
             <Header />
@@ -40,7 +39,7 @@ const DashBoardPage = () => {
             }
             {activeTab === '2' &&
               <>
-                <Shop onSetState={onSetStateMenu}/>
+                <Shop isOpen={isOpen} onSetState={onSetState}/>
               </>
             }
 
