@@ -14,6 +14,7 @@ import { useAppSelector } from 'hooks/redux';
 import { Game } from 'features/game';
 import { Shop } from 'features/shop';
 import { useToogle } from 'shared/lib/toggle';
+import { ReferralLink } from 'features/referral-link';
 
 const DashBoardPage = () => {
   // const { t } = useTranslation();
@@ -28,10 +29,10 @@ const DashBoardPage = () => {
         {!profile ?
           <>
             <Header />
-            {activeTab === '0' && <>
+            {activeTab === '1' && <>
               <CheckIn />
             </>}
-            {activeTab === '1' &&
+            {activeTab === '0' &&
               <>
                 <Game />
                 <Wallet />
@@ -42,7 +43,12 @@ const DashBoardPage = () => {
                 <Shop isOpen={isOpen} onSetState={onSetState}/>
               </>
             }
-
+             {activeTab === '3' &&
+              <>
+                 <ReferralLink/>
+              </>
+            }
+          
             <BottomMenu />
           </> :
           <> <img

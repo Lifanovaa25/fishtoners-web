@@ -7,6 +7,7 @@ import img1 from './assets/1.svg'
 import img2 from './assets/2.svg'
 import img3 from './assets/3.svg'
 import brill from './assets/brill.svg'
+import clsx from 'clsx';
 interface ShopProps {
     onSetState: () => void,
     isOpen: boolean;
@@ -14,7 +15,7 @@ interface ShopProps {
 
 export const Shop = ({
     onSetState,
-
+    isOpen
 }: ShopProps) => {
     const test = [
         {
@@ -37,14 +38,13 @@ export const Shop = ({
         }
     ]
     return (
-        <div className={s.shop_modal_background}>
+        <div className={clsx(s.shop_modal_background, {[s.is_open]: isOpen})}>
             <div className={s.shop_modal_container}>
 
                 <div onClick={onSetState} className={s.close} >
                     <img
                         className={s.close_icon}
                         src={close_modal}
-                        onClick={onSetState}
                     />
                 </div><div className={s.shop_bg}>
                     {test?.map((item, index) =>

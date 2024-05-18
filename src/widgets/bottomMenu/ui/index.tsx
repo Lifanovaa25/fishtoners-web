@@ -14,12 +14,12 @@ export const BottomMenu = () => {
 
     const tabs = [
         {
-            id: '0',
+            id: '1',
             icon: daily,
             key: 'Кабинет',
         },
         {
-            id: '1',
+            id: '0',
             icon: game,
             key: 'Игра',
         }, {
