@@ -10,7 +10,7 @@ import { Lang, appSlice } from "store/reducers/appSlice";
 import { changeLang } from "store/apis";
 
 export const ChangeLanguage = () => {
-  const { lang } = useAppSelector((state) => state.appSlice);
+  const { lang, initDataRow } = useAppSelector((state) => state.appSlice);
   const { setLanguage } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export const ChangeLanguage = () => {
   const changeLanguage = (lng: string) => () => {
     console.log({ lng });
     dispatch(setLanguage(lng as Lang));
-    dispatch(changeLang({ language: lng }));
+    dispatch(changeLang({ language: lng, tma: initDataRow }));
     toast(t("notifications.language"), {
       type: "success",
     });

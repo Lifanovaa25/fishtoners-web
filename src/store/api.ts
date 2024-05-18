@@ -350,10 +350,7 @@ export class Client implements IClient {
     }
     if (status === 200) {
       const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<PanelDataVmResultType>(result200);
+      return Promise.resolve<PanelDataVmResultType>(_responseText);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;

@@ -9,5 +9,3 @@ export const withProviders = compose(
   withSuspense,
   withToast
 );
-
-export {WithInitData} from './with-init-data'

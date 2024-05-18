@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FishesVm, FishesVmResultType, PanelDataVmResultType, RefDataVmResultType, UsersPacksVmResultType, UserVmArrayResultType } from "store/api";
+import { FishesVm, FishesVmResultType, PanelDataVm, PanelDataVmResultType, RefDataVmResultType, UsersPacksVmResultType, UserVmArrayResultType } from "store/api";
 import { getActiveUsersPack, getLeaderboard, getRefData, getUserFishes, getUserPanelData } from "store/apis";
 
 export type Lang = "en" | "ru" | "ko" | "ua";
 
 export const initialState = {
-  initDataUnsafe: {} as any,
-  panelData: {} as PanelDataVmResultType,
+  initDataRow: "",
+  panelData: {} as PanelDataVm,
   userPacks: {} as UsersPacksVmResultType,
   refData: {} as RefDataVmResultType,
   allfishes:{} as FishesVm,
@@ -19,8 +19,8 @@ export const appSlice = createSlice({
   name: "appSlice",
   initialState,
   reducers: {
-    setInitDataUnsafe(state, action: PayloadAction<any>) {
-      state.initDataUnsafe = action.payload;
+    setInitDataRow(state, action: PayloadAction<string>) {
+      state.initDataRow = action.payload;
     },
     setActiveTab(state, action: PayloadAction<string>) {
       state.activeTab = action.payload;
@@ -34,7 +34,15 @@ export const appSlice = createSlice({
       .addCase(
         getUserPanelData.fulfilled,
         (state, action: PayloadAction<PanelDataVmResultType>) => {
-          state.panelData = action.payload;
+          state.panelData = action.payload.value!;
+          console.log("action.payload");
+        }
+      )
+      .addCase(
+        getUserPanelData.rejected,
+        (state, action: any) => {
+         // state.panelData = action.payload.value!;
+          console.log({action});
         }
       )
       .addCase(

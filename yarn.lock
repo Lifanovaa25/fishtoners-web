@@ -799,6 +799,11 @@
     "@svgr/hast-util-to-babel-ast" "8.0.0"
     svg-parser "^2.0.4"
 
+"@tma.js/sdk@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@tma.js/sdk/-/sdk-2.1.0.tgz#4f9801d4dd6a1f2a734c365e0e4072e8e0dcd30a"
+  integrity sha512-jCHkqoNlEECBCf8ZjoSlHS5Yvs9Z4IrhI0BuJ88i9/RBhmUy/GF87cIQbLUFb5P+4BvsKCLtAM6HPtVVdAkVMQ==
+
 "@trivago/prettier-plugin-sort-imports@^4.3.0":
   version "4.3.0"
   resolved "https://registry.npmjs.org/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-4.3.0.tgz"

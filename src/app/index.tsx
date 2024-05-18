@@ -1,19 +1,14 @@
-import 'react-toastify/scss/main.scss';
-import './styles/index.scss';
+import "react-toastify/scss/main.scss";
+import "./styles/index.scss";
 
-import { withProviders, WithInitData } from './providers';
-import { lazy } from 'react';
+import { withProviders } from "./providers";
+import { lazy } from "react";
 
 const DashBoardPage = lazy(async () => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return import('page');
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  return import("page");
 });
 
-const App = () => (
-    <WithInitData>
-        
-        <DashBoardPage />
-    </WithInitData>
-)
+const App = () => <DashBoardPage />;
 
 export default withProviders(App);

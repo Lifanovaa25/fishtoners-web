@@ -17,8 +17,8 @@ interface IProps {
 
 export const GmClaim: FC<IProps> = ({ fishNumber}) => {
     const { t } = useTranslation()
-    const { allfishes } = useAppSelector((state) => state.appSlice);
-    const { setInitDataUnsafe } = appSlice.actions;
+    const { allfishes,initDataRow } = useAppSelector((state) => state.appSlice);
+    const { setInitDataRow } = appSlice.actions;
     const dispatch = useAppDispatch();
 
     const nextCheckIn = allfishes?.nextFishDate?.getTime()??0;
@@ -26,7 +26,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber}) => {
 
     const onClaim = () => {
         if (isClaim) {
-            dispatch(claimTodayReward());
+            dispatch(claimTodayReward({ tma: initDataRow }));
             toast(t('notifications.claim'), {
                 type: 'success'
             })

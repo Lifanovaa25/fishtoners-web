@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.4",
+    "@tma.js/sdk": "^2.1.0",
     "@types/compose-function": "^0.0.33",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "@withease/factories": "^1.0.5",
