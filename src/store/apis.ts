@@ -20,7 +20,6 @@ export const getUserPanelData = createAsyncThunk<
   try {
     const axiosClient = createAxiosClient(args.tma);
     const c = new Client("", axiosClient);
-
     return c.getUserPanelData();
   } catch (err: any) {
     console.log({err})

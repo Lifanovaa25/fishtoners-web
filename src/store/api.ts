@@ -149,11 +149,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<ResultType>(result200);
+      return Promise.resolve<ResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -349,8 +345,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      return Promise.resolve<PanelDataVmResultType>(_responseText);
+      return Promise.resolve<PanelDataVmResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -433,11 +428,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<UsersPacksVmResultType>(result200);
+      return Promise.resolve<UsersPacksVmResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -518,11 +509,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<PackVmArrayResultType>(result200);
+      return Promise.resolve<PackVmArrayResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -603,11 +590,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<RefDataVmResultType>(result200);
+      return Promise.resolve<RefDataVmResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -688,11 +671,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<FishesVmResultType>(result200);
+      return Promise.resolve<FishesVmResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -773,11 +752,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<UserVmArrayResultType>(result200);
+      return Promise.resolve<UserVmArrayResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -858,11 +833,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<ResultType>(result200);
+      return Promise.resolve<ResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -949,11 +920,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<ResultType>(result200);
+      return Promise.resolve<ResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -1042,11 +1009,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<ResultType>(result200);
+      return Promise.resolve<ResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -1133,11 +1096,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      const _responseText = response.data;
-      let result200: any = null;
-      let resultData200 = _responseText;
-      result200 = JSON.parse(resultData200);
-      return Promise.resolve<ResultType>(result200);
+      return Promise.resolve<ResultType>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;

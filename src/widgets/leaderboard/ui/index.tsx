@@ -4,12 +4,21 @@ import s from "./style.module.scss";
 import { LeaderboardItem } from "./components";
 import { Loader } from "shared/ui/loader";
 import no_avatar from "./assets/no-avatar.jpg";
-import { useAppSelector } from "hooks/redux";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { useEffect } from "react";
+import { appSlice } from "store/reducers/appSlice";
+import { getLeaderboard } from "store/apis";
 
 export const Leaderboard = () => {
   const { t } = useTranslation();
+  const { leaderboard, initDataRow } = useAppSelector(
+    (state) => state.appSlice
+  );
 
-  const { leaderboard } = useAppSelector((state) => state.appSlice);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getLeaderboard({ tma: initDataRow }));
+  }, []);
 
   return (
     <div className={s.leaderboard}>
