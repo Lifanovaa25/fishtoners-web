@@ -27,9 +27,9 @@ const DashBoardPage = () => {
     <>
 
       <div className={s.page} >
-        {localStorage.getItem('firstVisit') ? <FirstVizit /> :
+        {!localStorage.getItem('firstVisit') ? <FirstVizit /> :
           <>
-            {!profile ?
+            {profile ?
               <>
                 <Header />
                 {activeTab === '1' && <>
