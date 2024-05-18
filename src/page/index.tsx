@@ -15,6 +15,7 @@ import { Game } from 'features/game';
 import { Shop } from 'features/shop';
 import { useToogle } from 'shared/lib/toggle';
 import { ReferralLink } from 'features/referral-link';
+import { FirstVizit } from 'features/firstVisit';
 
 const DashBoardPage = () => {
   // const { t } = useTranslation();
@@ -26,37 +27,42 @@ const DashBoardPage = () => {
     <>
 
       <div className={s.page} >
-        {!profile ?
+        {localStorage.getItem('firstVisit') ? <FirstVizit /> :
           <>
-            <Header />
-            {activeTab === '1' && <>
-              <CheckIn />
-            </>}
-            {activeTab === '0' &&
+            {!profile ?
               <>
-                <Game />
-                <Wallet />
-              </>
-            }
-            {activeTab === '2' &&
-              <>
-                <Shop isOpen={isOpen} onSetState={onSetState}/>
-              </>
-            }
-             {activeTab === '3' &&
-              <>
-                 <ReferralLink/>
-              </>
-            }
-          
-            <BottomMenu />
-          </> :
-          <> <img
-            src={title}
-            className={s.title}
-          />
-            <Loader />
-          </>}
+                <Header />
+                {activeTab === '1' && <>
+                  <CheckIn />
+                </>}
+                {activeTab === '0' &&
+                  <>
+                    <Game />
+                    <Wallet />
+                  </>
+                }
+                {activeTab === '2' &&
+                  <>
+                    <Shop isOpen={isOpen} onSetState={onSetState} />
+                  </>
+                }
+                {activeTab === '3' &&
+                  <>
+                    <ReferralLink />
+                  </>
+                }
+
+                <BottomMenu />
+              </> :
+              <> <img
+                src={title}
+                className={s.title}
+              />
+                <Loader />
+              </>}
+
+          </>
+        }
 
       </div>
     </>
