@@ -1,0 +1,38 @@
+{
+  "subtitle": "Visit daily to receive an exclusive reward",
+  "invite_title": "Invite friends and collect points",
+  "Copy invite Link":"Copy invite Link",
+  "You_invited":"You invited",
+  "leaderboard_title": "Leaderboard",
+  "How_to_play":"How to play",
+  "Deposit":"Deposit",
+  "Continue":"Continue",
+  "sound": "Music",
+  "info": "Info",
+  "title_modal": "Tips",
+  "tips": {
+    "1": "The preseason adventure lasts 14 days",
+    "2": "Time to earn points and show support",
+    "3": "There are 2 types of points you can earn",
+    "4": "Worms",
+    "5": "Points for visiting the app daily for 14 days. Visit each day and say hi, collect the maximum amount of points to be eligible for unique rewards",
+    "6": "Hooks",
+    "7": "Points for inviting friends, each invited friend will bring you +5 points, make it to the top 500 to get the maximum rewards",
+    "8": "If you are reading this, know that you are so early!!"
+  },
+  "days": "DAY",
+  "error": {
+    "title": "Game Error",
+    "description": {
+      "first": "An error has occurred.",
+      "second": "Please restart the game."
+    },
+    "button": "Restart"
+  },
+  "Collect" : "Collect",
+  "notifications": {
+    "language": "You have changed the language.",
+    "claim": "Successful.",
+    "copy_referral": "You have copied the referral link."
+  }
+}

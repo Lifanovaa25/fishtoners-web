@@ -1,58 +1,72 @@
+import { useEffect } from "react";
+import i18n from "shared/config/i18n";
 
-import { useUnit } from 'effector-react';
-import { useEffect } from 'react';
-import { api } from 'shared/api';
-import i18n from 'shared/config/i18n';
-import { $userProfile } from 'shared/config/user';
-
-import s from './style.module.scss'
-import clsx from 'clsx';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import s from "./style.module.scss";
+import clsx from "clsx";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { Lang, appSlice } from "store/reducers/appSlice";
+import { changeLang } from "store/apis";
 
 export const ChangeLanguage = () => {
-    const [profile, onChooseLanguage] = useUnit([$userProfile, api.users.update.choosedLanguage]);
-    const {t} = useTranslation()
+  const { lang } = useAppSelector((state) => state.appSlice);
+  const { setLanguage } = appSlice.actions;
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
-    useEffect(() => {
-        if(profile) {
-            i18n.changeLanguage(profile?.language ?? 'eng');
-            
-        }
-    }, [profile])
-
-    const changeLanguage = (lng: string) => () => {
-        onChooseLanguage(lng);
-        toast(t('notifications.language'), {
-            type: 'success'
-        })
+  useEffect(() => {
+    if (lang) {
+      i18n.changeLanguage(lang ?? "en");
     }
+  }, [lang]);
 
-    return (
-        <div className={s.body}>
-            <div className={s.language}>
-                <button
-                    className={clsx(s.choose, {[s. not_choosed]: profile?.language !== 'ru'})}
-                    onClick={changeLanguage('ru')} 
-                >RU</button>
+  const changeLanguage = (lng: string) => () => {
+    console.log({ lng });
+    dispatch(setLanguage(lng as Lang));
+    dispatch(changeLang({ language: lng }));
+    toast(t("notifications.language"), {
+      type: "success",
+    });
+  };
 
-                <button
-                    className={clsx(s.choose, {[s. not_choosed]: profile?.language !== 'eng'})}
-                    onClick={changeLanguage('eng')} 
-                >ENG</button>
-            </div>
+  return (
+    <div className={s.body}>
+      <div className={s.language}>
+        <button
+          className={clsx(s.choose, {
+            [s.not_choosed]: lang !== "ru",
+          })}
+          onClick={changeLanguage("ru")}
+        >
+          RU
+        </button>
 
-            <div className={s.language}>
-                <button
-                    className={clsx(s.choose, {[s. not_choosed]: profile?.language !== 'ko'})}
-                    onClick={changeLanguage('ko')} 
-                >KO</button>
+        <button
+          className={clsx(s.choose, { [s.not_choosed]: lang !== "en" })}
+          onClick={changeLanguage("en")}
+        >
+          ENG
+        </button>
+      </div>
 
-                <button
-                    className={clsx(s.choose, {[s. not_choosed]: profile?.language !== 'ua'})}
-                    onClick={changeLanguage('ua')} 
-                >UA</button>
-            </div>
-        </div>
-    )
-}
+      <div className={s.language}>
+        <button
+          className={clsx(s.choose, { [s.not_choosed]: lang !== "ko" })}
+          onClick={changeLanguage("ko")}
+        >
+          KO
+        </button>
+
+        <button
+          className={clsx(s.choose, {
+            [s.not_choosed]: lang !== "ua",
+          })}
+          onClick={changeLanguage("ua")}
+        >
+          UA
+        </button>
+      </div>
+    </div>
+  );
+};

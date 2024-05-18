@@ -9,12 +9,10 @@ import line from './assets/prog_line.svg'
 import { Menu, InfoModal } from './components';
 
 import s from './style.module.scss'
-import { useUnit } from 'effector-react';
-import { $userProfile } from 'shared/config/user';
 import { useAppSelector } from 'hooks/redux';
 
 export const Header = () => {
-    const profile = useUnit($userProfile);
+    const { panelData } = useAppSelector((state) => state.appSlice);
     const [isOpenMenu, onSetStateMenu] = useToogle();
     const [isOpenInfo, onSetStateInfo] = useToogle();
     const { activeTab } = useAppSelector((state) => state.appSlice);
@@ -30,7 +28,7 @@ export const Header = () => {
                         src={hooks}
                     />
 
-                    {profile?.referral_points ?? 0}
+                    {panelData.value?.bobberValue ?? 0}
                 </div>
 
                 <div className={s.points}>
@@ -40,7 +38,7 @@ export const Header = () => {
                         src={fish}
                     />
 
-                    {profile?.days_points ?? 0}
+                    {panelData.value?.fishValue ?? 0}
                 </div>
 
                 <div className={s.points}>
@@ -50,7 +48,7 @@ export const Header = () => {
                         src={brill}
                     />
 
-                    {profile?.days_points ?? 0}
+                    {panelData.value?.balance ?? 0}
                 </div>
 
                 <div onClick={onSetStateMenu} className={s.menu}>

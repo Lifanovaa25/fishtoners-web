@@ -1,5 +1,3 @@
-import { useUnit } from 'effector-react'
-import { $userProfile } from 'shared/config/user'
 import { CURRENT_UNIXTIME, DAY_UNIXTIME } from 'shared/config';
 import clsx from 'clsx'
 import Countdown from 'react-countdown';
@@ -8,19 +6,27 @@ import s from './style.module.scss';
 import { api } from 'shared/api';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { appSlice } from 'store/reducers/appSlice';
+import { claimTodayReward } from 'store/apis';
+import { FC } from 'react';
 
-export const GmClaim = () => {
+interface IProps {
+	fishNumber:number
+}
+
+export const GmClaim: FC<IProps> = ({ fishNumber}) => {
     const { t } = useTranslation()
-    const [profile, onUpdateUserGm] = useUnit([$userProfile, api.users.update.updateUserGmFx]);
-    const nextCheckIn = (profile?.last_claim ?? 0) + DAY_UNIXTIME - CURRENT_UNIXTIME
-    const isClaim = profile && (
-        profile.last_claim === null ||
-        nextCheckIn <= 0
-    );
+    const { allfishes } = useAppSelector((state) => state.appSlice);
+    const { setInitDataUnsafe } = appSlice.actions;
+    const dispatch = useAppDispatch();
+
+    const nextCheckIn = allfishes?.nextFishDate?.getTime()??0;
+    const isClaim = allfishes.fishes?.find((x) => x.id == fishNumber);
 
     const onClaim = () => {
         if (isClaim) {
-            onUpdateUserGm({})
+            dispatch(claimTodayReward());
             toast(t('notifications.claim'), {
                 type: 'success'
             })

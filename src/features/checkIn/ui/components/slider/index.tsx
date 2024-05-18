@@ -13,10 +13,9 @@ import { fishes } from '../../assets/fishes'
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { CURRENT_UNIXTIME, DAY_UNIXTIME } from 'shared/config';
-import { useUnit } from 'effector-react';
-import { $userProfile } from 'shared/config/user';
 import { Button } from 'shared/ui/button';
 import { GmClaim } from '../Gm-claim';
+import { useAppSelector } from 'hooks/redux';
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: 'auto' };
 const SLIDE_COUNT = 14;
@@ -25,8 +24,8 @@ const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
   const { t } = useTranslation();
-  const profile = useUnit($userProfile);
-  const last_claim = (profile?.last_claim ?? 0);
+  const { allfishes } = useAppSelector((state) => state.appSlice);
+  const last_claim = allfishes.nextFishDate?.getTime() ?? 0;
 
   const {
     prevBtnDisabled,
@@ -63,7 +62,7 @@ export const Slider: React.FC = () => {
 
               <Button className={s.collect_btn} isActive>{t('Collect')}</Button>
               <div className={s.position}>
-                <GmClaim />
+                <GmClaim fishNumber={index}/>
               </div>
 
             </div>

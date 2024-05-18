@@ -4,8 +4,6 @@ import { Header } from 'widgets/header';
 
 import { CheckIn } from 'features/checkIn';
 import title from 'shared/assets/title.png'
-import { useUnit } from 'effector-react';
-import { $userProfile } from 'shared/config/user';
 import { Loader } from 'shared/ui/loader';
 import { Wallet } from 'widgets/wallet/ui';
 import { BottomMenu } from 'widgets/bottomMenu';
@@ -19,8 +17,7 @@ import { FirstVizit } from 'features/firstVisit';
 
 const DashBoardPage = () => {
   // const { t } = useTranslation();
-  const profile = useUnit($userProfile)
-  const { activeTab } = useAppSelector((state) => state.appSlice);
+  const { activeTab, panelData } = useAppSelector((state) => state.appSlice);
   const [isOpen, onSetState] = useToogle();
 
   return (
@@ -29,7 +26,7 @@ const DashBoardPage = () => {
       <div className={s.page} >
         {!localStorage.getItem('firstVisit') ? <FirstVizit /> :
           <>
-            {profile ?
+            {panelData ?
               <>
                 <Header />
                 {activeTab === '1' && <>
