@@ -11,6 +11,7 @@ import invite_icon from './assets/invite_icon.svg'
 export const ReferralLink = () => {
     const [isCopied, user, onCopy] = useUnit([$isCopied, $initDataUnsafe, copyClicked]);
     const { t } = useTranslation()
+    console.log(user)
 
     return (
         <div className={s.container}>
