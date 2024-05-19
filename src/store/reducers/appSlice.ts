@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   ClaimRewardResultType,
-  FishesVm,
+  // FishesVm,
   FishesVmResultType,
   FishVm,
   PanelDataVm,
   PanelDataVmResultType,
-  RefDataVm,
+  // RefDataVm,
   RefDataVmResultType,
   UsersPacksVmResultType,
   UserVm,

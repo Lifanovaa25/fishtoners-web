@@ -7,9 +7,9 @@ import s from "./style.module.scss";
 
 import { fishes } from "../../assets/fishes";
 import clsx from "clsx";
-import { useTranslation } from "react-i18next";
-import { CURRENT_UNIXTIME, DAY_UNIXTIME } from "shared/config";
-import { Button } from "shared/ui/button";
+// import { useTranslation } from "react-i18next";
+// import { CURRENT_UNIXTIME, DAY_UNIXTIME } from "shared/config";
+// import { Button } from "shared/ui/button";
 import { GmClaim } from "../Gm-claim";
 import { useAppSelector } from "hooks/redux";
 

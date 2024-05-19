@@ -4,7 +4,8 @@ import s from "./style.module.scss";
 import { Leaderboard } from "widgets/leaderboard";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { getLeaderboard, getRefData, getUserFishes } from "store/apis";
+// import { getLeaderboard, getRefData, getUserFishes } from "store/apis";
+import { getLeaderboard, getUserFishes } from "store/apis";
 
 export const CheckIn = () => {
   const { t } = useTranslation();

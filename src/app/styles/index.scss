@@ -46,7 +46,8 @@ button {
   .bgvideo {
     position: fixed;
     right: -2px;
-    bottom: 0;
+    // bottom: 0;
+    top: 0;
     min-width: 101%;
     min-height: 100%;
     width: auto;
