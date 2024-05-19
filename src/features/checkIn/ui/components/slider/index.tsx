@@ -53,16 +53,13 @@ export const Slider: React.FC = () => {
             >
               <img
                 className={s.slide_fishes}
-                // className={s.slide_worm}
                 src={fishes[index]}
                 alt=''
               />
 
-              {/* <p className={s.slide_text}>{t('days')} {index + 1}</p> */}
-
               <Button className={s.collect_btn} isActive>{t('Collect')}</Button>
               <div className={s.position}>
-                <GmClaim fishNumber={index}/>
+                <GmClaim fishNumber={index} />
               </div>
 
             </div>
