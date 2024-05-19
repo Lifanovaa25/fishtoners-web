@@ -31,14 +31,16 @@
 .shop_modal_container {
     width: 366px;
     height: 496px;
-    position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
     background: url(./assets/shop_bg.png) center center / cover no-repeat;
     margin: 0 auto;
     top: 165px;
     padding: 14px;
     padding-top: 36px;
-    @media (max-height:800) {
-        margin-top: 10%;
+    @media (max-height:800px) {
+        top: 15%;
     }
 }
 
