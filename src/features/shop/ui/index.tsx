@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect } from "react";
 import { buyPack, getPacks } from "store/apis";
+import { toast } from "react-toastify";
 interface ShopProps {
   onSetState: () => void;
   isOpen: boolean;
@@ -39,7 +40,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
       name: "worm",
     },
   ];
-  const { packsForStore, initDataRow } = useAppSelector(
+  const { packsForStore, initDataRow, status, error } = useAppSelector(
     (state) => state.appSlice
   );
   const dispatch = useAppDispatch();
@@ -55,8 +56,16 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
       (x) => x.name?.toLowerCase() == name.toLowerCase()
     )?.packId;
     dispatch(buyPack({ tma: initDataRow, packId: id }));
-    alert(name);
   };
+
+  useEffect(() => {
+    if (status == "succeeded") {
+      toast.success("Pack bought");
+    }
+    if (status === "failed") {
+      toast.error(error);
+    }
+  }, [status]);
 
   return (
     <div className={clsx(s.shop_modal_background, { [s.is_open]: isOpen })}>

@@ -1,17 +1,7 @@
-import axios, { AxiosError } from "axios";
-import type {
-  AxiosInstance,
-  CancelToken,
-} from "axios";
-import { handleRequest } from "./axiosClient";
+import axios from "axios";
+import type { AxiosInstance, CancelToken } from "axios";
+import { ApiResponse, ResultType, handleRequest } from "./axiosClient";
 
-export interface ApiResponse<T> {
-  data: T;
-  readonly isSuccess?: boolean;
-  readonly isFailure?: boolean;
-  error?: ErrorDto;
-  value?: T;
-}
 
 export interface IClient {
   /**
@@ -295,7 +285,7 @@ export class Client implements IClient {
   }
 }
 
-export interface ActionResult {}
+
 
 /** Купить пак */
 export interface BuyDto {
@@ -309,19 +299,6 @@ export interface DepositDto {
   username?: string | undefined;
   /** сколько тонов начислить на внутренний баланс */
   amount?: number;
-}
-
-export interface ErrorDto {
-  readonly code?: string | undefined;
-  readonly description?: string | undefined;
-  type?: ErrorType;
-}
-
-export enum ErrorType {
-  _0 = 0,
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
 }
 
 export interface FishVm {
@@ -359,20 +336,8 @@ export interface PanelDataVm {
   languageCode?: string | undefined;
 }
 
-export interface ProblemDetails {
-  type?: string | undefined;
-  title?: string | undefined;
-  status?: number | undefined;
-  detail?: string | undefined;
-  instance?: string | undefined;
 
-  [key: string]: any;
-}
 
-export interface ProblemDetailsActionResult {
-  result?: ActionResult;
-  value?: ProblemDetails;
-}
 
 export interface RefDataVm {
   youInvitedCount?: number;
@@ -380,11 +345,7 @@ export interface RefDataVm {
   refUrl?: string | undefined;
 }
 
-export interface ResultType {
-  readonly isSuccess?: boolean;
-  readonly isFailure?: boolean;
-  error?: ErrorDto;
-}
+
 
 export interface UserVm {
   name?: string | undefined;

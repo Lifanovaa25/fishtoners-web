@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import {
-  ApiResponse,
   FishesVm,
   FishVm,
   PackVm,
@@ -19,8 +19,10 @@ import {
   getUserFishes,
   getUserPanelData,
 } from "store/apis";
+import { ApiError, ApiResponse } from "store/axiosClient";
 
 export type Lang = "en" | "ru" | "ko" | "ua";
+export type Status = "idle" | "loading" | "succeeded" | "failed";
 
 export const initialState = {
   initDataRow: "",
@@ -44,7 +46,12 @@ export const initialState = {
   activeTab: "0",
   activeBtn: "deposit",
   lang: "en",
+
+  status: "idle" as Status,
+  error: "",
 };
+
+type State = typeof initialState;
 
 export const appSlice = createSlice({
   name: "appSlice",
@@ -134,13 +141,35 @@ export const appSlice = createSlice({
           state.packsForStore = action.payload.value!;
         }
       )
+      .addCase(buyPack.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(
         buyPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<string>>) => {
           state.userPacks.names?.push(action.payload.value!);
+          state.packsForStore.find(
+            (x) => x.name?.toLowerCase() == action.payload.value!
+          )!.isAvailable = false;
+          state.status = "succeeded";
         }
-      );
+      )
+      .addCase(buyPack.rejected, (state, action) => {
+        processError(state, action, "Failed to buy pack");
+      });
   },
 });
 
 export default appSlice.reducer;
+
+function processError(state: State, action: any, msg: string) {
+  state.status = "failed";
+  if (action.payload) {
+    const apiError = action.payload as ApiError;
+    state.error =
+      apiError.errors.length > 0 ? apiError.errors[0].code : apiError.title;
+    //toast.error(apiError.errors.map((e) => e.description).join(", "));
+  } else {
+    state.error = action.error.message || msg;
+  }
+}

@@ -67,7 +67,7 @@ export const Header = () => {
           <>
 
             <div className={s.progress}>
-              <div style={{ width: `calc( ${panelData.packsCount} * 11% )` }} className={s.line} >
+              <div style={{ width: `calc( ${panelData.packsCount} * 33% )` }} className={s.line} >
                 <img src={line} className={s.line_img} />
               </div>
               <img

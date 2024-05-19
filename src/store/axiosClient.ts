@@ -8,6 +8,7 @@ import type {
 const createAxiosClient = (initDataRaw?: string) => {
   const axiosClient = axios.create({
     baseURL: "https://a26930-7253.x.d-f.pw",
+    timeout: 10000, // 10 секунд таймаут
   });
 
   if (initDataRaw) {
@@ -22,16 +23,17 @@ const handleRequest = async <T>(
   options: AxiosRequestConfig
 ): Promise<T> => {
   try {
-    const response = await instance.request<T>(options);
+    const response = await instance.request<T>(options); 
     return processResponse(response);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      throw new ApiException(
+      const apiError: ApiError = error.response.data;	  
+      throw  new ApiException(
         error.message,
         error.response.status,
         JSON.stringify(error.response.data),
         error.response.headers,
-        error.response.data
+        apiError
       );
     }
     throw error;
@@ -40,33 +42,73 @@ const handleRequest = async <T>(
 
 const processResponse = async <T>(response: AxiosResponse<T>): Promise<T> => {
   const status = response.status;
+
   if (status >= 200 && status < 300) {
     return response.data;
   }
+
+  const apiError: ApiError = response.data as unknown as ApiError;
   throw new ApiException(
     "An unexpected server error occurred.",
     status,
     JSON.stringify(response.data),
     response.headers,
-    response.data
+    apiError
   );
 };
-
 export { createAxiosClient, handleRequest, processResponse };
 
-class ApiException extends Error {
+export interface ApiResponse<T> {
+  data: T;
+  readonly isSuccess?: boolean;
+  readonly isFailure?: boolean;
+  error?: ErrorDto;
+  value?: T;
+}
+export interface ResultType {
+  readonly isSuccess?: boolean;
+  readonly isFailure?: boolean;
+  error?: ErrorDto;
+}
+
+export interface ApiError {
+  type: string;
+  title: string;
+  status: number;
+  traceId: string;
+  errors: ErrorDetail[];
+}
+export enum ErrorType {
+  _0 = 0,
+  _1 = 1,
+  _2 = 2,
+  _3 = 3,
+}
+export interface ErrorDetail {
+  code: string;
+  description: string;
+  type: ErrorType;
+}
+
+export interface ErrorDto {
+  readonly code?: string;
+  readonly description?: string;
+  type?: ErrorType;
+}
+
+export class ApiException extends Error {
   override message: string;
   status: number;
   response: string;
   headers: { [key: string]: any };
-  result: any;
+  result: ApiError;
 
   constructor(
     message: string,
     status: number,
     response: string,
     headers: { [key: string]: any },
-    result: any
+    result: ApiError
   ) {
     super();
     this.message = message;
