@@ -10,8 +10,6 @@ import { BottomMenu } from "widgets/bottomMenu";
 
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { Game } from "features/game";
-import { Shop } from "features/shop";
-import { useToogle } from "shared/lib/toggle";
 import { ReferralLink } from "features/referral-link";
 import { FirstVizit } from "features/firstVisit";
 import { useEffect } from "react";
@@ -24,7 +22,6 @@ const DashBoardPage = () => {
   const { activeTab, panelData/*, initDataRow */ } = useAppSelector(
     (state) => state.appSlice
   );
-  const [isOpen, onSetState] = useToogle();
   //const { initDataRaw } = retrieveLaunchParams();
   const initDataRaw = "test"
   const { setInitDataRow } = appSlice.actions;
