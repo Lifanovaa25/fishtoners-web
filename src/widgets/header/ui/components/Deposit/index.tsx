@@ -3,34 +3,35 @@ import { Button } from "shared/ui/button"
 
 import Deposit from '../../assets/Deposit.svg'
 import s from './style.module.scss'
-import { Modal } from "shared/ui/modal"
+import ton from './../../assets/brilliant.svg'
 
-import close_modal from '../../assets/close_modal.svg';
-import worms from 'shared/assets/worm.svg';
-import hooks from '../../assets/hooks.svg';
-import { skeletonGeneration } from "shared/lib/lazy"
+import close from './../../assets/deposit_close.svg'
+import clsx from "clsx"
+
+import { useAppDispatch, useAppSelector } from "hooks/redux"
+import { appSlice } from "store/reducers/appSlice"
 
 interface DepositBtnProps {
+    onSetStateDeposit: () => void,
     onSetState: () => void,
-    onSetModal: () => void,
 }
 
 export const DepositBtn = ({
+    onSetStateDeposit,
     onSetState,
-    onSetModal,
 }: DepositBtnProps) => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const openModal = () => {
-        onSetState();
-        onSetModal()
+    const openDeposit = () => {
+        onSetStateDeposit();
+        onSetState()
     }
 
-    return(
+    return (
         <Button
-            onClick={openModal}
-            className={s.button} 
-            isActive
+            onClick={openDeposit}
+            className={s.button}
+        // isActive
         >
             {t('Deposit')}
 
@@ -46,45 +47,149 @@ interface DepositModalProps {
 
 export const DepositModal = ({
     onSetState,
-    isOpen 
+    isOpen
 }: DepositModalProps) => {
-    const {t} = useTranslation();
+    const { activeBtn } = useAppSelector((state) => state.appSlice);
+    const { setActiveBtn } = appSlice.actions;
+    const dispatch = useAppDispatch();
+    return (
+        <div className={clsx(s.dep_background, { [s.isopen]: isOpen })}>
+            <div className={s.deposit_menu}>
+                <div className={s.deposit_header}>
+                    <button className={activeBtn === 'deposit' ? [s.deposit_btn, s.active_btn].join(' ') : s.deposit_btn}
+                        onClick={() => {
+                            dispatch(setActiveBtn('deposit'));
+                        }}
+                    >Deposit</button>
+                    <button className={activeBtn === 'withdraw' ? [s.deposit_btn, s.active_btn].join(' ') : s.deposit_btn}
 
-    return(
-        <Modal onSetState={onSetState} isOpen={isOpen}>
-            <div className={s.modal}>
-                <div className={s.conatiner_modal}>
-                    <img
-                        className={s.close_icon}
-                        src={close_modal}
+                        onClick={() => {
+                            dispatch(setActiveBtn('withdraw'));
+                        }}>Withdraw</button>
+                    <div
                         onClick={onSetState}
-                    />
-                    <h3 className={s.title}>{t("title_modal")}</h3>
-
-                    <div className={s.text_container}>
-                        {skeletonGeneration(8).map((index) => (
-                            <span key={index} className={s.text}>
-                                {t(`tips.${index+1}`)}
-                                {index == 5 &&
-                                    <img
-                                        width='29.8px'
-                                        height='22px'
-                                        // @ts-ignore 
-                                        src={hooks}
-                                    />
-                                }
-                                {index === 3 &&
-                                    <img
-                                        width='22px'
-                                        height='23px'
-                                        src={worms}
-                                    />
-                                }
-                            </span>
-                        ))}
+                        className={s.close}
+                    >
+                        <img src={close} alt="" />
                     </div>
                 </div>
+
+                <div className={s.deposit_content}>
+                    <div className={s.balance}>Balance:
+                        <span>50</span>
+                        <img src={ton} className={s.ton} />
+                    </div>
+                    {activeBtn === 'deposit' ?
+                        <>
+                            <div className={s.input_item}>
+
+                                <label
+                                    htmlFor="amount"
+                                    className={
+                                        s.inputLabel
+                                    }
+                                >
+                                    Amount TON:
+                                </label>
+                                <input
+                                    name="amount"
+                                    className={
+                                        s.input
+                                    }
+                                    type="text"
+                                    placeholder="0.000000000"
+
+                                    readOnly={false}
+
+                                />
+                                <div className={s.input_ton}>
+                                    <img src={ton} className={s.input_img} />
+                                    TON
+                                </div>
+                            </div>
+                            <button className={s.yellow_btn}>Deposit</button>
+                        </>
+                        :
+
+                        <>
+                            <div className={s.input_items}>
+                                <div className={s.item}>
+                                    <label
+                                        htmlFor="amount"
+                                        className={
+                                            s.inputLabel
+                                        }
+                                    >
+                                        Amount TON:
+                                    </label>
+                                    <input
+                                        name="amount"
+                                        className={
+                                            s.input
+                                        }
+                                        type="text"
+                                        placeholder="0.000000000"
+
+                                        readOnly={false}
+
+                                    />
+                                    <div className={s.input_ton}>
+                                        <img src={ton} className={s.input_img} />
+                                        TON
+                                    </div>
+                                </div>
+                                <div className={s.item}>
+                                    <label
+                                        htmlFor="address"
+                                        className={
+                                            s.inputLabel
+                                        }
+                                    >
+                                       To Address:
+                                    </label>
+                                    <input
+                                        name="address"
+                                        className={
+                                            s.input
+                                        }
+                                        type="text"
+                                        placeholder=""
+
+                                        readOnly={false}
+
+                                    />
+                                   
+                                </div>
+
+                                <div className={s.item}>
+                                    <label
+                                        htmlFor="memo"
+                                        className={
+                                            s.inputLabel
+                                        }
+                                    >
+                                        Memo:
+                                    </label>
+                                    <input
+                                        name="memo"
+                                        className={
+                                            s.input
+                                        }
+                                        type="text"
+                                        placeholder=""
+
+                                        readOnly={false}
+
+                                    />
+                                   
+                                </div>
+                            </div>
+                            <button className={s.yellow_btn}>Withdraw</button>
+                        </>
+                    }
+                </div>
             </div>
-        </Modal>
+
+        </div>
     )
 }

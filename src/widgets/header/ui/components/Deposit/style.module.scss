@@ -11,58 +11,205 @@
     padding-left: 21px;
 }
 
-.modal {
+.dep_background {
+    opacity: 0;
+    display: none;
     position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #00000080;
+
+}
+
+.deposit_menu {
+    position: absolute;
+    top: 14px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
     z-index: 3;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background: url(./../../assets/deposit_bg.png) center center / cover no-repeat;
+    width: 343px;
+    height: 276px;
+    padding: 5px 6px;
+    padding-bottom: 0;
+}
 
+.close {
+    // position: absolute;
+    // width: 100%;
+    // height: 100%;
+    top: 5px;
+    left: calc(100% - 48px);
+    right: 0;
+    z-index: 2;
+}
+
+.deposit_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
     width: 100%;
-    max-width: 371px;
-    border-radius: var(--main-br);
 
-    background-color: var(--main-color);
 }
 
-.conatiner_modal { 
-   position: relative;
-   width: 100%;
-   height: 100%;
-   border-radius: inherit;
-   padding: 16px 15px 13px 15px;
+.deposit_btn {
+    background: url(./../../assets/no_active_btn.png) center center / cover no-repeat;
+    width: 139px;
+    height: 45px;
+    border: none;
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 120%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
 
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: space-between;
 }
 
-.title {
-   color: #151B42;
-    font-size: 16px;
-    line-height: 20.06px;
+.active_btn {
+    background: url(./../../assets/active_btn.png) center center / cover no-repeat;
+    transition: all .3s;
+    order: -1;
 }
 
-.close_icon {
-    cursor: pointer;
-    position: absolute;
-    top: 16px;
-    right: 14.38px;
+.isopen {
+    opacity: 1;
+    display: block;
 }
 
-.text_container {
-    margin-top: 16px;
+.deposit_content {
+    padding: 19px 38px;
+    padding-bottom: 24px;
     display: flex;
     flex-direction: column;
-    gap:10px;
+    align-items: center;
+    justify-content: space-between;
+    height: 220px;
+}
 
-    & .text {
-        color: #151B42;
-        font-size: 10px;
+.balance {
+    background: url(./../../assets/balane_bg.png) center center / cover no-repeat;
+    padding: 9px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    color: #fff;
+    width: 180px;
+    height: 43px;
+}
 
+.ton {
+    width: 18px;
+    height: 18px;
+}
+
+.yellow_btn {
+    width: 131px;
+    height: 35px;
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 120%;
+    color: #000;
+    background: url(./../../assets/yel_btn.png) center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.inputLabel {
+    font-family: var(--fm-main);
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 120%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    text-align: left;
+}
+
+.input_item,
+.input_items {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    position: relative;
+}
+
+.input_items {
+    gap: 5px;
+
+    .item {
+        gap: 2px;
         display: flex;
-        align-items: center;
-        gap:3px;
+        flex-direction: column;
+
+        &:first-of-type {
+            position: relative;
+        }
     }
+
+}
+
+.input {
+    min-width: 273px;
+    max-width: 273px;
+    height: 25px;
+    background: url(./../../assets/input_bg.png) center center / cover no-repeat;
+    padding: 6px 12px;
+    color: rgba(255, 255, 255);
+    font-family: var(--fm-main);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 120%;
+    text-align: center;
+    border: none;
+    outline: none;
+    text-align: left;
+
+    &::placeholder {
+        font-family: var(--fm-main);
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 120%;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.65);
+        text-align: left;
+
+    }
+}
+
+.input_ton {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    gap: 8px;
+
+    font-family: var(--fm-main);
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 120%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.input_img {
+    width: 14px;
+    height: 14px;
 }

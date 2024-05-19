@@ -19,17 +19,17 @@ export const InfoBtn = ({
     onSetState,
     onSetModal,
 }: InfoBtnProps) => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const openModal = () => {
         onSetState();
         onSetModal()
     }
 
-    return(
+    return (
         <Button
             onClick={openModal}
-            className={s.button} 
+            className={s.button}
             isActive
         >
             {t('info')}
@@ -46,11 +46,11 @@ interface InfoModalProps {
 
 export const InfoModal = ({
     onSetState,
-    isOpen 
+    isOpen
 }: InfoModalProps) => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    return(
+    return (
         <Modal onSetState={onSetState} isOpen={isOpen}>
             <div className={s.modal}>
                 <div className={s.conatiner_modal}>
@@ -64,7 +64,7 @@ export const InfoModal = ({
                     <div className={s.text_container}>
                         {skeletonGeneration(8).map((index) => (
                             <span key={index} className={s.text}>
-                                {t(`tips.${index+1}`)}
+                                {t(`tips.${index + 1}`)}
                                 {index == 5 &&
                                     <img
                                         width='29.8px'

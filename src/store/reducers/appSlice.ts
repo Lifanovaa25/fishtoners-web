@@ -12,6 +12,7 @@ export const initialState = {
   allfishes:{} as FishesVm,
   leaderboard:{} as UserVmArrayResultType,
   activeTab: "0",
+	activeBtn:'deposit',
   lang: "en",
 };
 
@@ -25,6 +26,9 @@ export const appSlice = createSlice({
     setActiveTab(state, action: PayloadAction<string>) {
       state.activeTab = action.payload;
     },
+    setActiveBtn(state, action: PayloadAction<string>) {
+			state.activeBtn = action.payload;
+		},
     setLanguage(state, action: PayloadAction<Lang>) {
       state.lang = action.payload;
     },
