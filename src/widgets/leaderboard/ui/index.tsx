@@ -1,34 +1,25 @@
-import { useTranslation } from "react-i18next";
-
 import s from "./style.module.scss";
 import { LeaderboardItem } from "./components";
 import { Loader } from "shared/ui/loader";
 import no_avatar from "./assets/no-avatar.jpg";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { useEffect } from "react";
-// import { appSlice } from "store/reducers/appSlice";
-import { getLeaderboard } from "store/apis";
+import { FC } from "react";
+import { UserVm } from "store/api";
 
-export const Leaderboard = () => {
-  const { t } = useTranslation();
-  const { leaderboard, initDataRow } = useAppSelector(
-    (state) => state.appSlice
-  );
+interface IProps {
+	leaderboard:UserVm[],
+    title:string
+}
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getLeaderboard({ tma: initDataRow }));
-  }, []);
-
+export const Leaderboard: FC<IProps> = ({ leaderboard, title}) => {
   return (
     <div className={s.leaderboard}>
-      <h4 className={s.leaderboard_title}>{t("leaderboard_title")}</h4>
+      <h4 className={s.leaderboard_title}>{title}</h4>
       {/*<LoaddedData loaddedData={leadboard.loaddedData} />*/}
-      {(leaderboard.value ?? []).length !== 0 ? (
+      {leaderboard.length > 0 ? (
         <div className={s.leaderboard_table}>
-          {leaderboard.value?.map((user, index) => (
+          {leaderboard?.map((user, index) => (
             <LeaderboardItem
-              key={user?.name ?? 0}
+              key={user?.name ?? index}
               index={index + 1}
               avatar={user?.avatarUrl ?? no_avatar}
               full_name={user?.name ?? "Hidden"}

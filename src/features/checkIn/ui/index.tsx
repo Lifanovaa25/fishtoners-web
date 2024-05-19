@@ -1,23 +1,19 @@
-// import { useUnit } from 'effector-react'
-import {Slider } from './components'
-import s from './style.module.scss'
-// import { $userProfile } from 'shared/config/user'
-// import { Loader } from 'shared/ui/loader'
-import { Leaderboard } from 'widgets/leaderboard'
+import { useAppSelector } from "hooks/redux";
+import { Slider } from "./components";
+import s from "./style.module.scss";
+import { Leaderboard } from "widgets/leaderboard";
+import { useTranslation } from "react-i18next";
 
 export const CheckIn = () => {
-    // const profile = useUnit($userProfile)
+  const { t } = useTranslation();
+  const { leaderboard } = useAppSelector((state) => state.appSlice);
 
-    return (
-        <div className={s.conatiner}>
-         
-                <>
-
-                    <Slider />
-                    <Leaderboard />
-
-                </>
-             
-        </div>
-    )
-}
+  return (
+    <div className={s.conatiner}>
+      <>
+        <Slider />
+        <Leaderboard leaderboard={leaderboard} title={t("leaderboard_title")} />
+      </>
+    </div>
+  );
+};

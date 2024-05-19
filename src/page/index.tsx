@@ -15,11 +15,10 @@ import { FirstVizit } from "features/firstVisit";
 import { useEffect } from "react";
 // import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
-import { getUserPanelData } from "store/apis";
+import { getLeaderboard, getRefData, getUserPanelData } from "store/apis";
 
 const DashBoardPage = () => {
-  // const { t } = useTranslation();
-  const { activeTab, panelData/*, initDataRow */ } = useAppSelector(
+  const { activeTab, panelData/*, initDataRow */} = useAppSelector(
     (state) => state.appSlice
   );
   //const { initDataRaw } = retrieveLaunchParams();
@@ -28,9 +27,12 @@ const DashBoardPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    //console.log({initDataRaw})
     if (initDataRaw) {
-      setInitDataRow(initDataRaw!);
+      dispatch(setInitDataRow(initDataRaw!));
       dispatch(getUserPanelData({ tma: initDataRaw! }));
+      dispatch(getRefData({ tma: initDataRaw! }));
+      dispatch(getLeaderboard({ tma: initDataRaw! }));
       console.log("dddddddddddd")
     }
   }, [initDataRaw]);
@@ -56,7 +58,7 @@ const DashBoardPage = () => {
                     {/* <Wallet /> */}
                   </>
                 )}
-              
+
                 {activeTab === "3" && (
                   <>
                     <ReferralLink />
