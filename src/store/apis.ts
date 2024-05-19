@@ -1,12 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+    ApiResponse,
     ClaimRewardResultType,
   Client,
   FishesVmResultType,
-  PanelDataVmResultType,
+  PackVmArrayResultType,
+  PanelDataVm,
   RefDataVmResultType,
+  ResultType,
   UserVmArrayResultType,
-  UsersPacksVmResultType,
+  UsersPacksVm,
 } from "./api";
 import { createAxiosClient } from "./axiosClient";
 
@@ -15,7 +18,7 @@ interface IAuthorized {
 }
 
 export const getUserPanelData = createAsyncThunk<
-  PanelDataVmResultType,
+  ApiResponse<PanelDataVm>,
   IAuthorized
 >("appSlice/getUserPanelData", async (args, { rejectWithValue }) => {
   try {
@@ -23,23 +26,25 @@ export const getUserPanelData = createAsyncThunk<
     const c = new Client("", axiosClient);
     return c.getUserPanelData();
   } catch (err: any) {
-    console.log({err})
+    console.log({ err });
     return rejectWithValue(err.response.data);
   }
 });
 
-export const getActiveUsersPack = createAsyncThunk<
-  UsersPacksVmResultType,
-  IAuthorized
->("appSlice/getActiveUsersPack", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getActiveUsersPacks();
-  } catch (err: any) {
-    return rejectWithValue(err.response.data);
-  }
-});
+export const getActiveUsersPack =
+  createAsyncThunk <
+  ApiResponse<UsersPacksVm>, IAuthorized>(
+    "appSlice/getActiveUsersPack",
+    async (args, { rejectWithValue }) => {
+      try {
+        const axiosClient = createAxiosClient(args.tma);
+        const c = new Client("", axiosClient);
+        return c.getActiveUsersPacks();
+      } catch (err: any) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
 
 interface ILangRequest {
   language?: string | undefined;
@@ -47,7 +52,7 @@ interface ILangRequest {
 }
 
 export const changeLang = createAsyncThunk<
-  UsersPacksVmResultType,
+  ResultType,
   ILangRequest
 >("appSlice/changeLang", async (args, { rejectWithValue }) => {
   try {
@@ -108,3 +113,34 @@ export const getLeaderboard = createAsyncThunk<
     return rejectWithValue(err.response.data);
   }
 });
+
+export const getPacks = createAsyncThunk<PackVmArrayResultType, IAuthorized>(
+  "appSlice/getPacks",
+  async (args, { rejectWithValue }) => {
+    try {
+      const axiosClient = createAxiosClient(args.tma);
+      const c = new Client("", axiosClient);
+      return c.getPacks();
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+interface IBuyPack {
+  packId: string | undefined;
+  tma: string;
+}
+
+export const buyPack = createAsyncThunk<ApiResponse<string>, IBuyPack>(
+  "appSlice/buyPack",
+  async (args, { rejectWithValue }) => {
+    try {
+      const axiosClient = createAxiosClient(args.tma);
+      const c = new Client("", axiosClient);
+      return c.buyPack({packId:args.packId});
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);

@@ -1,21 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  ApiResponse,
   ClaimRewardResultType,
-  FishesVm,
   FishesVmResultType,
   FishVm,
+  PackVm,
+  PackVmArrayResultType,
   PanelDataVm,
-  PanelDataVmResultType,
-  RefDataVm,
   RefDataVmResultType,
-  UsersPacksVmResultType,
+  UsersPacksVm,
   UserVm,
   UserVmArrayResultType,
 } from "store/api";
 import {
+  buyPack,
   claimTodayReward,
   getActiveUsersPack,
   getLeaderboard,
+  getPacks,
   getRefData,
   getUserFishes,
   getUserPanelData,
@@ -26,7 +28,7 @@ export type Lang = "en" | "ru" | "ko" | "ua";
 export const initialState = {
   initDataRow: "",
   panelData: {} as PanelDataVm,
-  userPacks: {} as UsersPacksVmResultType,
+  userPacks: {} as UsersPacksVm,
   //refData: {} as RefDataVm,
   youInvitedCount: 0,
   refUrl: "",
@@ -39,6 +41,8 @@ export const initialState = {
   isTodayFishClaimed: true,
 
   leaderboard: [] as UserVm[],
+
+  packsForStore: [] as PackVm[],
 
   activeTab: "0",
   activeBtn: "deposit",
@@ -67,7 +71,7 @@ export const appSlice = createSlice({
     builder
       .addCase(
         getUserPanelData.fulfilled,
-        (state, action: PayloadAction<PanelDataVmResultType>) => {
+        (state, action: PayloadAction<ApiResponse<PanelDataVm>>) => {
           state.panelData = action.payload.value!;
           console.log("action.payload");
         }
@@ -79,8 +83,8 @@ export const appSlice = createSlice({
       })
       .addCase(
         getActiveUsersPack.fulfilled,
-        (state, action: PayloadAction<UsersPacksVmResultType>) => {
-          state.userPacks = action.payload;
+        (state, action: PayloadAction<ApiResponse<UsersPacksVm>>) => {
+          state.userPacks = action.payload.value!;
         }
       )
       .addCase(
@@ -125,6 +129,18 @@ export const appSlice = createSlice({
           state.userFishesCount = action.payload.value!;
           state.allfishes.find((x) => x.id == action.payload.value!)!.claimed =
             true;
+        }
+      )
+      .addCase(
+        getPacks.fulfilled,
+        (state, action: PayloadAction<PackVmArrayResultType>) => {
+          state.packsForStore = action.payload.value!;
+        }
+      )
+      .addCase(
+        buyPack.fulfilled,
+        (state, action: PayloadAction<ApiResponse<string>>) => {
+          state.userPacks.names?.push(action.payload.value!);
         }
       );
   },

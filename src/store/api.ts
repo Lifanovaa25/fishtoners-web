@@ -16,6 +16,14 @@ import type {
   CancelToken,
 } from "axios";
 
+export interface ApiResponse<T> {
+  data: T;
+  readonly isSuccess?: boolean;
+  readonly isFailure?: boolean;
+  error?: ErrorDto;
+  value?: T;
+}
+
 export interface IClient {
   /**
    * ѕополнение баланса пользовател¤
@@ -24,24 +32,15 @@ export interface IClient {
    */
   deposit(body?: DepositDto | undefined): Promise<ResultType>;
   /**
-   * @return OK
-   */
-  updateGET(): Promise<void>;
-  /**
-   * @param body (optional)
-   * @return OK
-   */
-  updatePOST(body?: Update | undefined): Promise<void>;
-  /**
    * Получить данные для панели пользователя
    * @return OK
    */
-  getUserPanelData(): Promise<PanelDataVmResultType>;
+  getUserPanelData(): Promise<ApiResponse<PanelDataVm>>;
   /**
    * Получить список активных паков юзера (для страницы с крючками)
    * @return OK
    */
-  getActiveUsersPacks(): Promise<UsersPacksVmResultType>;
+  getActiveUsersPacks(): Promise<ApiResponse<UsersPacksVm>>;
   /**
    * Получить список паков доступных юзеру для покупки (для магазина)
    * @return OK
@@ -187,128 +186,12 @@ export class Client implements IClient {
   }
 
   /**
-   * @return OK
-   */
-  updateGET(cancelToken?: CancelToken): Promise<void> {
-    let url_ = this.baseUrl + "/api/message/update";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
-      method: "GET",
-      url: url_,
-      headers: {},
-      cancelToken,
-    };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processUpdateGET(_response);
-      });
-  }
-
-  protected processUpdateGET(response: AxiosResponse): Promise<void> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      const _responseText = response.data;
-      console.log("_responseText:" + _responseText);
-      return Promise.resolve<void>(null as any);
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<void>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return OK
-   */
-  updatePOST(
-    body?: Update | undefined,
-    cancelToken?: CancelToken
-  ): Promise<void> {
-    let url_ = this.baseUrl + "/api/message/update";
-    url_ = url_.replace(/[?&]$/, "");
-
-    const content_ = JSON.stringify(body);
-
-    let options_: AxiosRequestConfig = {
-      data: content_,
-      method: "POST",
-      url: url_,
-      headers: {
-        "Content-Type": "application/json-patch+json",
-      },
-      cancelToken,
-    };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processUpdatePOST(_response);
-      });
-  }
-
-  protected processUpdatePOST(response: AxiosResponse): Promise<void> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      const _responseText = response.data;
-      console.log("_responseText:" + _responseText);
-      return Promise.resolve<void>(null as any);
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<void>(null as any);
-  }
-
-  /**
    * Получить данные для панели пользователя
    * @return OK
    */
-  getUserPanelData(cancelToken?: CancelToken): Promise<PanelDataVmResultType> {
+  getUserPanelData(
+    cancelToken?: CancelToken
+  ): Promise<ApiResponse<PanelDataVm>> {
     let url_ = this.baseUrl + "/api/Game/GetUserPanelData";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -337,7 +220,7 @@ export class Client implements IClient {
 
   protected processGetUserPanelData(
     response: AxiosResponse
-  ): Promise<PanelDataVmResultType> {
+  ): Promise<ApiResponse<PanelDataVm>> {
     const status = response.status;
     let _headers: any = {};
     if (response.headers && typeof response.headers === "object") {
@@ -348,7 +231,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      return Promise.resolve<PanelDataVmResultType>(response.data);
+      return Promise.resolve<ApiResponse<PanelDataVm>>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -382,7 +265,7 @@ export class Client implements IClient {
         _headers
       );
     }
-    return Promise.resolve<PanelDataVmResultType>(null as any);
+    return Promise.resolve<ApiResponse<PanelDataVm>>(null as any);
   }
 
   /**
@@ -391,7 +274,7 @@ export class Client implements IClient {
    */
   getActiveUsersPacks(
     cancelToken?: CancelToken
-  ): Promise<UsersPacksVmResultType> {
+  ): Promise<ApiResponse<UsersPacksVm>> {
     let url_ = this.baseUrl + "/api/Game/GetActiveUsersPacks";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -420,7 +303,7 @@ export class Client implements IClient {
 
   protected processGetActiveUsersPacks(
     response: AxiosResponse
-  ): Promise<UsersPacksVmResultType> {
+  ): Promise<ApiResponse<UsersPacksVm>> {
     const status = response.status;
     let _headers: any = {};
     if (response.headers && typeof response.headers === "object") {
@@ -431,7 +314,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      return Promise.resolve<UsersPacksVmResultType>(response.data);
+      return Promise.resolve<ApiResponse<UsersPacksVm>>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -465,7 +348,7 @@ export class Client implements IClient {
         _headers
       );
     }
-    return Promise.resolve<UsersPacksVmResultType>(null as any);
+    return Promise.resolve<ApiResponse<UsersPacksVm>>(null as any);
   }
 
   /**
@@ -881,7 +764,7 @@ export class Client implements IClient {
   buyPack(
     body?: BuyDto | undefined,
     cancelToken?: CancelToken
-  ): Promise<ResultType> {
+  ): Promise<ApiResponse<string>> {
     let url_ = this.baseUrl + "/api/Game/BuyPack";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -912,7 +795,9 @@ export class Client implements IClient {
       });
   }
 
-  protected processBuyPack(response: AxiosResponse): Promise<ResultType> {
+  protected processBuyPack(
+    response: AxiosResponse
+  ): Promise<ApiResponse<string>> {
     const status = response.status;
     let _headers: any = {};
     if (response.headers && typeof response.headers === "object") {
@@ -923,7 +808,7 @@ export class Client implements IClient {
       }
     }
     if (status === 200) {
-      return Promise.resolve<ResultType>(response.data);
+      return Promise.resolve<ApiResponse<string>>(response.data);
     } else if (status === 400) {
       const _responseText = response.data;
       let result400: any = null;
@@ -957,7 +842,7 @@ export class Client implements IClient {
         _headers
       );
     }
-    return Promise.resolve<ResultType>(null as any);
+    return Promise.resolve<ApiResponse<string>>(null as any);
   }
 
   /**
@@ -1139,182 +1024,10 @@ export class Client implements IClient {
 
 export interface ActionResult {}
 
-export interface Animation {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  width?: number;
-  height?: number;
-  duration?: number;
-  thumbnail?: PhotoSize;
-  fileName?: string | undefined;
-  mimeType?: string | undefined;
-}
-
-export interface Audio {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  duration?: number;
-  performer?: string | undefined;
-  title?: string | undefined;
-  fileName?: string | undefined;
-  mimeType?: string | undefined;
-  thumbnail?: PhotoSize;
-}
-
 /** Купить пак */
 export interface BuyDto {
   /** ИД пака */
   packId?: string;
-}
-
-export interface CallbackGame {}
-
-export interface CallbackQuery {
-  id?: string | undefined;
-  from?: User;
-  message?: Message;
-  inlineMessageId?: string | undefined;
-  chatInstance?: string | undefined;
-  data?: string | undefined;
-  gameShortName?: string | undefined;
-  readonly isGameQuery?: boolean;
-}
-
-export interface Chat {
-  id?: number;
-  type?: ChatType;
-  title?: string | undefined;
-  username?: string | undefined;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
-  isForum?: boolean | undefined;
-  photo?: ChatPhoto;
-  activeUsernames?: string[] | undefined;
-  emojiStatusCustomEmojiId?: string | undefined;
-  emojiStatusExpirationDate?: Date | undefined;
-  bio?: string | undefined;
-  hasPrivateForwards?: boolean | undefined;
-  hasRestrictedVoiceAndVideoMessages?: boolean | undefined;
-  joinToSendMessages?: boolean | undefined;
-  joinByRequest?: boolean | undefined;
-  description?: string | undefined;
-  inviteLink?: string | undefined;
-  pinnedMessage?: Message;
-  permissions?: ChatPermissions;
-  slowModeDelay?: number | undefined;
-  messageAutoDeleteTime?: number | undefined;
-  hasAggressiveAntiSpamEnabled?: boolean | undefined;
-  hasHiddenMembers?: boolean | undefined;
-  hasProtectedContent?: boolean | undefined;
-  stickerSetName?: string | undefined;
-  canSetStickerSet?: boolean | undefined;
-  linkedChatId?: number | undefined;
-  location?: ChatLocation;
-}
-
-export interface ChatInviteLink {
-  inviteLink?: string | undefined;
-  creator?: User;
-  createsJoinRequest?: boolean;
-  isPrimary?: boolean;
-  isRevoked?: boolean;
-  name?: string | undefined;
-  expireDate?: Date | undefined;
-  memberLimit?: number | undefined;
-  pendingJoinRequestCount?: number | undefined;
-}
-
-export interface ChatJoinRequest {
-  chat?: Chat;
-  from?: User;
-  userChatId?: number;
-  date?: Date;
-  bio?: string | undefined;
-  inviteLink?: ChatInviteLink;
-}
-
-export interface ChatLocation {
-  location?: Location;
-  address?: string | undefined;
-}
-
-export interface ChatMember {
-  status?: ChatMemberStatus;
-  user?: User;
-}
-
-export enum ChatMemberStatus {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-  _6 = 6,
-}
-
-export interface ChatMemberUpdated {
-  chat?: Chat;
-  from?: User;
-  date?: Date;
-  oldChatMember?: ChatMember;
-  newChatMember?: ChatMember;
-  inviteLink?: ChatInviteLink;
-  viaChatFolderInviteLink?: boolean | undefined;
-}
-
-export interface ChatPermissions {
-  canSendMessages?: boolean | undefined;
-  canSendAudios?: boolean | undefined;
-  canSendDocuments?: boolean | undefined;
-  canSendPhotos?: boolean | undefined;
-  canSendVideos?: boolean | undefined;
-  canSendVideoNotes?: boolean | undefined;
-  canSendVoiceNotes?: boolean | undefined;
-  canSendPolls?: boolean | undefined;
-  canSendOtherMessages?: boolean | undefined;
-  canAddWebPagePreviews?: boolean | undefined;
-  canChangeInfo?: boolean | undefined;
-  canInviteUsers?: boolean | undefined;
-  canPinMessages?: boolean | undefined;
-  canManageTopics?: boolean | undefined;
-}
-
-export interface ChatPhoto {
-  smallFileId?: string | undefined;
-  smallFileUniqueId?: string | undefined;
-  bigFileId?: string | undefined;
-  bigFileUniqueId?: string | undefined;
-}
-
-export interface ChatShared {
-  requestId?: number;
-  chatId?: number;
-}
-
-export enum ChatType {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-}
-
-export interface ChosenInlineResult {
-  resultId?: string | undefined;
-  from?: User;
-  location?: Location;
-  inlineMessageId?: string | undefined;
-  query?: string | undefined;
-}
-
-export interface Contact {
-  phoneNumber?: string | undefined;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
-  userId?: number | undefined;
-  vcard?: string | undefined;
 }
 
 /** ѕополнение баланса пользовател¤ */
@@ -1323,55 +1036,6 @@ export interface DepositDto {
   username?: string | undefined;
   /** сколько тонов начислить на внутренний баланс */
   amount?: number;
-}
-
-export interface Dice {
-  emoji?: string | undefined;
-  value?: number;
-}
-
-export interface Document {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  thumbnail?: PhotoSize;
-  fileName?: string | undefined;
-  mimeType?: string | undefined;
-}
-
-export interface EncryptedCredentials {
-  data?: string | undefined;
-  hash?: string | undefined;
-  secret?: string | undefined;
-}
-
-export interface EncryptedPassportElement {
-  type?: EncryptedPassportElementType;
-  data?: string | undefined;
-  phoneNumber?: string | undefined;
-  email?: string | undefined;
-  files?: PassportFile[] | undefined;
-  frontSide?: PassportFile;
-  reverseSide?: PassportFile;
-  selfie?: PassportFile;
-  translation?: PassportFile[] | undefined;
-  hash?: string | undefined;
-}
-
-export enum EncryptedPassportElementType {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-  _6 = 6,
-  _7 = 7,
-  _8 = 8,
-  _9 = 9,
-  _10 = 10,
-  _11 = 11,
-  _12 = 12,
-  _13 = 13,
 }
 
 export interface ErrorDto {
@@ -1414,271 +1078,10 @@ export interface FishesVmResultType {
   value?: FishesVm;
 }
 
-export interface ForumTopicClosed {}
-
-export interface ForumTopicCreated {
-  name?: string | undefined;
-  iconColor?: number;
-  iconCustomEmojiId?: string | undefined;
-}
-
-export interface ForumTopicEdited {
-  name?: string | undefined;
-  iconCustomEmojiId?: string | undefined;
-}
-
-export interface ForumTopicReopened {}
-
-export interface Game {
-  title?: string | undefined;
-  description?: string | undefined;
-  photo?: PhotoSize[] | undefined;
-  text?: string | undefined;
-  textEntities?: MessageEntity[] | undefined;
-  animation?: Animation;
-}
-
-export interface GeneralForumTopicHidden {}
-
-export interface GeneralForumTopicUnhidden {}
-
-export interface InlineKeyboardButton {
-  text?: string | undefined;
-  url?: string | undefined;
-  callbackData?: string | undefined;
-  webApp?: WebAppInfo;
-  loginUrl?: LoginUrl;
-  switchInlineQuery?: string | undefined;
-  switchInlineQueryCurrentChat?: string | undefined;
-  switchInlineQueryChosenChat?: SwitchInlineQueryChosenChat;
-  callbackGame?: CallbackGame;
-  pay?: boolean | undefined;
-}
-
-export interface InlineKeyboardMarkup {
-  readonly inlineKeyboard?: InlineKeyboardButton[][] | undefined;
-}
-
-export interface InlineQuery {
-  id?: string | undefined;
-  from?: User;
-  query?: string | undefined;
-  offset?: string | undefined;
-  chatType?: ChatType;
-  location?: Location;
-}
-
-export interface Invoice {
-  title?: string | undefined;
-  description?: string | undefined;
-  startParameter?: string | undefined;
-  currency?: string | undefined;
-  totalAmount?: number;
-}
-
 /** Изменить язык */
 export interface LangDto {
   /** Код языка */
   language?: string | undefined;
-}
-
-export interface Location {
-  longitude?: number;
-  latitude?: number;
-  horizontalAccuracy?: number | undefined;
-  livePeriod?: number | undefined;
-  heading?: number | undefined;
-  proximityAlertRadius?: number | undefined;
-}
-
-export interface LoginUrl {
-  url?: string | undefined;
-  forwardText?: string | undefined;
-  botUsername?: string | undefined;
-  requestWriteAccess?: boolean | undefined;
-}
-
-export interface MaskPosition {
-  point?: MaskPositionPoint;
-  xShift?: number;
-  yShift?: number;
-  scale?: number;
-}
-
-export enum MaskPositionPoint {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-}
-
-export interface Message {
-  messageId?: number;
-  messageThreadId?: number | undefined;
-  from?: User;
-  senderChat?: Chat;
-  date?: Date;
-  chat?: Chat;
-  forwardFrom?: User;
-  isTopicMessage?: boolean | undefined;
-  forwardFromChat?: Chat;
-  forwardFromMessageId?: number | undefined;
-  forwardSignature?: string | undefined;
-  forwardSenderName?: string | undefined;
-  forwardDate?: Date | undefined;
-  isAutomaticForward?: boolean | undefined;
-  replyToMessage?: Message;
-  viaBot?: User;
-  editDate?: Date | undefined;
-  hasProtectedContent?: boolean | undefined;
-  mediaGroupId?: string | undefined;
-  authorSignature?: string | undefined;
-  text?: string | undefined;
-  entities?: MessageEntity[] | undefined;
-  readonly entityValues?: string[] | undefined;
-  animation?: Animation;
-  audio?: Audio;
-  document?: Document;
-  photo?: PhotoSize[] | undefined;
-  sticker?: Sticker;
-  story?: Story;
-  video?: Video;
-  videoNote?: VideoNote;
-  voice?: Voice;
-  caption?: string | undefined;
-  captionEntities?: MessageEntity[] | undefined;
-  readonly captionEntityValues?: string[] | undefined;
-  hasMediaSpoiler?: boolean | undefined;
-  contact?: Contact;
-  dice?: Dice;
-  game?: Game;
-  poll?: Poll;
-  venue?: Venue;
-  location?: Location;
-  newChatMembers?: User[] | undefined;
-  leftChatMember?: User;
-  newChatTitle?: string | undefined;
-  newChatPhoto?: PhotoSize[] | undefined;
-  deleteChatPhoto?: boolean | undefined;
-  groupChatCreated?: boolean | undefined;
-  supergroupChatCreated?: boolean | undefined;
-  channelChatCreated?: boolean | undefined;
-  messageAutoDeleteTimerChanged?: MessageAutoDeleteTimerChanged;
-  migrateToChatId?: number | undefined;
-  migrateFromChatId?: number | undefined;
-  pinnedMessage?: Message;
-  invoice?: Invoice;
-  successfulPayment?: SuccessfulPayment;
-  userShared?: UserShared;
-  chatShared?: ChatShared;
-  connectedWebsite?: string | undefined;
-  writeAccessAllowed?: WriteAccessAllowed;
-  passportData?: PassportData;
-  proximityAlertTriggered?: ProximityAlertTriggered;
-  forumTopicCreated?: ForumTopicCreated;
-  forumTopicEdited?: ForumTopicEdited;
-  forumTopicClosed?: ForumTopicClosed;
-  forumTopicReopened?: ForumTopicReopened;
-  generalForumTopicHidden?: GeneralForumTopicHidden;
-  generalForumTopicUnhidden?: GeneralForumTopicUnhidden;
-  videoChatScheduled?: VideoChatScheduled;
-  videoChatStarted?: VideoChatStarted;
-  videoChatEnded?: VideoChatEnded;
-  videoChatParticipantsInvited?: VideoChatParticipantsInvited;
-  webAppData?: WebAppData;
-  replyMarkup?: InlineKeyboardMarkup;
-  type?: MessageType;
-}
-
-export interface MessageAutoDeleteTimerChanged {
-  messageAutoDeleteTime?: number;
-}
-
-export interface MessageEntity {
-  type?: MessageEntityType;
-  offset?: number;
-  length?: number;
-  url?: string | undefined;
-  user?: User;
-  language?: string | undefined;
-  customEmojiId?: string | undefined;
-}
-
-export enum MessageEntityType {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-  _6 = 6,
-  _7 = 7,
-  _8 = 8,
-  _9 = 9,
-  _10 = 10,
-  _11 = 11,
-  _12 = 12,
-  _13 = 13,
-  _14 = 14,
-  _15 = 15,
-  _16 = 16,
-  _17 = 17,
-}
-
-export enum MessageType {
-  _0 = 0,
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-  _6 = 6,
-  _7 = 7,
-  _8 = 8,
-  _9 = 9,
-  _10 = 10,
-  _11 = 11,
-  _12 = 12,
-  _13 = 13,
-  _14 = 14,
-  _15 = 15,
-  _16 = 16,
-  _17 = 17,
-  _18 = 18,
-  _19 = 19,
-  _20 = 20,
-  _21 = 21,
-  _22 = 22,
-  _23 = 23,
-  _24 = 24,
-  _25 = 25,
-  _26 = 26,
-  _27 = 27,
-  _28 = 28,
-  _29 = 29,
-  _30 = 30,
-  _31 = 31,
-  _32 = 32,
-  _33 = 33,
-  _34 = 34,
-  _35 = 35,
-  _36 = 36,
-  _37 = 37,
-  _38 = 38,
-  _39 = 39,
-  _40 = 40,
-  _41 = 41,
-  _42 = 42,
-  _43 = 43,
-  _44 = 44,
-  _45 = 45,
-  _46 = 46,
-}
-
-export interface OrderInfo {
-  name?: string | undefined;
-  phoneNumber?: string | undefined;
-  email?: string | undefined;
-  shippingAddress?: ShippingAddress;
 }
 
 export interface PackVm {
@@ -1704,71 +1107,6 @@ export interface PanelDataVm {
   languageCode?: string | undefined;
 }
 
-export interface PanelDataVmResultType {
-  readonly isSuccess?: boolean;
-  readonly isFailure?: boolean;
-  error?: ErrorDto;
-  value?: PanelDataVm;
-}
-
-export interface PassportData {
-  data?: EncryptedPassportElement[] | undefined;
-  credentials?: EncryptedCredentials;
-}
-
-export interface PassportFile {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  fileDate?: Date;
-}
-
-export interface PhotoSize {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  width?: number;
-  height?: number;
-}
-
-export interface Poll {
-  id?: string | undefined;
-  question?: string | undefined;
-  options?: PollOption[] | undefined;
-  totalVoterCount?: number;
-  isClosed?: boolean;
-  isAnonymous?: boolean;
-  type?: string | undefined;
-  allowsMultipleAnswers?: boolean;
-  correctOptionId?: number | undefined;
-  explanation?: string | undefined;
-  explanationEntities?: MessageEntity[] | undefined;
-  openPeriod?: number | undefined;
-  closeDate?: Date | undefined;
-}
-
-export interface PollAnswer {
-  pollId?: string | undefined;
-  voterChat?: Chat;
-  user?: User;
-  optionIds?: number[] | undefined;
-}
-
-export interface PollOption {
-  text?: string | undefined;
-  voterCount?: number;
-}
-
-export interface PreCheckoutQuery {
-  id?: string | undefined;
-  from?: User;
-  currency?: string | undefined;
-  totalAmount?: number;
-  invoicePayload?: string | undefined;
-  shippingOptionId?: string | undefined;
-  orderInfo?: OrderInfo;
-}
-
 export interface ProblemDetails {
   type?: string | undefined;
   title?: string | undefined;
@@ -1782,12 +1120,6 @@ export interface ProblemDetails {
 export interface ProblemDetailsActionResult {
   result?: ActionResult;
   value?: ProblemDetails;
-}
-
-export interface ProximityAlertTriggered {
-  traveler?: User;
-  watcher?: User;
-  distance?: number;
 }
 
 export interface RefDataVm {
@@ -1807,122 +1139,6 @@ export interface ResultType {
   readonly isSuccess?: boolean;
   readonly isFailure?: boolean;
   error?: ErrorDto;
-}
-
-export interface ShippingAddress {
-  countryCode?: string | undefined;
-  state?: string | undefined;
-  city?: string | undefined;
-  streetLine1?: string | undefined;
-  streetLine2?: string | undefined;
-  postCode?: string | undefined;
-}
-
-export interface ShippingQuery {
-  id?: string | undefined;
-  from?: User;
-  invoicePayload?: string | undefined;
-  shippingAddress?: ShippingAddress;
-}
-
-export interface Sticker {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  type?: StickerType;
-  width?: number;
-  height?: number;
-  isAnimated?: boolean;
-  isVideo?: boolean;
-  thumbnail?: PhotoSize;
-  emoji?: string | undefined;
-  setName?: string | undefined;
-  premiumAnimation?: File;
-  maskPosition?: MaskPosition;
-  customEmojiId?: string | undefined;
-  needsRepainting?: boolean | undefined;
-}
-
-export enum StickerType {
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-}
-
-export interface Story {}
-
-export interface SuccessfulPayment {
-  currency?: string | undefined;
-  totalAmount?: number;
-  invoicePayload?: string | undefined;
-  shippingOptionId?: string | undefined;
-  orderInfo?: OrderInfo;
-  telegramPaymentChargeId?: string | undefined;
-  providerPaymentChargeId?: string | undefined;
-}
-
-export interface SwitchInlineQueryChosenChat {
-  query?: string | undefined;
-  allowUserChats?: boolean | undefined;
-  allowBotChats?: boolean | undefined;
-  allowGroupChats?: boolean | undefined;
-  allowChannelChats?: boolean | undefined;
-}
-
-export interface Update {
-  id?: number;
-  message?: Message;
-  editedMessage?: Message;
-  channelPost?: Message;
-  editedChannelPost?: Message;
-  inlineQuery?: InlineQuery;
-  chosenInlineResult?: ChosenInlineResult;
-  callbackQuery?: CallbackQuery;
-  shippingQuery?: ShippingQuery;
-  preCheckoutQuery?: PreCheckoutQuery;
-  poll?: Poll;
-  pollAnswer?: PollAnswer;
-  myChatMember?: ChatMemberUpdated;
-  chatMember?: ChatMemberUpdated;
-  chatJoinRequest?: ChatJoinRequest;
-  type?: UpdateType;
-}
-
-export enum UpdateType {
-  _0 = 0,
-  _1 = 1,
-  _2 = 2,
-  _3 = 3,
-  _4 = 4,
-  _5 = 5,
-  _6 = 6,
-  _7 = 7,
-  _8 = 8,
-  _9 = 9,
-  _10 = 10,
-  _11 = 11,
-  _12 = 12,
-  _13 = 13,
-  _14 = 14,
-}
-
-export interface User {
-  id?: number;
-  isBot?: boolean;
-  firstName?: string | undefined;
-  lastName?: string | undefined;
-  username?: string | undefined;
-  languageCode?: string | undefined;
-  isPremium?: boolean | undefined;
-  addedToAttachmentMenu?: boolean | undefined;
-  canJoinGroups?: boolean | undefined;
-  canReadAllGroupMessages?: boolean | undefined;
-  supportsInlineQueries?: boolean | undefined;
-}
-
-export interface UserShared {
-  requestId?: number;
-  userId?: number;
 }
 
 export interface UserVm {
@@ -1947,66 +1163,6 @@ export interface UsersPacksVm {
   names?: string[] | undefined;
 }
 
-export interface UsersPacksVmResultType {
-  readonly isSuccess?: boolean;
-  readonly isFailure?: boolean;
-  error?: ErrorDto;
-  value?: UsersPacksVm;
-}
-
-export interface Venue {
-  location?: Location;
-  title?: string | undefined;
-  address?: string | undefined;
-  foursquareId?: string | undefined;
-  foursquareType?: string | undefined;
-  googlePlaceId?: string | undefined;
-  googlePlaceType?: string | undefined;
-}
-
-export interface Video {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  width?: number;
-  height?: number;
-  duration?: number;
-  thumbnail?: PhotoSize;
-  fileName?: string | undefined;
-  mimeType?: string | undefined;
-}
-
-export interface VideoChatEnded {
-  duration?: number;
-}
-
-export interface VideoChatParticipantsInvited {
-  users?: User[] | undefined;
-}
-
-export interface VideoChatScheduled {
-  startDate?: Date;
-}
-
-export interface VideoChatStarted {}
-
-export interface VideoNote {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  length?: number;
-  duration?: number;
-  thumbnail?: PhotoSize;
-}
-
-export interface Voice {
-  fileId?: string | undefined;
-  fileUniqueId?: string | undefined;
-  fileSize?: number | undefined;
-  duration?: number;
-  mimeType?: string | undefined;
-}
-
 export interface WebAppData {
   data?: string | undefined;
   buttonText?: string | undefined;
@@ -2023,13 +1179,6 @@ export interface WithdrawDto {
   /** Адрес куда присылать */
   address?: string | undefined;
 }
-
-export interface WriteAccessAllowed {
-  fromRequest?: boolean | undefined;
-  webAppName?: string | undefined;
-  fromAttachmentMenu?: boolean | undefined;
-}
-
 export class ApiException extends Error {
   override message: string;
   status: number;
