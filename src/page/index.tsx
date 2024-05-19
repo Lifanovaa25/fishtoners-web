@@ -31,8 +31,8 @@ const DashBoardPage = () => {
     if (initDataRaw) {
       dispatch(setInitDataRow(initDataRaw!));
       dispatch(getUserPanelData({ tma: initDataRaw! }));
-      dispatch(getRefData({ tma: initDataRaw! }));
-      dispatch(getLeaderboard({ tma: initDataRaw! }));
+      //dispatch(getRefData({ tma: initDataRaw! }));
+      //dispatch(getLeaderboard({ tma: initDataRaw! }));
       console.log("dddddddddddd")
     }
   }, [initDataRaw]);

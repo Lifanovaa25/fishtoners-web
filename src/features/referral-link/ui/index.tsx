@@ -15,9 +15,8 @@ export const ReferralLink = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log({ initDataRow });
-    if (true) {
-     // dispatch(getRefData({ tma: "initDataRow!" }));
+    if (initDataRow) {
+      dispatch(getRefData({ tma: initDataRow! }));
     }
   }, [initDataRow]);
   return (

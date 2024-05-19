@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   FishesVm,
   FishesVmResultType,
+  FishVm,
   PanelDataVm,
   PanelDataVmResultType,
   RefDataVm,
@@ -29,8 +30,13 @@ export const initialState = {
   refUrl: "",
   refLeaderboard: {} as UserVm[],
 
-  allfishes: {} as FishesVm,
-  leaderboard: {} as UserVm[],
+  //allfishes: {} as FishesVm,
+  nextFishDate: new Date(Date.now()),
+  allfishes: [] as FishVm[],
+  userFishesCount: 0,
+  isTodayFishClaimed:false,
+
+  leaderboard: [] as UserVm[],
 
   activeTab: "0",
   activeBtn: "deposit",
@@ -43,7 +49,7 @@ export const appSlice = createSlice({
   reducers: {
     setInitDataRow(state, action: PayloadAction<string>) {
       state.initDataRow = action.payload;
-	  console.log("row"+ action.payload)
+      console.log("row" + action.payload);
     },
     setActiveTab(state, action: PayloadAction<string>) {
       state.activeTab = action.payload;
@@ -92,7 +98,10 @@ export const appSlice = createSlice({
       .addCase(
         getUserFishes.fulfilled,
         (state, action: PayloadAction<FishesVmResultType>) => {
-          state.allfishes = action.payload.value!;
+          state.nextFishDate = new Date(action.payload.value!.nextFishDate!);
+          state.allfishes = action.payload.value!.fishes!;
+          state.userFishesCount = action.payload.value!.userFishesCount!;
+		  state.isTodayFishClaimed = action.payload.value!.isTodayFishClaimed!
         }
       )
       .addCase(
