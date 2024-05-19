@@ -24,9 +24,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim }) => {
   const dispatch = useAppDispatch();
   const diff = (nextFishDate.getTime() - new Date(Date.now()).getTime());
   const add = (fishNumber-userFishesCount-1) * 3600 * 24 * 1000
-console.log({fishNumber})
-console.log({diff})
-console.log({add})
+
   const onClaim = () => {
     if (canClaim) {
       dispatch(claimTodayReward({ tma: initDataRow }));
