@@ -16,8 +16,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-height: 800px) {
+        transform: scale(.8);
+    }
 }
 .active {
     position: relative;
     bottom: 20px;
+    @media (max-height: 800px) {
+        font-size: 52px;
+    }
 }
