@@ -1,16 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   ApiResponse,
-  ClaimRewardResultType,
-  FishesVmResultType,
+  FishesVm,
   FishVm,
   PackVm,
-  PackVmArrayResultType,
   PanelDataVm,
-  RefDataVmResultType,
+  RefDataVm,
   UsersPacksVm,
   UserVm,
-  UserVmArrayResultType,
 } from "store/api";
 import {
   buyPack,
@@ -32,7 +29,7 @@ export const initialState = {
   //refData: {} as RefDataVm,
   youInvitedCount: 0,
   refUrl: "",
-  refLeaderboard: {} as UserVm[],
+  refLeaderboard: [] as UserVm[],
 
   //allfishes: {} as FishesVm,
   nextFishDate: new Date(Date.now()),
@@ -89,7 +86,7 @@ export const appSlice = createSlice({
       )
       .addCase(
         getRefData.fulfilled,
-        (state, action: PayloadAction<RefDataVmResultType>) => {
+        (state, action: PayloadAction<ApiResponse<RefDataVm>>) => {
           state.youInvitedCount = action.payload.value!.youInvitedCount!;
           state.refUrl = action.payload.value!.refUrl!;
           state.refLeaderboard = action.payload.value!.leadeboard!;
@@ -103,7 +100,7 @@ export const appSlice = createSlice({
       )
       .addCase(
         getUserFishes.fulfilled,
-        (state, action: PayloadAction<FishesVmResultType>) => {
+        (state, action: PayloadAction<ApiResponse<FishesVm>>) => {
           state.nextFishDate = new Date(action.payload.value!.nextFishDate!);
           state.allfishes = action.payload.value!.fishes!;
           state.userFishesCount = action.payload.value!.userFishesCount!;
@@ -112,7 +109,7 @@ export const appSlice = createSlice({
       )
       .addCase(
         getLeaderboard.fulfilled,
-        (state, action: PayloadAction<UserVmArrayResultType>) => {
+        (state, action: PayloadAction<ApiResponse<UserVm[]>>) => {
           state.leaderboard = action.payload.value!;
           if (state.leaderboard.length < 10) {
             for (let index = state.leaderboard.length; index < 10; index++) {
@@ -124,7 +121,7 @@ export const appSlice = createSlice({
       )
       .addCase(
         claimTodayReward.fulfilled,
-        (state, action: PayloadAction<ClaimRewardResultType>) => {
+        (state, action: PayloadAction<ApiResponse<number>>) => {
           state.isTodayFishClaimed = true;
           state.userFishesCount = action.payload.value!;
           state.allfishes.find((x) => x.id == action.payload.value!)!.claimed =
@@ -133,7 +130,7 @@ export const appSlice = createSlice({
       )
       .addCase(
         getPacks.fulfilled,
-        (state, action: PayloadAction<PackVmArrayResultType>) => {
+        (state, action: PayloadAction<ApiResponse<PackVm[]>>) => {
           state.packsForStore = action.payload.value!;
         }
       )

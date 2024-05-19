@@ -1,14 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
     ApiResponse,
-    ClaimRewardResultType,
   Client,
-  FishesVmResultType,
-  PackVmArrayResultType,
+  FishesVm,
+  PackVm,
   PanelDataVm,
-  RefDataVmResultType,
+  RefDataVm,
   ResultType,
-  UserVmArrayResultType,
+  UserVm,
   UsersPacksVm,
 } from "./api";
 import { createAxiosClient } from "./axiosClient";
@@ -64,7 +63,7 @@ export const changeLang = createAsyncThunk<
   }
 });
 
-export const claimTodayReward = createAsyncThunk<ClaimRewardResultType, IAuthorized>(
+export const claimTodayReward = createAsyncThunk<ApiResponse<number>, IAuthorized>(
   "appSlice/claimTodayReward",
   async (args, { rejectWithValue }) => {
     try {
@@ -77,7 +76,7 @@ export const claimTodayReward = createAsyncThunk<ClaimRewardResultType, IAuthori
   }
 );
 
-export const getRefData = createAsyncThunk<RefDataVmResultType, IAuthorized>(
+export const getRefData = createAsyncThunk<ApiResponse<RefDataVm>, IAuthorized>(
   "appSlice/getRefData",
   async (args, { rejectWithValue }) => {
     try {
@@ -89,7 +88,7 @@ export const getRefData = createAsyncThunk<RefDataVmResultType, IAuthorized>(
     }
   }
 );
-export const getUserFishes = createAsyncThunk<FishesVmResultType, IAuthorized>(
+export const getUserFishes = createAsyncThunk<ApiResponse<FishesVm>, IAuthorized>(
   "appSlice/getUserFishes",
   async (args, { rejectWithValue }) => {
     try {
@@ -101,20 +100,20 @@ export const getUserFishes = createAsyncThunk<FishesVmResultType, IAuthorized>(
     }
   }
 );
-export const getLeaderboard = createAsyncThunk<
-  UserVmArrayResultType,
-  IAuthorized
->("appSlice/getLeaderboard", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getLeaderboard();
-  } catch (err: any) {
-    return rejectWithValue(err.response.data);
+export const getLeaderboard = createAsyncThunk<ApiResponse<UserVm[]>, IAuthorized>(
+  "appSlice/getLeaderboard",
+  async (args, { rejectWithValue }) => {
+    try {
+      const axiosClient = createAxiosClient(args.tma);
+      const c = new Client("", axiosClient);
+      return c.getLeaderboard();
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
   }
-});
+);
 
-export const getPacks = createAsyncThunk<PackVmArrayResultType, IAuthorized>(
+export const getPacks = createAsyncThunk<ApiResponse<PackVm[]>, IAuthorized>(
   "appSlice/getPacks",
   async (args, { rejectWithValue }) => {
     try {
