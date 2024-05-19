@@ -1,10 +1,9 @@
 import axios, { AxiosError } from "axios";
 import type {
   AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
   CancelToken,
 } from "axios";
+import { handleRequest } from "./axiosClient";
 
 export interface ApiResponse<T> {
   data: T;
@@ -93,657 +92,137 @@ export class Client implements IClient {
    * @param body (optional)
    * @return OK
    */
-  deposit(
-    body?: DepositDto | undefined,
+  async deposit(
+    body?: DepositDto,
     cancelToken?: CancelToken
   ): Promise<ResultType> {
-    let url_ = this.baseUrl + "/api/Deposit";
-    url_ = url_.replace(/[?&]$/, "");
-
-    const content_ = JSON.stringify(body);
-
-    let options_: AxiosRequestConfig = {
-      data: content_,
+    const url = `${this.baseUrl}/api/Deposit`;
+    const options = {
+      data: JSON.stringify(body),
       method: "POST",
-      url: url_,
+      url,
       headers: {
         "Content-Type": "application/json-patch+json",
         Accept: "text/plain",
       },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processDeposit(_response);
-      });
-  }
-
-  protected processDeposit(response: AxiosResponse): Promise<ResultType> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ResultType>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ResultType>(null as any);
+    return handleRequest<ResultType>(this.instance, options);
   }
 
   /**
    * Получить данные для панели пользователя
    * @return OK
    */
-  getUserPanelData(
+  async getUserPanelData(
     cancelToken?: CancelToken
   ): Promise<ApiResponse<PanelDataVm>> {
-    let url_ = this.baseUrl + "/api/Game/GetUserPanelData";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+    const url = `${this.baseUrl}/api/Game/GetUserPanelData`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetUserPanelData(_response);
-      });
-  }
-
-  protected processGetUserPanelData(
-    response: AxiosResponse
-  ): Promise<ApiResponse<PanelDataVm>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<PanelDataVm>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<PanelDataVm>>(null as any);
+    return handleRequest<ApiResponse<PanelDataVm>>(this.instance, options);
   }
 
   /**
    * Получить список активных паков юзера (для страницы с крючками)
    * @return OK
    */
-  getActiveUsersPacks(
+  async getActiveUsersPacks(
     cancelToken?: CancelToken
   ): Promise<ApiResponse<UsersPacksVm>> {
-    let url_ = this.baseUrl + "/api/Game/GetActiveUsersPacks";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+    const url = `${this.baseUrl}/api/Game/GetActiveUsersPacks`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetActiveUsersPacks(_response);
-      });
-  }
-
-  protected processGetActiveUsersPacks(
-    response: AxiosResponse
-  ): Promise<ApiResponse<UsersPacksVm>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<UsersPacksVm>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<UsersPacksVm>>(null as any);
+    return handleRequest<ApiResponse<UsersPacksVm>>(this.instance, options);
   }
 
   /**
    * Получить список паков доступных юзеру для покупки (для магазина)
    * @return OK
    */
-  getPacks(cancelToken?: CancelToken): Promise<ApiResponse<PackVm[]>> {
-    let url_ = this.baseUrl + "/api/Game/GetPacks";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+  async getPacks(cancelToken?: CancelToken): Promise<ApiResponse<PackVm[]>> {
+    const url = `${this.baseUrl}/api/Game/GetPacks`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetPacks(_response);
-      });
-  }
-
-  protected processGetPacks(
-    response: AxiosResponse
-  ): Promise<ApiResponse<PackVm[]>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<PackVm[]>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<PackVm[]>>(null as any);
+    return handleRequest<ApiResponse<PackVm[]>>(this.instance, options);
   }
 
   /**
    * Получить данные по рефам
    * @return OK
    */
-  getRefData(cancelToken?: CancelToken): Promise<ApiResponse<RefDataVm>> {
-    let url_ = this.baseUrl + "/api/Game/GetRefData";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+  async getRefData(cancelToken?: CancelToken): Promise<ApiResponse<RefDataVm>> {
+    const url = `${this.baseUrl}/api/Game/GetRefData`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetRefData(_response);
-      });
-  }
-
-  protected processGetRefData(
-    response: AxiosResponse
-  ): Promise<ApiResponse<RefDataVm>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<RefDataVm>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<RefDataVm>>(null as any);
+    return handleRequest<ApiResponse<RefDataVm>>(this.instance, options);
   }
 
   /**
    * Получить рыбок текущего пользователя (доступных и забранных)
    * @return OK
    */
-  getUserFishes(cancelToken?: CancelToken): Promise<ApiResponse<FishesVm>> {
-    let url_ = this.baseUrl + "/api/Game/GetUserFishes";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+  async getUserFishes(
+    cancelToken?: CancelToken
+  ): Promise<ApiResponse<FishesVm>> {
+    const url = `${this.baseUrl}/api/Game/GetUserFishes`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetUserFishes(_response);
-      });
-  }
-
-  protected processGetUserFishes(
-    response: AxiosResponse
-  ): Promise<ApiResponse<FishesVm>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<FishesVm>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<FishesVm>>(null as any);
+    return handleRequest<ApiResponse<FishesVm>>(this.instance, options);
   }
 
   /**
    * Получить таблицу лидеров
    * @return OK
    */
-  getLeaderboard(cancelToken?: CancelToken): Promise<ApiResponse<UserVm[]>> {
-    let url_ = this.baseUrl + "/api/Game/GetLeaderboard";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+  async getLeaderboard(
+    cancelToken?: CancelToken
+  ): Promise<ApiResponse<UserVm[]>> {
+    const url = `${this.baseUrl}/api/Game/GetLeaderboard`;
+    const options = {
       method: "GET",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processGetLeaderboard(_response);
-      });
-  }
-
-  protected processGetLeaderboard(
-    response: AxiosResponse
-  ): Promise<ApiResponse<UserVm[]>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<UserVm[]>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<UserVm[]>>(null as any);
+    return handleRequest<ApiResponse<UserVm[]>>(this.instance, options);
   }
 
   /**
    * Получить сегодняшнюю награду
    * @return OK
    */
-  claimTodayReward(cancelToken?: CancelToken): Promise<ApiResponse<number>> {
-    let url_ = this.baseUrl + "/api/Game/ClaimTodayReward";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: AxiosRequestConfig = {
+  async claimTodayReward(
+    cancelToken?: CancelToken
+  ): Promise<ApiResponse<number>> {
+    const url = `${this.baseUrl}/api/Game/ClaimTodayReward`;
+    const options = {
       method: "POST",
-      url: url_,
-      headers: {
-        Accept: "text/plain",
-      },
+      url,
+      headers: { Accept: "text/plain" },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processClaimTodayReward(_response);
-      });
-  }
-
-  protected processClaimTodayReward(
-    response: AxiosResponse
-  ): Promise<ApiResponse<number>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<number>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<number>>(null as any);
+    return handleRequest<ApiResponse<number>>(this.instance, options);
   }
 
   /**
@@ -751,88 +230,22 @@ export class Client implements IClient {
    * @param body (optional)
    * @return OK
    */
-  buyPack(
-    body?: BuyDto | undefined,
+  async buyPack(
+    body?: BuyDto,
     cancelToken?: CancelToken
   ): Promise<ApiResponse<string>> {
-    let url_ = this.baseUrl + "/api/Game/BuyPack";
-    url_ = url_.replace(/[?&]$/, "");
-
-    const content_ = JSON.stringify(body);
-
-    let options_: AxiosRequestConfig = {
-      data: content_,
+    const url = `${this.baseUrl}/api/Game/BuyPack`;
+    const options = {
+      data: JSON.stringify(body),
       method: "POST",
-      url: url_,
+      url,
       headers: {
         "Content-Type": "application/json-patch+json",
         Accept: "text/plain",
       },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processBuyPack(_response);
-      });
-  }
-
-  protected processBuyPack(
-    response: AxiosResponse
-  ): Promise<ApiResponse<string>> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ApiResponse<string>>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ApiResponse<string>>(null as any);
+    return handleRequest<ApiResponse<string>>(this.instance, options);
   }
 
   /**
@@ -840,88 +253,22 @@ export class Client implements IClient {
    * @param body (optional)
    * @return OK
    */
-  changeLanguage(
-    body?: LangDto | undefined,
+  async changeLanguage(
+    body?: LangDto,
     cancelToken?: CancelToken
   ): Promise<ResultType> {
-    let url_ = this.baseUrl + "/api/Game/ChangeLanguage";
-    url_ = url_.replace(/[?&]$/, "");
-
-    const content_ = JSON.stringify(body);
-
-    let options_: AxiosRequestConfig = {
-      data: content_,
+    const url = `${this.baseUrl}/api/Game/ChangeLanguage`;
+    const options = {
+      data: JSON.stringify(body),
       method: "POST",
-      url: url_,
+      url,
       headers: {
         "Content-Type": "application/json-patch+json",
         Accept: "text/plain",
       },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processChangeLanguage(_response);
-      });
-  }
-
-  protected processChangeLanguage(
-    response: AxiosResponse
-  ): Promise<ResultType> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ResultType>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ResultType>(null as any);
+    return handleRequest<ResultType>(this.instance, options);
   }
 
   /**
@@ -929,86 +276,22 @@ export class Client implements IClient {
    * @param body (optional)
    * @return OK
    */
-  withdraw(
-    body?: WithdrawDto | undefined,
+  async withdraw(
+    body?: WithdrawDto,
     cancelToken?: CancelToken
   ): Promise<ResultType> {
-    let url_ = this.baseUrl + "/api/Game/Withdraw";
-    url_ = url_.replace(/[?&]$/, "");
-
-    const content_ = JSON.stringify(body);
-
-    let options_: AxiosRequestConfig = {
-      data: content_,
+    const url = `${this.baseUrl}/api/Game/Withdraw`;
+    const options = {
+      data: JSON.stringify(body),
       method: "POST",
-      url: url_,
+      url,
       headers: {
         "Content-Type": "application/json-patch+json",
         Accept: "text/plain",
       },
       cancelToken,
     };
-
-    return this.instance
-      .request(options_)
-      .catch((_error: any) => {
-        if (isAxiosError(_error) && _error.response) {
-          return _error.response;
-        } else {
-          throw _error;
-        }
-      })
-      .then((_response: AxiosResponse) => {
-        return this.processWithdraw(_response);
-      });
-  }
-
-  protected processWithdraw(response: AxiosResponse): Promise<ResultType> {
-    const status = response.status;
-    let _headers: any = {};
-    if (response.headers && typeof response.headers === "object") {
-      for (const k in response.headers) {
-        if (response.headers.hasOwnProperty(k)) {
-          _headers[k] = response.headers[k];
-        }
-      }
-    }
-    if (status === 200) {
-      return Promise.resolve<ResultType>(response.data);
-    } else if (status === 400) {
-      const _responseText = response.data;
-      let result400: any = null;
-      let resultData400 = _responseText;
-      result400 = JSON.parse(resultData400);
-      return throwException(
-        "Bad Request",
-        status,
-        _responseText,
-        _headers,
-        result400
-      );
-    } else if (status === 500) {
-      const _responseText = response.data;
-      let result500: any = null;
-      let resultData500 = _responseText;
-      result500 = JSON.parse(resultData500);
-      return throwException(
-        "Internal Server Error",
-        status,
-        _responseText,
-        _headers,
-        result500
-      );
-    } else if (status !== 200 && status !== 204) {
-      const _responseText = response.data;
-      return throwException(
-        "An unexpected server error occurred.",
-        status,
-        _responseText,
-        _headers
-      );
-    }
-    return Promise.resolve<ResultType>(null as any);
+    return handleRequest<ResultType>(this.instance, options);
   }
 }
 
@@ -1053,7 +336,6 @@ export interface FishesVm {
   userFishesCount?: number;
   isTodayFishClaimed?: boolean;
 }
-
 
 /** Изменить язык */
 export interface LangDto {
@@ -1129,48 +411,4 @@ export interface WithdrawDto {
   amount?: number;
   /** Адрес куда присылать */
   address?: string | undefined;
-}
-export class ApiException extends Error {
-  override message: string;
-  status: number;
-  response: string;
-  headers: { [key: string]: any };
-  result: any;
-
-  constructor(
-    message: string,
-    status: number,
-    response: string,
-    headers: { [key: string]: any },
-    result: any
-  ) {
-    super();
-
-    this.message = message;
-    this.status = status;
-    this.response = response;
-    this.headers = headers;
-    this.result = result;
-  }
-
-  protected isApiException = true;
-
-  static isApiException(obj: any): obj is ApiException {
-    return obj.isApiException === true;
-  }
-}
-
-function throwException(
-  message: string,
-  status: number,
-  response: string,
-  headers: { [key: string]: any },
-  result?: any
-): any {
-  if (result !== null && result !== undefined) throw result;
-  else throw new ApiException(message, status, response, headers, null);
-}
-
-function isAxiosError(obj: any): obj is AxiosError {
-  return obj && obj.isAxiosError === true;
 }
