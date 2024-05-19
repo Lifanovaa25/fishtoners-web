@@ -34,6 +34,7 @@ export const getActiveUsersPack = createAsyncThunk<
   try {
     const axiosClient = createAxiosClient(args.tma);
     const c = new Client("", axiosClient);
+    console.log('test: ' + c.getActiveUsersPacks)
     return c.getActiveUsersPacks();
   } catch (err: any) {
     return rejectWithValue(err.response.data);
