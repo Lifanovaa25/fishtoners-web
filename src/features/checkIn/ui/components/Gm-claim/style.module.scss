@@ -69,3 +69,17 @@
   text-align: center;
   color: #fff;
 }
+
+.collect_btn {
+  border:none;
+  font-family: var(--fm-main);
+  font-weight: 700;
+  font-size: 39px;
+  color: #fff;
+  width: 185px;
+  height: 55px;
+  // padding: 16px;
+  // top: 250px;
+  // position: absolute;
+  background: url(./../../assets/gm-button.png) center center / cover no-repeat;
+}

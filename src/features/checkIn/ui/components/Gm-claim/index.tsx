@@ -38,7 +38,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
       {!isClaimed && (
         <button
           onClick={onClaim}
-          className={clsx(s.gm_btn, { [s.gm_disable]: !canClaim })}
+          className={clsx(s.collect_btn, { [s.gm_disable]: !canClaim })}
         >
           <span className={clsx(s.text, "shadow")}>
             {!canClaim ? (
@@ -49,7 +49,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
                 </div>
               </span>
             ) : (
-              "GM"
+              t('Collect')
             )}
           </span>
         </button>
