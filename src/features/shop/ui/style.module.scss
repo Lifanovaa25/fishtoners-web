@@ -37,6 +37,9 @@
     top: 165px;
     padding: 14px;
     padding-top: 36px;
+    @media (max-height:800) {
+        margin-top: 10%;
+    }
 }
 
 .shop_bg {
