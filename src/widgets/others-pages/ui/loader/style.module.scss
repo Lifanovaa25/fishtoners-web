@@ -1,14 +1,14 @@
-
 .container_loading {
   width: 100%;
   height: 100%;
   padding: 239px 0 102px 0;
 
   // background-image: url(../assets/loading-background.png);
-  background-image: url('../assets/Background_prev.png');
+  background-image: url('./assets/Background_prev.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+
   @media (max-width: 500px) {
     background-size: cover;
   }
