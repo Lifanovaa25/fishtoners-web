@@ -123,6 +123,8 @@ export const appSlice = createSlice({
         (state, action: PayloadAction<ClaimRewardResultType>) => {
           state.isTodayFishClaimed = true;
           state.userFishesCount = action.payload.value!;
+          state.allfishes.find((x) => x.id == action.payload.value!)!.claimed =
+            true;
         }
       );
   },

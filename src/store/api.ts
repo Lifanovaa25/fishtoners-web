@@ -1395,9 +1395,9 @@ export interface File {
 }
 
 export interface FishVm {
-  id?: number;
-  name?: string | undefined;
-  claimed?: boolean;
+  id: number;
+  name: string | undefined;
+  claimed: boolean;
 }
 
 export interface FishesVm {

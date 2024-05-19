@@ -20,23 +20,24 @@ const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
   const { t } = useTranslation();
-  const { allfishes, nextFishDate, userFishesCount, isTodayFishClaimed } =
-    useAppSelector((state) => state.appSlice);
-  const last_claim = nextFishDate ?? 0;
-  console.log({ last_claim });
-  console.log({ allfishes });
+  const { allfishes, userFishesCount, isTodayFishClaimed } = useAppSelector(
+    (state) => state.appSlice
+  );
   const {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-  console.log({ userFishesCount });
-  console.log({ isTodayFishClaimed });
 
   const canClaim = (index: number) => {
     //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
     return !isTodayFishClaimed && index == userFishesCount;
+  };
+  const renderFish = (index: number) => {
+    return (
+      canClaim(index) || allfishes.find((x) => x.id! - 1 == index)?.claimed!
+    );
   };
 
   return (
@@ -46,20 +47,13 @@ export const Slider: React.FC = () => {
           {SLIDES.map((index) => (
             <div
               className={clsx(s.embla__slide, "shadow", {
-                [s.slide_disable]: canClaim(index),
+                [s.slide_disable]: !renderFish(index),
               })}
               key={index}
             >
-              {(canClaim(index) ||
-                allfishes.find((x) => x.id! - 1 == index)?.claimed!) && (
+              {renderFish(index) && (
                 <img className={s.slide_fishes} src={fishes[index]} alt="" />
               )}
-              {index + " " + canClaim(index)}
-              {/*!allfishes.find((x) => x.id! - 1 == index)?.claimed && (
-                <Button className={s.collect_btn} isActive>
-                  {t("Collect")}
-                </Button>
-              )*/}
               <div className={s.position}>
                 <GmClaim
                   fishNumber={index}
