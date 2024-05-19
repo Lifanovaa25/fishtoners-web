@@ -14,6 +14,8 @@ interface IProps {
   isClaimed: boolean;
 }
 
+const DAY = 3600 * 24 * 1000;
+
 export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
   const { t } = useTranslation();
   const { initDataRow, nextFishDate, userFishesCount } = useAppSelector(
@@ -22,7 +24,8 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
 
   const dispatch = useAppDispatch();
   const diff = nextFishDate.getTime() - new Date(Date.now()).getTime();
-  const add = (fishNumber - userFishesCount) * 3600 * 24 * 1000;
+  const add = (fishNumber - userFishesCount) * DAY;
+  const sub = userFishesCount == 0 ? DAY : 0;
 
   const onClaim = () => {
     if (canClaim) {
@@ -45,7 +48,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
               <span className={s.disable_text}>
                 Next check in
                 <div className={s.timer}>
-                  <TimerClaim remained={diff + add} />
+                  <TimerClaim remained={diff + add - sub} />
                 </div>
               </span>
             ) : (
