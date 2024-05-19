@@ -11,11 +11,11 @@ i18n
   .init({
     returnEmptyString: false,
     debug: true,
-    fallbackLng: 'ru',
+    fallbackLng: 'en',
   });
 
 i18n?.services?.formatter?.add('DATE_LONG', (value, lng, _options) => {
-  return DateTime.fromJSDate(value).setLocale(lng ?? 'ru').toLocaleString(DateTime.DATE_HUGE)
+  return DateTime.fromJSDate(value).setLocale(lng ?? 'en').toLocaleString(DateTime.DATE_HUGE)
 });
 
 export default i18n;

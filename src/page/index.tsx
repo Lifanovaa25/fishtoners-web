@@ -21,7 +21,7 @@ import { getUserPanelData } from "store/apis";
 
 const DashBoardPage = () => {
   // const { t } = useTranslation();
-  const { activeTab, panelData/*, initDataRow */} = useAppSelector(
+  const { activeTab, panelData/*, initDataRow */ } = useAppSelector(
     (state) => state.appSlice
   );
   const [isOpen, onSetState] = useToogle();
@@ -59,11 +59,7 @@ const DashBoardPage = () => {
                     {/* <Wallet /> */}
                   </>
                 )}
-                {activeTab === "2" && (
-                  <>
-                    <Shop isOpen={isOpen} onSetState={onSetState} />
-                  </>
-                )}
+              
                 {activeTab === "3" && (
                   <>
                     <ReferralLink />

@@ -3,7 +3,7 @@ import { Button } from "shared/ui/button"
 
 import Deposit from '../../assets/Deposit.svg'
 import s from './style.module.scss'
-import ton from './../../assets/brilliant.svg'
+import ton from './../../assets/ton2.svg'
 
 import close from './../../assets/deposit_close.svg'
 import clsx from "clsx"

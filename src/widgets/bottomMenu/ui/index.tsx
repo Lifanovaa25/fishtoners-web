@@ -10,6 +10,8 @@ import game from './assets/game.svg'
 import shop from './assets/shop.svg'
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { appSlice } from 'store/reducers/appSlice';
+import { Shop } from 'features/shop';
+import { useToogle } from 'shared/lib/toggle';
 export const BottomMenu = () => {
 
     const tabs = [
@@ -36,24 +38,45 @@ export const BottomMenu = () => {
     const { activeTab } = useAppSelector((state) => state.appSlice);
     const { setActiveTab } = appSlice.actions;
     const dispatch = useAppDispatch();
-
+    const [isOpen, onSetState] = useToogle();
+    const openShop = () => {
+        onSetState();
+    }
     return (
         <div className={s.menu}>
 
             {tabs.map((tab, index) =>
-                <Button key={index}
-                    className={
-                        activeTab === tab.id
-                            ?[s.menu_btn, s.active].join(' ')
-                            : s.menu_btn
+                <>
+                    {tab.id === '2' ? <>
+                        <Button key={index}
+                            className={
+                                activeTab === tab.id
+                                    ? [s.menu_btn, s.active].join(' ')
+                                    : s.menu_btn
+                            }
+                            onClick={ openShop}
+                        >
+                            <img src={tab.icon} alt="" />
+
+                        </Button>
+                        <Shop isOpen={isOpen} onSetState={onSetState} />
+                    </>
+                        : <Button key={index}
+                            className={
+                                activeTab === tab.id
+                                    ? [s.menu_btn, s.active].join(' ')
+                                    : s.menu_btn
+                            }
+                            onClick={() => {
+                                dispatch(setActiveTab(tab.id));
+                            }}
+                        >
+                            <img src={tab.icon} alt="" />
+
+                        </Button>
                     }
-                    onClick={() => {
-                        dispatch(setActiveTab(tab.id));
-                    }}
-                >
-                    <img src={tab.icon} alt="" />
-                    
-                </Button>
+                </>
+
             )}
 
         </div>
