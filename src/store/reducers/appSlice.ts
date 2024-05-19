@@ -47,6 +47,7 @@ export const appSlice = createSlice({
         (state, action: any) => {
          // state.panelData = action.payload.value!;
           console.log({action});
+          console.log({state});
         }
       )
       .addCase(

@@ -226,6 +226,7 @@ export class Client implements IClient {
     }
     if (status === 200) {
       const _responseText = response.data;
+      console.log('_responseText:' + _responseText)
       return Promise.resolve<void>(null as any);
     } else if (status !== 200 && status !== 204) {
       const _responseText = response.data;
@@ -288,9 +289,11 @@ export class Client implements IClient {
     }
     if (status === 200) {
       const _responseText = response.data;
+      console.log('_responseText:' + _responseText)
       return Promise.resolve<void>(null as any);
     } else if (status !== 200 && status !== 204) {
       const _responseText = response.data;
+      
       return throwException(
         "An unexpected server error occurred.",
         status,

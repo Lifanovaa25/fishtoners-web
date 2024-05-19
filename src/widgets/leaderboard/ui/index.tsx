@@ -6,7 +6,7 @@ import { Loader } from "shared/ui/loader";
 import no_avatar from "./assets/no-avatar.jpg";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect } from "react";
-import { appSlice } from "store/reducers/appSlice";
+// import { appSlice } from "store/reducers/appSlice";
 import { getLeaderboard } from "store/apis";
 
 export const Leaderboard = () => {

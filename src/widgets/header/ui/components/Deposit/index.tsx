@@ -14,11 +14,13 @@ import { appSlice } from "store/reducers/appSlice"
 interface DepositBtnProps {
     onSetStateDeposit: () => void,
     onSetState: () => void,
+    classN?: string;
 }
 
 export const DepositBtn = ({
     onSetStateDeposit,
     onSetState,
+    classN
 }: DepositBtnProps) => {
     const { t } = useTranslation();
 
@@ -28,15 +30,25 @@ export const DepositBtn = ({
     }
 
     return (
-        <Button
-            onClick={openDeposit}
-            className={s.button}
-        // isActive
-        >
-            {t('Deposit')}
+        <>
+            {classN ?
+                <Button
+                    onClick={openDeposit}
+                    className={classN ? classN : s.button}
+                >
+                    <img src={Deposit} />
+                </Button>
+                :
+                <Button
+                    onClick={openDeposit}
+                    className={classN ? classN : s.button}
+                // isActive
+                >
+                    {t('Deposit')}
 
-            <img src={Deposit} />
-        </Button>
+                    <img src={Deposit} />
+                </Button>}</>
+
     )
 }
 
@@ -145,7 +157,7 @@ export const DepositModal = ({
                                             s.inputLabel
                                         }
                                     >
-                                       To Address:
+                                        To Address:
                                     </label>
                                     <input
                                         name="address"
@@ -158,7 +170,7 @@ export const DepositModal = ({
                                         readOnly={false}
 
                                     />
-                                   
+
                                 </div>
 
                                 <div className={s.item}>
@@ -181,7 +193,7 @@ export const DepositModal = ({
                                         readOnly={false}
 
                                     />
-                                   
+
                                 </div>
                             </div>
                             <button className={s.yellow_btn}>Withdraw</button>

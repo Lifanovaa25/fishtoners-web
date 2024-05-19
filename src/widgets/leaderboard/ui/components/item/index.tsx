@@ -3,6 +3,7 @@ import s from './style.module.scss'
 import first_place from '../../assets/first-place.svg'
 import second_place from '../../assets/second-place.svg'
 import third_place from '../../assets/third-place.svg'
+import noAvatar from '../../assets/no-avatar.jpg'
 
 interface LeaderboardItemProps {
     index: number,
@@ -30,7 +31,7 @@ export const LeaderboardItem = ({
         <div className={s.item_body}>
             <div className={s.item_left}>
                 <div className={s.item_avatar}>
-                    <img src={avatar} />
+                    <img src={avatar? avatar : noAvatar} />
                 </div>
 
                 <div className={s.names}>

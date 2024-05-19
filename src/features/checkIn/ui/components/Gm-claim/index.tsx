@@ -1,9 +1,8 @@
-import { CURRENT_UNIXTIME, DAY_UNIXTIME } from 'shared/config';
+
 import clsx from 'clsx'
 import Countdown from 'react-countdown';
 
 import s from './style.module.scss';
-import { api } from 'shared/api';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -19,6 +18,8 @@ export const GmClaim: FC<IProps> = ({ fishNumber}) => {
     const { t } = useTranslation()
     const { allfishes,initDataRow } = useAppSelector((state) => state.appSlice);
     const { setInitDataRow } = appSlice.actions;
+    console.log('setInitDataRow:' + setInitDataRow)
+
     const dispatch = useAppDispatch();
 
     const nextCheckIn = allfishes?.nextFishDate?.getTime()??0;

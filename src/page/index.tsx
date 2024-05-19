@@ -5,7 +5,7 @@ import { Header } from "widgets/header";
 import { CheckIn } from "features/checkIn";
 import title from "shared/assets/title.png";
 import { Loader } from "shared/ui/loader";
-import { Wallet } from "widgets/wallet/ui";
+// import { Wallet } from "widgets/wallet/ui";
 import { BottomMenu } from "widgets/bottomMenu";
 
 import { useAppDispatch, useAppSelector } from "hooks/redux";
@@ -15,7 +15,7 @@ import { useToogle } from "shared/lib/toggle";
 import { ReferralLink } from "features/referral-link";
 import { FirstVizit } from "features/firstVisit";
 import { useEffect } from "react";
-import { retrieveLaunchParams } from "@tma.js/sdk";
+// import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
 import { getUserPanelData } from "store/apis";
 
@@ -56,7 +56,7 @@ const DashBoardPage = () => {
                 {activeTab === "0" && (
                   <>
                     <Game />
-                    <Wallet />
+                    {/* <Wallet /> */}
                   </>
                 )}
                 {activeTab === "2" && (
