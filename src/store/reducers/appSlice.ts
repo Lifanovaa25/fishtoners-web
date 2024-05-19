@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  ClaimRewardResultType,
   FishesVm,
   FishesVmResultType,
   FishVm,
@@ -12,6 +13,7 @@ import {
   UserVmArrayResultType,
 } from "store/api";
 import {
+  claimTodayReward,
   getActiveUsersPack,
   getLeaderboard,
   getRefData,
@@ -34,7 +36,7 @@ export const initialState = {
   nextFishDate: new Date(Date.now()),
   allfishes: [] as FishVm[],
   userFishesCount: 0,
-  isTodayFishClaimed:false,
+  isTodayFishClaimed: true,
 
   leaderboard: [] as UserVm[],
 
@@ -101,7 +103,7 @@ export const appSlice = createSlice({
           state.nextFishDate = new Date(action.payload.value!.nextFishDate!);
           state.allfishes = action.payload.value!.fishes!;
           state.userFishesCount = action.payload.value!.userFishesCount!;
-		  state.isTodayFishClaimed = action.payload.value!.isTodayFishClaimed!
+          state.isTodayFishClaimed = action.payload.value!.isTodayFishClaimed!;
         }
       )
       .addCase(
@@ -114,6 +116,13 @@ export const appSlice = createSlice({
               state.leaderboard.push(empty);
             }
           }
+        }
+      )
+      .addCase(
+        claimTodayReward.fulfilled,
+        (state, action: PayloadAction<ClaimRewardResultType>) => {
+          state.isTodayFishClaimed = true;
+          state.userFishesCount = action.payload.value!;
         }
       );
   },

@@ -20,7 +20,8 @@ const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
   const { t } = useTranslation();
-  const { allfishes, nextFishDate,userFishesCount,isTodayFishClaimed } = useAppSelector((state) => state.appSlice);
+  const { allfishes, nextFishDate, userFishesCount, isTodayFishClaimed } =
+    useAppSelector((state) => state.appSlice);
   const last_claim = nextFishDate ?? 0;
   console.log({ last_claim });
   console.log({ allfishes });
@@ -30,15 +31,13 @@ export const Slider: React.FC = () => {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-console.log({userFishesCount})
-console.log({isTodayFishClaimed})
+  console.log({ userFishesCount });
+  console.log({ isTodayFishClaimed });
 
-const canClaim=(index:number)=>{
-  return (
-    !allfishes.find((x) => x.id == index)?.claimed &&
-    !(index == userFishesCount && !isTodayFishClaimed)
-  );
-}
+  const canClaim = (index: number) => {
+    //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
+    return !isTodayFishClaimed && index == userFishesCount;
+  };
 
   return (
     <section className={s.slider}>
@@ -47,24 +46,27 @@ const canClaim=(index:number)=>{
           {SLIDES.map((index) => (
             <div
               className={clsx(s.embla__slide, "shadow", {
-                [s.slide_disable]:
-                  !allfishes.find((x) => x.id == index)?.claimed &&
-                  !(index == userFishesCount &&
-                  !isTodayFishClaimed),
+                [s.slide_disable]: canClaim(index),
               })}
               key={index}
             >
-              {index == userFishesCount && !isTodayFishClaimed && (
+              {(canClaim(index) ||
+                allfishes.find((x) => x.id! - 1 == index)?.claimed!) && (
                 <img className={s.slide_fishes} src={fishes[index]} alt="" />
               )}
-              {index}
-              <Button className={s.collect_btn} isActive>
-                {t("Collect")}
-              </Button>
+              {index + " " + canClaim(index)}
+              {/*!allfishes.find((x) => x.id! - 1 == index)?.claimed && (
+                <Button className={s.collect_btn} isActive>
+                  {t("Collect")}
+                </Button>
+              )*/}
               <div className={s.position}>
                 <GmClaim
                   fishNumber={index}
                   canClaim={canClaim(index)}
+                  isClaimed={
+                    allfishes.find((x) => x.id! - 1 == index)?.claimed!
+                  }
                 />
               </div>
             </div>

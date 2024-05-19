@@ -11,19 +11,18 @@ import { FC } from "react";
 interface IProps {
   fishNumber: number;
   canClaim: boolean;
+  isClaimed: boolean;
 }
 
-export const GmClaim: FC<IProps> = ({ fishNumber, canClaim }) => {
+export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
   const { t } = useTranslation();
-  const {
-    initDataRow,
-    nextFishDate,
-    userFishesCount
-  } = useAppSelector((state) => state.appSlice);
+  const { initDataRow, nextFishDate, userFishesCount } = useAppSelector(
+    (state) => state.appSlice
+  );
 
   const dispatch = useAppDispatch();
-  const diff = (nextFishDate.getTime() - new Date(Date.now()).getTime());
-  const add = (fishNumber-userFishesCount-1) * 3600 * 24 * 1000
+  const diff = nextFishDate.getTime() - new Date(Date.now()).getTime();
+  const add = (fishNumber - userFishesCount) * 3600 * 24 * 1000;
 
   const onClaim = () => {
     if (canClaim) {
@@ -35,23 +34,27 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim }) => {
   };
 
   return (
-    <button
-      onClick={onClaim}
-      className={clsx(s.gm_btn, { [s.gm_disable]: !canClaim })}
-    >
-      <span className={clsx(s.text, "shadow")}>
-        {canClaim ? (
-          <span className={s.disable_text}>
-            Next check in
-            <div className={s.timer}>
-              <TimerClaim remained={diff+add} />
-            </div>
+    <>
+      {!isClaimed && (
+        <button
+          onClick={onClaim}
+          className={clsx(s.gm_btn, { [s.gm_disable]: !canClaim })}
+        >
+          <span className={clsx(s.text, "shadow")}>
+            {!canClaim ? (
+              <span className={s.disable_text}>
+                Next check in
+                <div className={s.timer}>
+                  <TimerClaim remained={diff + add} />
+                </div>
+              </span>
+            ) : (
+              "GM"
+            )}
           </span>
-        ) : (
-          "GM"
-        )}
-      </span>
-    </button>
+        </button>
+      )}
+    </>
   );
 };
 

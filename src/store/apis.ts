@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+    ClaimRewardResultType,
   Client,
   FishesVmResultType,
   PanelDataVmResultType,
@@ -58,7 +59,7 @@ export const changeLang = createAsyncThunk<
   }
 });
 
-export const claimTodayReward = createAsyncThunk<any, IAuthorized>(
+export const claimTodayReward = createAsyncThunk<ClaimRewardResultType, IAuthorized>(
   "appSlice/claimTodayReward",
   async (args, { rejectWithValue }) => {
     try {

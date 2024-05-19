@@ -796,7 +796,7 @@ export class Client implements IClient {
    * Получить сегодняшнюю награду
    * @return OK
    */
-  claimTodayReward(cancelToken?: CancelToken): Promise<ResultType> {
+  claimTodayReward(cancelToken?: CancelToken): Promise<ClaimRewardResultType> {
     let url_ = this.baseUrl + "/api/Game/ClaimTodayReward";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -825,7 +825,7 @@ export class Client implements IClient {
 
   protected processClaimTodayReward(
     response: AxiosResponse
-  ): Promise<ResultType> {
+  ): Promise<ClaimRewardResultType> {
     const status = response.status;
     let _headers: any = {};
     if (response.headers && typeof response.headers === "object") {
@@ -1937,7 +1937,12 @@ export interface UserVmArrayResultType {
   error?: ErrorDto;
   readonly value?: UserVm[] | undefined;
 }
-
+export interface ClaimRewardResultType {
+  readonly isSuccess?: boolean;
+  readonly isFailure?: boolean;
+  error?: ErrorDto;
+  readonly value?: number | undefined;
+}
 export interface UsersPacksVm {
   names?: string[] | undefined;
 }
