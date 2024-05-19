@@ -37,7 +37,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim }) => {
   return (
     <button
       onClick={onClaim}
-      className={clsx(s.gm_btn, { [s.gm_disable]: canClaim })}
+      className={clsx(s.gm_btn, { [s.gm_disable]: !canClaim })}
     >
       <span className={clsx(s.text, "shadow")}>
         {canClaim ? (
