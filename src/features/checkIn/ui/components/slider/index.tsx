@@ -19,7 +19,6 @@ const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
-  const { t } = useTranslation();
   const { allfishes, userFishesCount, isTodayFishClaimed } = useAppSelector(
     (state) => state.appSlice
   );

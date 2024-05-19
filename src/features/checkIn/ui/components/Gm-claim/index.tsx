@@ -49,7 +49,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
                 </div>
               </span>
             ) : (
-              "GM"
+              t("Collect")
             )}
           </span>
         </button>
