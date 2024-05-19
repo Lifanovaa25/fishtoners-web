@@ -6,8 +6,7 @@
   border: none;
   background: transparent;
   // background-image: url(../../assets/gm-button.png);
-  background: url(../../assets/not_active_btn.svg) center center / cover
-    no-repeat;
+  background: url(../../assets/not_active_btn.svg) center center / cover no-repeat;
   width: 185px;
   height: 55px;
   background-position: center center;
@@ -33,11 +32,37 @@
   }
 }
 
-.gm_disable {
-  background: url(../../assets/not_active_btn.svg) center center / cover
-    no-repeat;
+.disable_text {
+  // font-family: var(--fm-number);
+  font-family: var(--fm-main);
+}
+
+.timer {
+  font-family: var(--fm-main);
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+}
+
+.collect_btn {
+  border: none;
+  font-family: var(--fm-main);
+  font-weight: 700;
+  font-size: 39px;
+  color: #fff;
   width: 185px;
   height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(./../../assets/gm-button.png) center center / cover no-repeat;
+}
+.gm_disable {
+  background: url(../../assets/not_active_btn.svg) center center / cover no-repeat !important;
+  width: 185px;
+  height: 55px;
+
   .text {
     line-height: 100%;
     font-weight: 500;
@@ -55,31 +80,4 @@
     //     font-size: 14px;
     // }
   }
-}
-
-.disable_text {
-  // font-family: var(--fm-number);
-  font-family: var(--fm-main);
-}
-
-.timer {
-  font-family: var(--fm-main);
-  font-weight: 700;
-  font-size: 15px;
-  text-align: center;
-  color: #fff;
-}
-
-.collect_btn {
-  border:none;
-  font-family: var(--fm-main);
-  font-weight: 700;
-  font-size: 39px;
-  color: #fff;
-  width: 185px;
-  height: 55px;
-  // padding: 16px;
-  // top: 250px;
-  // position: absolute;
-  background: url(./../../assets/gm-button.png) center center / cover no-repeat;
 }
