@@ -35,13 +35,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--fm-main);
+    font-weight: 500;
+    font-size: 27px;
+    text-align: center;
+    color: #fff;
 
+    @media(max-width: 450px) {
+        font-size: 27px;
+    }
+
+    @media(max-width: 330px) {
+        font-size: 24px;
+    }
     @media (max-height: 800px) {
         transform: scale(.8);
     }
 }
 
 .avtive {
+    font-family: var(--fm-main);
+    font-weight: 500;
+    font-size: 27px;
+    text-align: center;
+    color: #fff;
     opacity: 1;
 }
 
