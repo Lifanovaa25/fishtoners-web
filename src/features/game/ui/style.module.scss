@@ -27,15 +27,15 @@
     z-index: 0;
 
     &:nth-child(1) {
-        top: 20px;
-        left: -30px;
+        top: 157px;
+        left: -15px;
         // animation-delay: 2s;
         animation: animate 12s linear infinite alternate;
 
     }
 
     &:nth-child(2) {
-        top: 0;
+        top: 77px;
         left: 50%;
         // animation-delay: 1s;
         animation: animate 10s linear infinite alternate;
@@ -43,7 +43,7 @@
     }
 
     &:nth-child(3) {
-        top: -30px;
+        top: 0px;
         right: 0;
         animation-delay: .85s;
         animation: animate 11s linear infinite alternate;
