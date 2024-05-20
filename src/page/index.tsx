@@ -15,7 +15,6 @@ import { FirstVizit } from "features/firstVisit";
 import { useEffect } from "react";
 // import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
-// import { getLeaderboard, getRefData, getUserPanelData } from "store/apis";
 import {  getUserPanelData } from "store/apis";
 
 const DashBoardPage = () => {
@@ -32,9 +31,6 @@ const DashBoardPage = () => {
     if (initDataRaw) {
       dispatch(setInitDataRow(initDataRaw!));
       dispatch(getUserPanelData({ tma: initDataRaw! }));
-      //dispatch(getRefData({ tma: initDataRaw! }));
-      //dispatch(getLeaderboard({ tma: initDataRaw! }));
-      console.log("dddddddddddd")
     }
   }, [initDataRaw]);
 

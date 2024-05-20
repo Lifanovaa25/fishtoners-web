@@ -17,6 +17,8 @@
     "@types/compose-function": "^0.0.33",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "@withease/factories": "^1.0.5",
+    "base64url": "^3.0.1",
+    "buffer": "^6.0.3",
     "clsx": "^2.1.1",
     "compose-function": "^3.0.3",
     "dotenv": "^16.4.5",
@@ -36,6 +38,9 @@
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
     "sass": "^1.75.0",
+    "ton": "^13.9.0",
+    "ton-core": "^0.53.0",
+    "ton-crypto": "^3.2.0",
     "use-sound": "^4.0.1",
     "vite-tsconfig-paths": "^4.3.2"
   },

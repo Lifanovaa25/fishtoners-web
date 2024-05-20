@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {Method} from "axios";
 import type { AxiosInstance, CancelToken } from "axios";
 import { ApiResponse, ResultType, handleRequest } from "./axiosClient";
 
@@ -89,7 +89,7 @@ export class Client implements IClient {
     const url = `${this.baseUrl}/api/Deposit`;
     const options = {
       data: JSON.stringify(body),
-      method: "POST",
+      method: "POST" as Method,
       url,
       headers: {
         "Content-Type": "application/json-patch+json",
@@ -109,7 +109,7 @@ export class Client implements IClient {
   ): Promise<ApiResponse<PanelDataVm>> {
     const url = `${this.baseUrl}/api/Game/GetUserPanelData`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -126,7 +126,7 @@ export class Client implements IClient {
   ): Promise<ApiResponse<UsersPacksVm>> {
     const url = `${this.baseUrl}/api/Game/GetActiveUsersPacks`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -141,7 +141,7 @@ export class Client implements IClient {
   async getPacks(cancelToken?: CancelToken): Promise<ApiResponse<PackVm[]>> {
     const url = `${this.baseUrl}/api/Game/GetPacks`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -156,7 +156,7 @@ export class Client implements IClient {
   async getRefData(cancelToken?: CancelToken): Promise<ApiResponse<RefDataVm>> {
     const url = `${this.baseUrl}/api/Game/GetRefData`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -173,7 +173,7 @@ export class Client implements IClient {
   ): Promise<ApiResponse<FishesVm>> {
     const url = `${this.baseUrl}/api/Game/GetUserFishes`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -190,7 +190,7 @@ export class Client implements IClient {
   ): Promise<ApiResponse<UserVm[]>> {
     const url = `${this.baseUrl}/api/Game/GetLeaderboard`;
     const options = {
-      method: "GET",
+      method: "GET" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -207,7 +207,7 @@ export class Client implements IClient {
   ): Promise<ApiResponse<number>> {
     const url = `${this.baseUrl}/api/Game/ClaimTodayReward`;
     const options = {
-      method: "POST",
+      method: "POST" as Method,
       url,
       headers: { Accept: "text/plain" },
       cancelToken,
@@ -227,7 +227,7 @@ export class Client implements IClient {
     const url = `${this.baseUrl}/api/Game/BuyPack`;
     const options = {
       data: JSON.stringify(body),
-      method: "POST",
+      method: "POST" as Method,
       url,
       headers: {
         "Content-Type": "application/json-patch+json",
@@ -250,7 +250,7 @@ export class Client implements IClient {
     const url = `${this.baseUrl}/api/Game/ChangeLanguage`;
     const options = {
       data: JSON.stringify(body),
-      method: "POST",
+      method: "POST" as Method,
       url,
       headers: {
         "Content-Type": "application/json-patch+json",
@@ -273,7 +273,7 @@ export class Client implements IClient {
     const url = `${this.baseUrl}/api/Game/Withdraw`;
     const options = {
       data: JSON.stringify(body),
-      method: "POST",
+      method: "POST" as Method,
       url,
       headers: {
         "Content-Type": "application/json-patch+json",

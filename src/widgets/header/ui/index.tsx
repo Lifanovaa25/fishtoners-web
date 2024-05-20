@@ -1,30 +1,29 @@
-
-import { useToogle } from 'shared/lib/toggle';
-import hooks from './assets/hooks.svg'
-import fish from './assets/fish.svg'
-import ton from './assets/ton.svg'
+import { useToogle } from "shared/lib/toggle";
+import hooks from "./assets/hooks.svg";
+import fish from "./assets/fish.svg";
+import ton from "./assets/ton.svg";
 import no from "./assets/ind_no.svg";
 import ok from "./assets/ind_ok.svg";
 import yes from "./assets/ind_yes.svg";
-import line from './assets/prog_line.svg'
-import { Menu, InfoModal, DepositModal } from './components';
+import line from "./assets/prog_line.svg";
+import { Menu, InfoModal, DepositModal } from "./components";
 
-import s from './style.module.scss'
-import { useAppSelector } from 'hooks/redux';
-import { Wallet } from 'widgets/wallet';
+import s from "./style.module.scss";
+import { useAppSelector } from "hooks/redux";
+import { Wallet } from "widgets/wallet";
 
 export const Header = () => {
   const [isOpenMenu, onSetStateMenu] = useToogle();
   const [isOpenInfo, onSetStateInfo] = useToogle();
   const [isOpenDeposit, onSetStateDeposit] = useToogle();
   const { activeTab, panelData } = useAppSelector((state) => state.appSlice);
-  console.log(panelData)
 
   function getIndValue(key: number): string {
     const indValues: { [key: number]: string } = {
       0: no,
       1: ok,
       2: yes,
+      3: yes,
     };
 
     return indValues[key] || no;
@@ -65,9 +64,11 @@ export const Header = () => {
         </div>
         {activeTab === "0" && (
           <>
-
             <div className={s.progress}>
-              <div style={{ width: `calc( ${panelData.packsCount} * 33% )` }} className={s.line} >
+              <div
+                style={{ width: `calc( ${panelData.packsCount} * 33% )` }}
+                className={s.line}
+              >
                 <img src={line} className={s.line_img} />
               </div>
               <img
@@ -75,7 +76,6 @@ export const Header = () => {
                 className={s.indicator_img}
               />
             </div>
-
           </>
         )}
         <Menu
@@ -87,9 +87,9 @@ export const Header = () => {
         <InfoModal onSetState={onSetStateInfo} isOpen={isOpenInfo} />
         <DepositModal onSetState={onSetStateDeposit} isOpen={isOpenDeposit} />
       </header>
-      {activeTab === "0" &&
-        <Wallet  onSetState={onSetStateDeposit} isOpen={isOpenDeposit}/>
-      }
+      {activeTab === "0" && (
+        <Wallet onSetState={onSetStateDeposit} isOpen={isOpenDeposit} />
+      )}
     </>
   );
-}
+};

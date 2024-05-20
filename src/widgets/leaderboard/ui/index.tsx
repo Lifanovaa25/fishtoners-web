@@ -19,7 +19,7 @@ export const Leaderboard: FC<IProps> = ({ leaderboard, title}) => {
         <div className={s.leaderboard_table}>
           {leaderboard?.map((user, index) => (
             <LeaderboardItem
-              key={user?.name ?? index}
+              key={index}
               index={index + 1}
               avatar={user?.avatarUrl ?? no_avatar}
               full_name={user?.name ?? "Hidden"}

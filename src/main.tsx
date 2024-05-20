@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
-// import { Provider } from "effector-react";
-
+import { Buffer } from "buffer";
 import App from "app";
 
 import video from "./app/assets/videoBg.mp4";
@@ -14,6 +13,9 @@ const root = createRoot(container!);
 
 const store = setupStore();
 
+if (typeof window !== "undefined") {
+  (window as any).Buffer = Buffer;
+}
 root.render(
   <Provider store={store}>
     <div className="app">
