@@ -28,9 +28,9 @@ export const FirstVizit = () => {
             <div className={s.conatiner}>
 
                 <img
-                    className={s.title}
+                    className={s.title_img}
                     src={title}
-                    alt='title'
+                    
                 />
 
                 <div className={s.htp}>{t('How_to_play')}
