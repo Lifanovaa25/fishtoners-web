@@ -230,9 +230,11 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     : "N/A"}
                 </h1>
               </div>
-              <button className={s.yellow_btn} onClick={withdrawHandler}>
-                Withdraw
-              </button>
+              {connected && (
+                <button className={s.yellow_btn} onClick={withdrawHandler}>
+                  Withdraw
+                </button>
+              )}
             </>
           )}
         </div>
