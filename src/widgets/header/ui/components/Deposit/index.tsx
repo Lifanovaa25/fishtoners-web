@@ -75,13 +75,16 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const depositHandler = () => {
     depositCall(toNano(amountDeposit), userId.toString());
     toast.info("Deposited. TONs will receive soon");
-    console.log("Deposited")
+    console.log("Deposited");
+    onSetState();
   };
 
   const withdrawHandler = () => {
     dispatch(
       withdraw({ tma: initDataRow, address: address, amount: +amountWithdraw })
     );
+    onSetState();
+    toast.info("Withdraw requested");
   };
 
   useEffect(() => {
