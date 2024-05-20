@@ -19,7 +19,7 @@ if (typeof window !== "undefined") {
 root.render(
   <Provider store={store}>
     <div className="app">
-      <video autoPlay loop muted poster={poster} className="bgvideo" id="bgvideo">
+      <video autoPlay loop muted  poster={poster} className="bgvideo" id="bgvideo">
         <source src={video} type="video/mp4"></source>
       </video>
       <App />
