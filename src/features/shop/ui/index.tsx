@@ -68,12 +68,14 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
       name: "potato",
     },
   ];
+
   var settings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows:true
 
   };
   const { packsForStore, initDataRow, status, error } = useAppSelector(
@@ -139,7 +141,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                 </div>
 
               ))}
-            </>
+            </>{packsForStore.length > 3 && 
             <>
               {second?.map((item, index) => (
 
@@ -168,7 +170,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                 </div>
 
               ))}
-            </>
+            </>}
           </Slider> </div>
         </div>
       </div>
