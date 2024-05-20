@@ -326,11 +326,12 @@ export interface PackVm {
 }
 
 export interface PanelDataVm {
-  bobberValue?: number;
-  fishValue?: number;
-  packsCount?: number;
-  balance?: number;
-  languageCode?: string | undefined;
+  bobberValue: number;
+  fishValue: number;
+  packsCount: number;
+  balance: number;
+  languageCode: string | undefined;
+  userId:number
 }
 
 export interface RefDataVm {

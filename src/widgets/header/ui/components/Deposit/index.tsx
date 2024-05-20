@@ -11,12 +11,12 @@ import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { appSlice } from "store/reducers/appSlice";
 import { useEffect, useState } from "react";
-import { beginCell } from "ton-core";
-import base64url from "base64url";
 import { withdraw } from "store/apis";
 import { toast } from "react-toastify";
 import { useTonConnect } from "hooks/useTonConnect";
-import { CHAIN, TonConnectButton } from "@tonconnect/ui-react";
+import { TonConnectButton } from "@tonconnect/ui-react";
+import { useContract } from "hooks/useContract";
+import { toNano } from "ton-core";
 
 interface DepositBtnProps {
   onSetStateDeposit: () => void;
@@ -30,12 +30,10 @@ export const DepositBtn = ({
   classN,
 }: DepositBtnProps) => {
   const { t } = useTranslation();
-
   const openDeposit = () => {
     onSetStateDeposit();
     onSetState();
   };
-  console.log(CHAIN);
   return (
     <>
       {classN ? (
@@ -63,9 +61,10 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
-  const { activeBtn, panelData, initDataRow, status, error } = useAppSelector(
-    (state) => state.appSlice
-  );
+  const { depositCall } = useContract();
+
+  const { activeBtn, balance, initDataRow, userId, status, error } =
+    useAppSelector((state) => state.appSlice);
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { connected } = useTonConnect();
@@ -73,7 +72,11 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const [amountWithdraw, setAmountWithdraw] = useState("0");
   const [address, setAddress] = useState("0");
 
-  const depositHandler = () => {};
+  const depositHandler = () => {
+    depositCall(toNano(amountDeposit), userId.toString());
+    toast.info("Deposited. TONs will receive soon");
+    console.log("Deposited")
+  };
 
   const withdrawHandler = () => {
     dispatch(
@@ -126,7 +129,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
         <div className={s.deposit_content}>
           <div className={s.balance}>
             Balance:
-            <span>{panelData.balance}</span>
+            <span>{balance}</span>
             <img src={ton} className={s.ton} />
           </div>
           {activeBtn === "deposit" ? (

@@ -16,7 +16,7 @@ export const Header = () => {
   const [isOpenMenu, onSetStateMenu] = useToogle();
   const [isOpenInfo, onSetStateInfo] = useToogle();
   const [isOpenDeposit, onSetStateDeposit] = useToogle();
-  const { activeTab, panelData } = useAppSelector((state) => state.appSlice);
+  const { activeTab, balance,bobberValue,fishValue,packsCount } = useAppSelector((state) => state.appSlice);
 
   function getIndValue(key: number): string {
     const indValues: { [key: number]: string } = {
@@ -41,19 +41,19 @@ export const Header = () => {
           <div className={s.points}>
             <img width="21px" height="21px" src={hooks} />
 
-            {panelData.bobberValue ?? 0}
+            {bobberValue ?? 0}
           </div>
 
           <div className={s.points}>
             <img width="26px" height="25px" src={fish} />
 
-            {panelData.fishValue ?? 0}
+            {fishValue ?? 0}
           </div>
 
           <div className={s.points}>
             <img width="23px" height="23px" src={ton} />
 
-            {panelData.balance ?? 0}
+            {balance ?? 0}
           </div>
 
           <div onClick={onSetStateMenu} className={s.menu}>
@@ -66,13 +66,13 @@ export const Header = () => {
           <>
             <div className={s.progress}>
               <div
-                style={{ width: `calc( ${panelData.packsCount} * 33% )` }}
+                style={{ width: `calc( ${packsCount} * 33% )` }}
                 className={s.line}
               >
                 <img src={line} className={s.line_img} />
               </div>
               <img
-                src={getIndValue(panelData.packsCount ?? 0)!}
+                src={getIndValue(packsCount ?? 0)!}
                 className={s.indicator_img}
               />
             </div>

@@ -27,7 +27,11 @@ export type Status = "idle" | "loading" | "succeeded" | "failed";
 
 export const initialState = {
   initDataRow: "",
-  panelData: {} as PanelDataVm,
+  userId:0,
+  bobberValue: 0,
+  fishValue: 0,
+  packsCount: 0,
+  balance: 0,
   userPackNames: [] as string[],
 
   youInvitedCount: 0,
@@ -45,7 +49,7 @@ export const initialState = {
 
   activeTab: "0",
   activeBtn: "deposit",
-  lang: "en",
+  lang: "",
 
   status: "idle" as Status,
   error: "",
@@ -76,8 +80,12 @@ export const appSlice = createSlice({
       .addCase(
         getUserPanelData.fulfilled,
         (state, action: PayloadAction<ApiResponse<PanelDataVm>>) => {
-          state.panelData = action.payload.value!;
-          console.log("action.payload");
+          state.balance = action.payload.value!.balance!;
+          state.bobberValue = action.payload.value!.bobberValue!;
+          state.fishValue = action.payload.value!.fishValue!;
+          state.packsCount = action.payload.value!.packsCount!;
+          state.lang=action.payload.value!.languageCode!
+		  state.userId=action.payload.value!.userId
         }
       )
       .addCase(getUserPanelData.rejected, (state, action: any) => {
@@ -151,6 +159,7 @@ export const appSlice = createSlice({
           state.packsForStore.find(
             (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
+		  state.packsCount = state.userPackNames.length
           state.status = "succeeded";
         }
       )
@@ -163,7 +172,7 @@ export const appSlice = createSlice({
       .addCase(
         withdraw.fulfilled,
         (state, action: PayloadAction<ApiResponse<number>>) => {
-          state.panelData.balance = action.payload.value!;
+          state.balance = action.payload.value!;
           state.status = "succeeded";
         }
       )

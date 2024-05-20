@@ -18,7 +18,7 @@ import { appSlice } from "store/reducers/appSlice";
 import {  getUserPanelData } from "store/apis";
 
 const DashBoardPage = () => {
-  const { activeTab, panelData/*, initDataRow */} = useAppSelector(
+  const { activeTab, /*, initDataRow */ lang} = useAppSelector(
     (state) => state.appSlice
   );
   //const { initDataRaw } = retrieveLaunchParams();
@@ -41,7 +41,7 @@ const DashBoardPage = () => {
           <FirstVizit />
         ) : (
           <>
-            {panelData ? (
+            {lang ? (
               <>
                 <Header />
                 {activeTab === "1" && (
