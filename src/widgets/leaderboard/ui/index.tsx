@@ -3,7 +3,7 @@ import { LeaderboardItem } from "./components";
 import { Loader } from "shared/ui/loader";
 import no_avatar from "./assets/no-avatar.jpg";
 import { FC } from "react";
-import { UserVm } from "store/api";
+import { UserVm } from "store/apiClient";
 
 interface IProps {
 	leaderboard:UserVm[],

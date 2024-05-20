@@ -1,13 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  Client,
-  FishesVm,
-  PackVm,
-  PanelDataVm,
-  RefDataVm,
-  UserVm,
-  UsersPacksVm,
-} from "./api";
+import { Client } from "./apiClient";
 import {
   ApiException,
   ApiResponse,
@@ -19,155 +11,85 @@ interface IAuthorized {
   tma: string;
 }
 
-export const getUserPanelData = createAsyncThunk<
-  ApiResponse<PanelDataVm>,
-  IAuthorized
->("appSlice/getUserPanelData", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getUserPanelData();
-  } catch (err: any) {
-    if (ApiException.isApiException(err)) {
-      return rejectWithValue(err.result);
+const createThunkWithClient = <Returned, ThunkArg>(
+  typePrefix: string,
+  apiCall: (client: Client, args: ThunkArg) => Promise<Returned>
+) =>
+  createAsyncThunk<Returned, ThunkArg>(
+    typePrefix,
+    async (args, { rejectWithValue }) => {
+      try {
+        const axiosClient = createAxiosClient((args as IAuthorized).tma);
+        const client = new Client("", axiosClient);
+        return await apiCall(client, args);
+      } catch (err: any) {
+        if (ApiException.isApiException(err)) {
+          return rejectWithValue(err.result);
+        }
+        return rejectWithValue(err.message);
+      }
     }
-    return rejectWithValue(err.message);
-  }
-});
+  );
 
-export const getActiveUsersPack = createAsyncThunk<
-  ApiResponse<UsersPacksVm>,
-  IAuthorized
->("appSlice/getActiveUsersPack", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getActiveUsersPacks();
-  } catch (err: any) {
-    if (ApiException.isApiException(err)) {
-      return rejectWithValue(err.result);
-    }
-    return rejectWithValue(err.message);
-  }
-});
+export const getUserPanelData = createThunkWithClient(
+  "appSlice/getUserPanelData",
+  (client) => client.getUserPanelData()
+);
 
-interface ILangRequest {
-  language?: string | undefined;
-  tma: string;
+export const getActiveUsersPack = createThunkWithClient(
+  "appSlice/getActiveUsersPack",
+  (client) => client.getActiveUsersPacks()
+);
+
+interface ILangRequest extends IAuthorized {
+  language?: string;
 }
 
-export const changeLang = createAsyncThunk<ResultType, ILangRequest>(
+export const changeLang = createThunkWithClient<ResultType, ILangRequest>(
   "appSlice/changeLang",
-  async (args, { rejectWithValue }) => {
-    try {
-      const axiosClient = createAxiosClient(args.tma);
-      const c = new Client("", axiosClient);
-      return c.changeLanguage(args);
-    } catch (err: any) {
-      if (ApiException.isApiException(err)) {
-        return rejectWithValue(err.result);
-      }
-      return rejectWithValue(err.message);
-    }
-  }
+  (client, args) => client.changeLanguage(args)
 );
 
-export const claimTodayReward = createAsyncThunk<
-  ApiResponse<number>,
-  IAuthorized
->("appSlice/claimTodayReward", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.claimTodayReward();
-  } catch (err: any) {
-    if (ApiException.isApiException(err)) {
-      return rejectWithValue(err.result);
-    }
-    return rejectWithValue(err.message);
-  }
-});
+export const claimTodayReward = createThunkWithClient(
+  "appSlice/claimTodayReward",
+  (client) => client.claimTodayReward()
+);
 
-export const getRefData = createAsyncThunk<ApiResponse<RefDataVm>, IAuthorized>(
+export const getRefData = createThunkWithClient(
   "appSlice/getRefData",
-  async (args, { rejectWithValue }) => {
-    try {
-      const axiosClient = createAxiosClient(args.tma);
-      const c = new Client("", axiosClient);
-      return c.getRefData();
-    } catch (err: any) {
-      if (ApiException.isApiException(err)) {
-        return rejectWithValue(err.result);
-      }
-      return rejectWithValue(err.message);
-    }
-  }
-);
-export const getUserFishes = createAsyncThunk<
-  ApiResponse<FishesVm>,
-  IAuthorized
->("appSlice/getUserFishes", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getUserFishes();
-  } catch (err: any) {
-    if (ApiException.isApiException(err)) {
-      return rejectWithValue(err.result);
-    }
-    return rejectWithValue(err.message);
-  }
-});
-export const getLeaderboard = createAsyncThunk<
-  ApiResponse<UserVm[]>,
-  IAuthorized
->("appSlice/getLeaderboard", async (args, { rejectWithValue }) => {
-  try {
-    const axiosClient = createAxiosClient(args.tma);
-    const c = new Client("", axiosClient);
-    return c.getLeaderboard();
-  } catch (err: any) {
-    if (ApiException.isApiException(err)) {
-      return rejectWithValue(err.result);
-    }
-    return rejectWithValue(err.message);
-  }
-});
-
-export const getPacks = createAsyncThunk<ApiResponse<PackVm[]>, IAuthorized>(
-  "appSlice/getPacks",
-  async (args, { rejectWithValue }) => {
-    try {
-      const axiosClient = createAxiosClient(args.tma);
-      const c = new Client("", axiosClient);
-      return c.getPacks();
-    } catch (err: any) {
-      if (ApiException.isApiException(err)) {
-        return rejectWithValue(err.result);
-      }
-      return rejectWithValue(err.message);
-    }
-  }
+  (client) => client.getRefData()
 );
 
-interface IBuyPack {
-  packId: string | undefined;
-  tma: string;
+export const getUserFishes = createThunkWithClient(
+  "appSlice/getUserFishes",
+  (client) => client.getUserFishes()
+);
+
+export const getLeaderboard = createThunkWithClient(
+  "appSlice/getLeaderboard",
+  (client) => client.getLeaderboard()
+);
+
+export const getPacks = createThunkWithClient("appSlice/getPacks", (client) =>
+  client.getPacks()
+);
+
+interface IBuyPack extends IAuthorized {
+  packId: string;
 }
 
-export const buyPack = createAsyncThunk<ApiResponse<string>, IBuyPack>(
+export const buyPack = createThunkWithClient<ApiResponse<string>, IBuyPack>(
   "appSlice/buyPack",
-  async (args, { rejectWithValue }) => {
-    try {
-      const axiosClient = createAxiosClient(args.tma);
-      const c = new Client("", axiosClient);
-      const result = await c.buyPack({ packId: args.packId });
-      return result;
-    } catch (err: any) {
-      if (ApiException.isApiException(err)) {
-        return rejectWithValue(err.result);
-      }
-      return rejectWithValue(err.message);
-    }
-  }
+  (client, args) => client.buyPack({ packId: args.packId })
+);
+
+interface IWithdraw extends IAuthorized {
+  amount: number;
+  address: string;
+}
+
+export const withdraw = createThunkWithClient<ApiResponse<number>, IWithdraw>(
+  "appSlice/withdraw",
+  (client, args) =>
+    client.withdraw({ amount: args.amount, address: args.address })
 );

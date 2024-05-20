@@ -23,15 +23,15 @@ export const Game = () => {
     <div className={s.conatiner}>
       <div className={s.fishhooks}>
         <img src={fh1} alt="" className={s.hooks} />
-        {userPacks.names?.find((x) => x.toLowerCase() == "corn") && (
+        {userPacks.names?.find((x: string) => x.toLowerCase() == "corn") && (
           <img src={corn} alt="" className={s.hooks} />
         )}
         <img src={fh2} alt="" className={s.hooks} />
-        {userPacks.names?.find((x) => x.toLowerCase() == "bread") && (
+        {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
           <img src={bread} alt="" className={s.hooks} />
         )}
         <img src={fh3} alt="" className={s.hooks} />
-        {userPacks.names?.find((x) => x.toLowerCase() == "worm") && (
+        {userPacks.names?.find((x: string) => x.toLowerCase() == "worm") && (
           <img src={worm} alt="" className={s.hooks} />
         )}
       </div>

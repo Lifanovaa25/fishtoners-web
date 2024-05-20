@@ -8,7 +8,7 @@ import {
   RefDataVm,
   UsersPacksVm,
   UserVm,
-} from "store/api";
+} from "store/apiClient";
 import {
   buyPack,
   claimTodayReward,
@@ -28,12 +28,11 @@ export const initialState = {
   initDataRow: "",
   panelData: {} as PanelDataVm,
   userPacks: {} as UsersPacksVm,
-  //refData: {} as RefDataVm,
+
   youInvitedCount: 0,
   refUrl: "",
   refLeaderboard: [] as UserVm[],
 
-  //allfishes: {} as FishesVm,
   nextFishDate: new Date(Date.now()),
   allfishes: [] as FishVm[],
   userFishesCount: 0,

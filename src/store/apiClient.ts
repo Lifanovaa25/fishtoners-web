@@ -1,7 +1,6 @@
-import axios, {Method} from "axios";
+import axios, { Method } from "axios";
 import type { AxiosInstance, CancelToken } from "axios";
 import { ApiResponse, ResultType, handleRequest } from "./axiosClient";
-
 
 export interface IClient {
   /**
@@ -78,7 +77,7 @@ export class Client implements IClient {
   }
 
   /**
-   * ѕополнение баланса пользовател¤
+   * пополнение баланса пользовател¤
    * @param body (optional)
    * @return OK
    */
@@ -269,7 +268,7 @@ export class Client implements IClient {
   async withdraw(
     body?: WithdrawDto,
     cancelToken?: CancelToken
-  ): Promise<ResultType> {
+  ): Promise<ApiResponse<number>> {
     const url = `${this.baseUrl}/api/Game/Withdraw`;
     const options = {
       data: JSON.stringify(body),
@@ -281,11 +280,9 @@ export class Client implements IClient {
       },
       cancelToken,
     };
-    return handleRequest<ResultType>(this.instance, options);
+    return handleRequest<ApiResponse<number>>(this.instance, options);
   }
 }
-
-
 
 /** Купить пак */
 export interface BuyDto {
@@ -336,16 +333,11 @@ export interface PanelDataVm {
   languageCode?: string | undefined;
 }
 
-
-
-
 export interface RefDataVm {
   youInvitedCount?: number;
   leadeboard?: UserVm[] | undefined;
   refUrl?: string | undefined;
 }
-
-
 
 export interface UserVm {
   name?: string | undefined;

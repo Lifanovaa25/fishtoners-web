@@ -55,7 +55,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     const id = packsForStore.find(
       (x) => x.name?.toLowerCase() == name.toLowerCase()
     )?.packId;
-    dispatch(buyPack({ tma: initDataRow, packId: id }));
+    dispatch(buyPack({ tma: initDataRow, packId: id! }));
   };
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                         {item.text}
                       </div>
                       <div className={s.amount}>
-                        <img src={brill} alt="" />
+                        <img src={brill} alt="ton" />
                         {item.amount}
                       </div>
                     </>
