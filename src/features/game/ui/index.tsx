@@ -10,6 +10,12 @@ import { getActiveUsersPack } from "store/apis";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 
 export const Game = () => {
+    const baitItems = {
+        'bread': bread,
+        'corn': corn,
+        'worm': worm
+
+    }
     const dispatch = useAppDispatch();
 
     const { userPacks, initDataRow } = useAppSelector((state) => state.appSlice);
@@ -18,30 +24,31 @@ export const Game = () => {
             dispatch(getActiveUsersPack({ tma: initDataRow! }));
         }
     }, [initDataRow]);
-console.log(userPacks)
+    console.log(userPacks)
     return (
         <div className={s.conatiner}>
             <div className={s.fishhooks}>
-                <div className={s.hook_item}>
-                    <img src={fh1} alt="" className={s.hooks} />
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "corn") && (
-                        <img src={corn} alt="" className={s.hook_bait} />
-                    )}
-                </div>
+               
+                        <div className={s.hook_item}>
 
-                <div className={s.hook_item}>
-                    <img src={fh2} alt="" className={s.hooks} />
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
-                        <img src={bread} alt="" className={s.hook_bait} />
-                    )}
-                </div>
-                <div className={s.hook_item}>
-                    <img src={fh3} alt="" className={s.hooks} />
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
-                        <img src={worm} alt="" className={s.hook_bait} />
-                    )}
-                </div>
-                
+                            <img src={fh1} alt="" className={s.hooks} />
+                            <img src={baitItems[userPacks.names[0]]} alt="" className={s.hook_bait} />
+
+                        </div>
+
+                        <div className={s.hook_item}>
+                            <img src={fh2} alt="" className={s.hooks} />
+                            {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+                                <img src={baitItems[userPacks.names[1]]} alt="" className={s.hook_bait} />
+                            )}
+                        </div>
+                        <div className={s.hook_item}>
+                            <img src={fh3} alt="" className={s.hooks} />
+                            {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+                                <img src={baitItems[userPacks.names[2]]} alt="" className={s.hook_bait} />
+                            )}
+                        </div>
+                  
             </div>
         </div>
     );
