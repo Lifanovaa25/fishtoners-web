@@ -1,0 +1,157 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_FishTonersMain.headers.fc";
+#include "tact_FishTonersMain.stdlib.fc";
+#include "tact_FishTonersMain.storage.fc";
+
+;;
+;; Contract FishTonersMain functions
+;;
+
+(slice, slice) $FishTonersMain$_contract_init(slice $owner, slice $backend) impure inline_ref {
+    var (($self'owner, $self'backend)) = (null(), null());
+    $self'owner = $owner;
+    $self'backend = $backend;
+    return ($self'owner, $self'backend);
+}
+
+;;
+;; Receivers of a Contract FishTonersMain
+;;
+
+(((slice, slice)), ()) %$FishTonersMain$_internal_empty((slice, slice) $self) impure inline {
+    var ($self'owner, $self'backend) = $self;
+    return (($self'owner, $self'backend), ());
+}
+
+(((slice, slice)), ()) $FishTonersMain$_internal_binary_Deposit((slice, slice) $self, (slice) $msg) impure inline {
+    var ($self'owner, $self'backend) = $self;
+    var ($msg'user) = $msg;
+    return (($self'owner, $self'backend), ());
+}
+
+(((slice, slice)), ()) $FishTonersMain$_internal_binary_Withdraw((slice, slice) $self, (slice, int) $msg) impure inline {
+    var ($self'owner, $self'backend) = $self;
+    var ($msg'user, $msg'amount) = $msg;
+    throw_unless(29215, ( __tact_slice_eq_bits($self'backend, __tact_context_get_sender()) ));
+    $global_send($SendParameters$_constructor_to_value_mode($msg'user, $msg'amount, 2));
+    return (($self'owner, $self'backend), ());
+}
+
+((slice, slice), ()) $FishTonersMain$_internal_text_645fadcf81ce93cdee246ae01821492b83c89a49373a8355468013d71e7b9296((slice, slice) $self) impure inline {
+    var ($self'owner, $self'backend) = $self;
+    throw_unless(58772, ( __tact_slice_eq_bits($self'owner, __tact_context_get_sender()) ));
+    $global_send($SendParameters$_constructor_to_value_mode(__tact_context_get_sender(), (__tact_my_balance() - $Context$_get_value(__tact_context_get())), (2 + 128)));
+    return (($self'owner, $self'backend), ());
+}
+
+(((slice, slice)), ()) $FishTonersMain$_internal_binary_Deploy((slice, slice) $self, (int) $deploy) impure inline {
+    var ($self'owner, $self'backend) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'owner, $self'backend)~$FishTonersMain$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'owner, $self'backend), ());
+}
+
+;;
+;; Get methods of a Contract FishTonersMain
+;;
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmQmh9ZmFhkdnwSABegtiZ9hs6rxq1G9F5QsEPHZWw4Qrv";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract FishTonersMain
+;;
+
+((slice, slice), int) $FishTonersMain$_contract_router_internal((slice, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive empty message
+    if ((op == 0) & (slice_bits(in_msg) <= 32)) {
+        self~%$FishTonersMain$_internal_empty();
+        return (self, true);
+    }
+    
+    ;; Receive Deposit message
+    if (op == 3436314585) {
+        var msg = in_msg~$Deposit$_load();
+        self~$FishTonersMain$_internal_binary_Deposit(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Withdraw message
+    if (op == 2146449358) {
+        var msg = in_msg~$Withdraw$_load();
+        self~$FishTonersMain$_internal_binary_Withdraw(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$FishTonersMain$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "WithdrawAll" message
+        if (text_op == 0x645fadcf81ce93cdee246ae01821492b83c89a49373a8355468013d71e7b9296) {
+            self~$FishTonersMain$_internal_text_645fadcf81ce93cdee246ae01821492b83c89a49373a8355468013d71e7b9296();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $FishTonersMain$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$FishTonersMain$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $FishTonersMain$_contract_store(self);
+}

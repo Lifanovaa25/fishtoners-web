@@ -28,7 +28,7 @@ export type Status = "idle" | "loading" | "succeeded" | "failed";
 export const initialState = {
   initDataRow: "",
   panelData: {} as PanelDataVm,
-  userPacks: {} as UsersPacksVm,
+  userPackNames: [] as string[],
 
   youInvitedCount: 0,
   refUrl: "",
@@ -88,7 +88,7 @@ export const appSlice = createSlice({
       .addCase(
         getActiveUsersPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<UsersPacksVm>>) => {
-          state.userPacks = action.payload.value!;
+          state.userPackNames = action.payload.value!.names!;
         }
       )
       .addCase(
@@ -147,9 +147,9 @@ export const appSlice = createSlice({
       .addCase(
         buyPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<string>>) => {
-          state.userPacks.names?.push(action.payload.value!);
+          state.userPackNames?.push(action.payload.value!);
           state.packsForStore.find(
-            (x) => x.name?.toLowerCase() == action.payload.value!
+            (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
           state.status = "succeeded";
         }

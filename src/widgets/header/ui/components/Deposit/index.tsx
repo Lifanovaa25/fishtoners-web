@@ -63,36 +63,18 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
-  const { activeBtn, refUrl, panelData, initDataRow, status, error } =
-    useAppSelector((state) => state.appSlice);
+  const { activeBtn, panelData, initDataRow, status, error } = useAppSelector(
+    (state) => state.appSlice
+  );
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
-  const { network, connected } = useTonConnect();
+  const { connected } = useTonConnect();
 
   const [amountDeposit, setAmountDeposit] = useState("0");
   const [amountWithdraw, setAmountWithdraw] = useState("0");
   const [address, setAddress] = useState("0");
-  const [deeplink, setDeepLink] = useState("");
 
-  const tonDeepLink = (address: string, amount: string, body: string) => {
-    return `ton://transfer/${address}?amount=${amount}&bin=${body}`;
-  };
-
-  const depositHandler = () => {
-    let parts = refUrl.split("start=");
-    let lastPart = parts[parts.length - 1];
-    const body = beginCell()
-      .storeUint(3436314585, 32)
-      .storeStringRefTail(lastPart)
-      .endCell();
-    const preparedBodyCell = base64url(body.toBoc());
-    const link = tonDeepLink(
-      "EQBXnk1YRq4FTmuE2YJO5SqLa51e4Datqtc0mrRu-b_gc1aJ",
-      amountDeposit,
-      preparedBodyCell
-    );
-    setDeepLink(link);
-  };
+  const depositHandler = () => {};
 
   const withdrawHandler = () => {
     dispatch(
@@ -168,10 +150,12 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                   TON
                 </div>
               </div>
-              {deeplink && <a href={deeplink}>Transfer with TON</a>}
-              <button className={s.yellow_btn} onClick={depositHandler}>
-                Deposit
-              </button>
+              {!connected && <TonConnectButton />}
+              {connected && (
+                <button className={s.yellow_btn} onClick={depositHandler}>
+                  Deposit
+                </button>
+              )}
             </>
           ) : (
             <>
@@ -221,13 +205,11 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     readOnly={false}
                   />
           </div>*/}
-                {!connected && <TonConnectButton />}
               </div>
-              {connected && (
-                <button className={s.yellow_btn} onClick={withdrawHandler}>
-                  Withdraw
-                </button>
-              )}
+
+              <button className={s.yellow_btn} onClick={withdrawHandler}>
+                Withdraw
+              </button>
             </>
           )}
         </div>

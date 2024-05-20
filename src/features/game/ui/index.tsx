@@ -12,26 +12,26 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 export const Game = () => {
   const dispatch = useAppDispatch();
 
-  const { userPacks, initDataRow } = useAppSelector((state) => state.appSlice);
+  const { userPackNames, initDataRow } = useAppSelector((state) => state.appSlice);
   useEffect(() => {
     if (initDataRow) {
       dispatch(getActiveUsersPack({ tma: initDataRow! }));
     }
-  }, [initDataRow]);
+  }, [initDataRow,userPackNames]);
 
   return (
     <div className={s.conatiner}>
       <div className={s.fishhooks}>
         <img src={fh1} alt="" className={s.hooks} />
-        {userPacks.names?.find((x: string) => x.toLowerCase() == "corn") && (
+        {userPackNames?.find((x: string) => x.toLowerCase() == "corn") && (
           <img src={corn} alt="" className={s.hooks} />
         )}
         <img src={fh2} alt="" className={s.hooks} />
-        {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+        {userPackNames.find((x: string) => x.toLowerCase() == "bread") && (
           <img src={bread} alt="" className={s.hooks} />
         )}
         <img src={fh3} alt="" className={s.hooks} />
-        {userPacks.names?.find((x: string) => x.toLowerCase() == "worm") && (
+        {userPackNames.find((x: string) => x.toLowerCase() == "worm") && (
           <img src={worm} alt="" className={s.hooks} />
         )}
       </div>
