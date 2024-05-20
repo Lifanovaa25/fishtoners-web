@@ -80,3 +80,23 @@ button {
     background-color: var(--color-main);
   }
 }
+.slick-next:before,
+.slick-prev:before {
+  content: "";
+  display: flex;
+  background: url(/src/app/assets/nex_arrow_y.svg) center center / cover no-repeat;
+  width: 33px;
+  height: 33px;
+  position: absolute;
+  top: -50px;
+  right: 5px;
+  z-index: 9;
+}
+.slick-prev:before {
+  right: 0;left: 5px;
+  transform: rotate(180deg);
+}
+.slick-next.slick-disabled:before, .slick-prev.slick-disabled:before {
+  background: url(/src/app/assets/nex_arrow_g.svg) center center / cover no-repeat;
+opacity: 1;
+}

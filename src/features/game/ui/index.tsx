@@ -4,37 +4,57 @@ import fh2 from "./assets/fh2.svg";
 import fh3 from "./assets/fh3.svg";
 import corn from "./assets/corn.gif";
 import bread from "./assets/bread.gif";
+// import burger from "./assets/burger.gif";
+// import pizza from "./assets/pizza.gif";
+// import potato from "./assets/potato.gif";
 import worm from "./assets/worm.gif";
 import { useEffect } from "react";
 import { getActiveUsersPack } from "store/apis";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 
 export const Game = () => {
-  const dispatch = useAppDispatch();
+    // const baitItems = {
+    //     'bread': bread,
+    //     'corn': corn,
+    //     'worm': worm,
+    //     'burger': burger,
+    //     'pizza': pizza,
+    //     'potato': potato
 
-  const { userPackNames, initDataRow } = useAppSelector((state) => state.appSlice);
-  useEffect(() => {
-    if (initDataRow) {
-      dispatch(getActiveUsersPack({ tma: initDataRow! }));
-    }
-  }, [initDataRow,userPackNames]);
+    // }
 
-  return (
-    <div className={s.conatiner}>
-      <div className={s.fishhooks}>
-        <img src={fh1} alt="" className={s.hooks} />
-        {userPackNames?.find((x: string) => x.toLowerCase() == "corn") && (
-          <img src={corn} alt="" className={s.hooks} />
-        )}
-        <img src={fh2} alt="" className={s.hooks} />
-        {userPackNames.find((x: string) => x.toLowerCase() == "bread") && (
-          <img src={bread} alt="" className={s.hooks} />
-        )}
-        <img src={fh3} alt="" className={s.hooks} />
-        {userPackNames.find((x: string) => x.toLowerCase() == "worm") && (
-          <img src={worm} alt="" className={s.hooks} />
-        )}
+    const dispatch = useAppDispatch();
+ 
+    const { userPackNames, initDataRow } = useAppSelector((state) => state.appSlice);
+    useEffect(() => {
+      if (initDataRow) {
+        dispatch(getActiveUsersPack({ tma: initDataRow! }));
+      }
+    }, [initDataRow, userPackNames]);
+  
+    return (
+      <div className={s.conatiner}>
+        <div className={s.fishhooks}>
+          <div className={s.hook_item}>
+            <img src={fh1} alt="" className={s.hooks} />
+            {userPackNames.find((x: string) => x.toLowerCase() == "corn") && (
+              <img src={corn} alt="" className={s.hook_bait} />
+            )}
+          </div>
+
+          <div className={s.hook_item}>
+            <img src={fh2} alt="" className={s.hooks} />
+            {userPackNames.find((x: string) => x.toLowerCase() == "bread") && (
+              <img src={bread} alt="" className={s.hook_bait} />
+            )}
+          </div>
+          <div className={s.hook_item}>
+            <img src={fh3} alt="" className={s.hooks} />
+            {userPackNames.find((x: string) => x.toLowerCase() == "worm") && (
+              <img src={worm} alt="" className={s.hook_bait} />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
 };

@@ -39,6 +39,7 @@
     top: 165px;
     padding: 14px;
     padding-top: 36px;
+    z-index: 99;
     @media (max-height:800px) {
         top: 15%;
     }
@@ -126,4 +127,7 @@
     min-width: 53px;
     height: 35px;
     margin-left: 26px;
+}
+.item_img {
+    max-width: 90px;
 }
