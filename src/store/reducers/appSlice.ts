@@ -18,6 +18,7 @@ import {
   getRefData,
   getUserFishes,
   getUserPanelData,
+  withdraw,
 } from "store/apis";
 import { ApiError, ApiResponse } from "store/axiosClient";
 
@@ -155,6 +156,19 @@ export const appSlice = createSlice({
       )
       .addCase(buyPack.rejected, (state, action) => {
         processError(state, action, "Failed to buy pack");
+      })
+      .addCase(withdraw.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        withdraw.fulfilled,
+        (state, action: PayloadAction<ApiResponse<number>>) => {
+          state.panelData.balance = action.payload.value!;
+          state.status = "succeeded";
+        }
+      )
+      .addCase(withdraw.rejected, (state, action) => {
+        processError(state, action, "Failed to create deposit");
       });
   },
 });

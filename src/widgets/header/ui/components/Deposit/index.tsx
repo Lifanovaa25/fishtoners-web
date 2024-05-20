@@ -10,11 +10,11 @@ import clsx from "clsx";
 
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { appSlice } from "store/reducers/appSlice";
-import { useState } from "react";
-import {
-  beginCell,
-} from "ton-core";
+import { useEffect, useState } from "react";
+import { beginCell } from "ton-core";
 import base64url from "base64url";
+import { withdraw } from "store/apis";
+import { toast } from "react-toastify";
 
 interface DepositBtnProps {
   onSetStateDeposit: () => void;
@@ -61,19 +61,21 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
-  const { activeBtn, refUrl, panelData } = useAppSelector((state) => state.appSlice);
+  const { activeBtn, refUrl, panelData, initDataRow, status, error } = useAppSelector(
+    (state) => state.appSlice
+  );
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
 
-  const [amount, setAmount] = useState("0");
+  const [amountDeposit, setAmountDeposit] = useState("0");
+  const [amountWithdraw, setAmountWithdraw] = useState("0");
+  const [address, setAddress] = useState("0");
   const [deeplink, setDeepLink] = useState("");
 
   const tonDeepLink = (address: string, amount: string, body: string) => {
     return `ton://transfer/${address}?amount=${amount}&bin=${body}`;
   };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setAmount(event.target.value);
-  };
+
   const depositHandler = () => {
     let parts = refUrl.split("start=");
     let lastPart = parts[parts.length - 1];
@@ -81,14 +83,29 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
       .storeUint(3436314585, 32)
       .storeStringRefTail(lastPart)
       .endCell();
-    const preparedBodyCell = base64url(body.toBoc())
+    const preparedBodyCell = base64url(body.toBoc());
     const link = tonDeepLink(
       "EQBXnk1YRq4FTmuE2YJO5SqLa51e4Datqtc0mrRu-b_gc1aJ",
-      amount,
+      amountDeposit,
       preparedBodyCell
     );
     setDeepLink(link);
   };
+
+  const withdrawHandler = () => {
+    dispatch(
+      withdraw({ tma: initDataRow, address: address, amount: +amountWithdraw })
+    );
+  };
+
+  useEffect(() => {
+    if (status == "succeeded") {
+      toast.success("Deposit request created");
+    }
+    if (status === "failed") {
+      toast.error(error);
+    }
+  }, [status]);
 
   return (
     <div className={clsx(s.dep_background, { [s.isopen]: isOpen })}>
@@ -141,8 +158,8 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                   type="text"
                   placeholder="0.000000000"
                   readOnly={false}
-                  value={amount}
-                  onChange={handleChange}
+                  value={amountDeposit}
+                  onChange={(event) => setAmountDeposit(event.target.value)}
                 />
                 <div className={s.input_ton}>
                   <img src={ton} className={s.input_img} />
@@ -150,7 +167,9 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                 </div>
               </div>
               {deeplink && <a href={deeplink}>Transfer with TON</a>}
-              <button className={s.yellow_btn} onClick={depositHandler}>Deposit</button>
+              <button className={s.yellow_btn} onClick={depositHandler}>
+                Deposit
+              </button>
             </>
           ) : (
             <>
@@ -165,6 +184,8 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     type="text"
                     placeholder="0.000000000"
                     readOnly={false}
+                    value={amountWithdraw}
+                    onChange={(event) => setAmountWithdraw(event.target.value)}
                   />
                   <div className={s.input_ton}>
                     <img src={ton} className={s.input_img} />
@@ -181,10 +202,12 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     type="text"
                     placeholder=""
                     readOnly={false}
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
                   />
                 </div>
 
-                <div className={s.item}>
+                {/*<div className={s.item}>
                   <label htmlFor="memo" className={s.inputLabel}>
                     Memo:
                   </label>
@@ -195,9 +218,11 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     placeholder=""
                     readOnly={false}
                   />
-                </div>
+          </div>*/}
               </div>
-              <button className={s.yellow_btn}>Withdraw</button>
+              <button className={s.yellow_btn} onClick={withdrawHandler}>
+                Withdraw
+              </button>
             </>
           )}
         </div>
