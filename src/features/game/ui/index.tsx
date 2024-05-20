@@ -4,18 +4,24 @@ import fh2 from "./assets/fh2.svg";
 import fh3 from "./assets/fh3.svg";
 import corn from "./assets/corn.gif";
 import bread from "./assets/bread.gif";
+import burger from "./assets/burger.gif";
+import pizza from "./assets/pizza.gif";
+import potato from "./assets/potato.gif";
 import worm from "./assets/worm.gif";
 import { useEffect } from "react";
 import { getActiveUsersPack } from "store/apis";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 
 export const Game = () => {
-    const baitItems = {
-        'bread': bread,
-        'corn': corn,
-        'worm': worm
+    // const baitItems = {
+    //     'bread': bread,
+    //     'corn': corn,
+    //     'worm': worm,
+    //     'burger' : burger,
+    //     'pizza':pizza,
+    //     'potato':potato
 
-    }
+    // }
 
     const dispatch = useAppDispatch();
 
@@ -34,15 +40,21 @@ export const Game = () => {
 
                     <img src={fh1} alt="" className={s.hooks} />
 
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "corn") && (
+                    {
+                    userPacks.names?.find((x: string) => x.toLowerCase() == "corn") 
+                    || userPacks.names?.find((x: string) => x.toLowerCase() == "burger") && (
+                        <>
                         <img src={corn} alt="" className={s.hook_bait} />
+                        <img src={burger} alt="" className={s.hook_bait} />
+                        </>
                     )}
 
                 </div>
 
                 <div className={s.hook_item}>
                     <img src={fh2} alt="" className={s.hooks} />
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") 
+                    || userPacks.names?.find((x: string) => x.toLowerCase() == "pizza")&& (
                         <img src={bread} alt="" className={s.hook_bait} />
                     )}
                 </div>
