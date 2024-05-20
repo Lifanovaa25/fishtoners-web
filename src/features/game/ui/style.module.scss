@@ -15,9 +15,14 @@
     position: relative;
     // z-index: 1;
 }
-
-.hooks {
+.hook_bait {
+    max-width: 100px;
     position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.hook_item {
+    position: fixed;
     animation: animate 10s linear infinite alternate;
     z-index: 0;
 
@@ -30,7 +35,7 @@
     }
 
     &:nth-child(2) {
-        top: -30px;
+        top: 0;
         left: 50%;
         // animation-delay: 1s;
         animation: animate 10s linear infinite alternate;
