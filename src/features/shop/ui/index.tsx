@@ -75,7 +75,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows:true
+    arrows: true
 
   };
   const { packsForStore, initDataRow, status, error } = useAppSelector(
@@ -112,7 +112,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
           <img className={s.close_icon} src={close_modal} />
         </div>
         <div className={s.shop_bg}> <div className={s.shalf_items} >
-          <Slider {...settings}>
+          <Slider {...settings} arrows={packsForStore.length > 3 ? true : false}>
             <>
               {first?.map((item, index) => (
 
@@ -141,36 +141,37 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                 </div>
 
               ))}
-            </>{packsForStore.length > 3 && 
-            <>
-              {second?.map((item, index) => (
+            </>
+            {packsForStore.length > 3 &&
+              <>
+                {second?.map((item, index) => (
 
-                <div className={s.shelf_item} key={index}>
-                  <div className={s.content}>
-                    {packsForStore.find(
-                      (x) => x.name?.toLowerCase() == item.name.toLowerCase()
-                    )?.isAvailable && (
-                        <>
-                          <div className={s.img}>
-                            <img src={item.img} className={s.item_img} />
-                          </div>
-                          <div
-                            className={s.text}
-                            onClick={() => buyPackHandler(item.name)}
-                          >
-                            {item.text}
-                          </div>
-                          <div className={s.amount}>
-                            <img src={brill} alt="ton" />
-                            {item.amount}
-                          </div>
-                        </>
-                      )}
+                  <div className={s.shelf_item} key={index}>
+                    <div className={s.content}>
+                      {packsForStore.find(
+                        (x) => x.name?.toLowerCase() == item.name.toLowerCase()
+                      )?.isAvailable && (
+                          <>
+                            <div className={s.img}>
+                              <img src={item.img} className={s.item_img} />
+                            </div>
+                            <div
+                              className={s.text}
+                              onClick={() => buyPackHandler(item.name)}
+                            >
+                              {item.text}
+                            </div>
+                            <div className={s.amount}>
+                              <img src={brill} alt="ton" />
+                              {item.amount}
+                            </div>
+                          </>
+                        )}
+                    </div>
                   </div>
-                </div>
 
-              ))}
-            </>}
+                ))}
+              </>}
           </Slider> </div>
         </div>
       </div>
