@@ -16,17 +16,7 @@ export const Game = () => {
         'worm': worm
 
     }
-    function getIndValue(key: number): string {
-        let id = userPacks.names ? [key].find((x: string) => x.toLowerCase());
-        const indValues: { [id]: string } = {
 
-            'bread': bread,
-            'corn': corn,
-            'worm': worm
-        };
-
-        return indValues[id];
-    }
     const dispatch = useAppDispatch();
 
     const { userPacks, initDataRow } = useAppSelector((state) => state.appSlice);
@@ -35,10 +25,7 @@ export const Game = () => {
             dispatch(getActiveUsersPack({ tma: initDataRow! }));
         }
     }, [initDataRow]);
-    // function array() {
-    console.log(userPacks)
-    // }
-    // array()
+
     return (
         <div className={s.conatiner}>
             <div className={s.fishhooks}>
@@ -47,8 +34,8 @@ export const Game = () => {
 
                     <img src={fh1} alt="" className={s.hooks} />
 
-                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
-                        <img src={bread} alt="" className={s.hook_bait} />
+                    {userPacks.names?.find((x: string) => x.toLowerCase() == "corn") && (
+                        <img src={corn} alt="" className={s.hook_bait} />
                     )}
 
                 </div>
@@ -61,7 +48,9 @@ export const Game = () => {
                 </div>
                 <div className={s.hook_item}>
                     <img src={fh3} alt="" className={s.hooks} />
-                    <img src={baitItems[`${userPacks.names[index + 2]}`]} alt="" className={s.hook_bait} />
+                    {userPacks.names?.find((x: string) => x.toLowerCase() == "worm") && (
+                        <img src={worm} alt="" className={s.hook_bait} />
+                    )}
                 </div>
 
             </div>
