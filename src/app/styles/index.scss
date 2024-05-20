@@ -38,7 +38,10 @@ button {
     position: relative;
     z-index: 1;
   }
-
+  .Toastify {
+    position: absolute;
+    z-index: 999999;
+  }
   @media (max-width: 500px) {
     background-size: cover;
   }
