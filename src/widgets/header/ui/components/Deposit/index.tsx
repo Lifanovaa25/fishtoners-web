@@ -61,7 +61,7 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
-  const { activeBtn, refUrl } = useAppSelector((state) => state.appSlice);
+  const { activeBtn, refUrl, panelData } = useAppSelector((state) => state.appSlice);
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -126,7 +126,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
         <div className={s.deposit_content}>
           <div className={s.balance}>
             Balance:
-            <span>50</span>
+            <span>{panelData.balance}</span>
             <img src={ton} className={s.ton} />
           </div>
           {activeBtn === "deposit" ? (
