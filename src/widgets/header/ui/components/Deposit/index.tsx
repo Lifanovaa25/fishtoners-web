@@ -35,7 +35,7 @@ export const DepositBtn = ({
     onSetStateDeposit();
     onSetState();
   };
-
+console.log(CHAIN)
   return (
     <>
       {classN ? (
@@ -68,7 +68,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { network, connected } = useTonConnect();
-
+console.log(network)
   const [amountDeposit, setAmountDeposit] = useState("0");
   const [amountWithdraw, setAmountWithdraw] = useState("0");
   const [address, setAddress] = useState("0");
