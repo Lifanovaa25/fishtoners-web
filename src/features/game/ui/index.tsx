@@ -37,20 +37,20 @@ export const Game = () => {
         <div className={s.fishhooks}>
           <div className={s.hook_item}>
             <img src={fh1} alt="" className={s.hooks} />
-            {userPackNames.find((x: string) => x.toLowerCase() == "corn") && (
+            {userPackNames?.find((x: string) => x.toLowerCase() == "corn") && (
               <img src={corn} alt="" className={s.hook_bait} />
             )}
           </div>
 
           <div className={s.hook_item}>
             <img src={fh2} alt="" className={s.hooks} />
-            {userPackNames.find((x: string) => x.toLowerCase() == "bread") && (
+            {userPackNames?.find((x: string) => x.toLowerCase() == "bread") && (
               <img src={bread} alt="" className={s.hook_bait} />
             )}
           </div>
           <div className={s.hook_item}>
             <img src={fh3} alt="" className={s.hooks} />
-            {userPackNames.find((x: string) => x.toLowerCase() == "worm") && (
+            {userPackNames?.find((x: string) => x.toLowerCase() == "worm") && (
               <img src={worm} alt="" className={s.hook_bait} />
             )}
           </div>
