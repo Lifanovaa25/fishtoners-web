@@ -15,6 +15,8 @@ import { beginCell } from "ton-core";
 import base64url from "base64url";
 import { withdraw } from "store/apis";
 import { toast } from "react-toastify";
+import { useTonConnect } from "hooks/useTonConnect";
+import { CHAIN, TonConnectButton } from "@tonconnect/ui-react";
 
 interface DepositBtnProps {
   onSetStateDeposit: () => void;
@@ -61,11 +63,11 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
-  const { activeBtn, refUrl, panelData, initDataRow, status, error } = useAppSelector(
-    (state) => state.appSlice
-  );
+  const { activeBtn, refUrl, panelData, initDataRow, status, error } =
+    useAppSelector((state) => state.appSlice);
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
+  const { network, connected } = useTonConnect();
 
   const [amountDeposit, setAmountDeposit] = useState("0");
   const [amountWithdraw, setAmountWithdraw] = useState("0");
@@ -219,6 +221,14 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     readOnly={false}
                   />
           </div>*/}
+                <TonConnectButton />
+                <h1>
+                  {network
+                    ? network === CHAIN.MAINNET
+                      ? "mainnet"
+                      : "testnet"
+                    : "N/A"}
+                </h1>
               </div>
               <button className={s.yellow_btn} onClick={withdrawHandler}>
                 Withdraw

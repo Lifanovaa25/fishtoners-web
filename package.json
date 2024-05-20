@@ -12,8 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.3.3",
     "@reduxjs/toolkit": "^2.2.4",
     "@tma.js/sdk": "^2.1.0",
+    "@tonconnect/ui-react": "^2.0.2",
     "@types/compose-function": "^0.0.33",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "@withease/factories": "^1.0.5",
