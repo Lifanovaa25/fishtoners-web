@@ -15,12 +15,14 @@
     position: relative;
     // z-index: 1;
 }
+
 .hook_bait {
     max-width: 100px;
     position: absolute;
     bottom: 0;
     left: 0;
 }
+
 .hook_item {
     position: fixed;
     animation: animate 10s linear infinite alternate;
@@ -32,6 +34,10 @@
         // animation-delay: 2s;
         animation: animate 12s linear infinite alternate;
 
+        .hook_bait {
+            bottom: -20px;
+            left: 35px;
+        }
     }
 
     &:nth-child(2) {

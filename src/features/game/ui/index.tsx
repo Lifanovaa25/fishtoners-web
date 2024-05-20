@@ -24,31 +24,34 @@ export const Game = () => {
             dispatch(getActiveUsersPack({ tma: initDataRow! }));
         }
     }, [initDataRow]);
+    // function array() {
     console.log(userPacks)
+    // }
+    // array()
     return (
         <div className={s.conatiner}>
             <div className={s.fishhooks}>
-               
-                        <div className={s.hook_item}>
+                {
+                    userPacks.names?.map((names, index) =>
+                        <>
+                            <div className={s.hook_item}>
 
-                            <img src={fh1} alt="" className={s.hooks} />
-                            <img src={baitItems[userPacks.names[0]]} alt="" className={s.hook_bait} />
+                                <img src={fh1} alt="" className={s.hooks} />
+                                <img src={baitItems[`${userPacks.names[index]}`]} alt={names} className={s.hook_bait} />
 
-                        </div>
+                            </div>
 
-                        <div className={s.hook_item}>
-                            <img src={fh2} alt="" className={s.hooks} />
-                            {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
-                                <img src={baitItems[userPacks.names[1]]} alt="" className={s.hook_bait} />
-                            )}
-                        </div>
-                        <div className={s.hook_item}>
-                            <img src={fh3} alt="" className={s.hooks} />
-                            {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
-                                <img src={baitItems[userPacks.names[2]]} alt="" className={s.hook_bait} />
-                            )}
-                        </div>
-                  
+                            <div className={s.hook_item}>
+                                <img src={fh2} alt="" className={s.hooks} />
+                                <img src={baitItems[`${userPacks.names[index+1]}`]} alt="" className={s.hook_bait} />
+
+                            </div>
+                            <div className={s.hook_item}>
+                                <img src={fh3} alt="" className={s.hooks} />
+                                <img src={baitItems[`${userPacks.names[index+2]}`]} alt="" className={s.hook_bait} />
+                            </div>
+                        </>
+                    )}
             </div>
         </div>
     );
