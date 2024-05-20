@@ -221,14 +221,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                     readOnly={false}
                   />
           </div>*/}
-                <TonConnectButton />
-                <h1>
-                  {network
-                    ? network === CHAIN.MAINNET
-                      ? "mainnet"
-                      : "testnet"
-                    : "N/A"}
-                </h1>
+                {!connected && <TonConnectButton />}
               </div>
               {connected && (
                 <button className={s.yellow_btn} onClick={withdrawHandler}>
