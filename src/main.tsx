@@ -3,7 +3,7 @@ import { Buffer } from "buffer";
 import App from "app";
 
 import video from "./app/assets/videoBg.mp4";
-
+import poster from './app/assets/Background_prev.png'
 import "shared/config/i18n";
 import { Provider } from "react-redux";
 import { setupStore } from "store/store";
