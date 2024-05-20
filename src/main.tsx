@@ -3,7 +3,7 @@ import { Buffer } from "buffer";
 import App from "app";
 
 import video from "./app/assets/videoBg.mp4";
-
+import poster from './app/assets/Background_prev.png'
 import "shared/config/i18n";
 import { Provider } from "react-redux";
 import { setupStore } from "store/store";
@@ -19,7 +19,7 @@ if (typeof window !== "undefined") {
 root.render(
   <Provider store={store}>
     <div className="app">
-      <video autoPlay loop muted className="bgvideo" id="bgvideo">
+      <video autoPlay loop muted poster={poster} className="bgvideo" id="bgvideo">
         <source src={video} type="video/mp4"></source>
       </video>
       <App />
