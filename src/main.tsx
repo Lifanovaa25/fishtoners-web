@@ -21,7 +21,7 @@ root.render(
   <TonConnectUIProvider manifestUrl="https://fishtoners-web.vercel.app/tonconnect-manifest.json">
     <Provider store={store}>
       <div className="app">
-        <video autoPlay loop muted className="bgvideo" id="bgvideo">
+        <video autoPlay loop muted poster={poster} className="bgvideo" id="bgvideo">
           <source src={video} type="video/mp4"></source>
         </video>
         <App />
