@@ -13,7 +13,7 @@ import { Game } from "features/game";
 import { ReferralLink } from "features/referral-link";
 import { FirstVizit } from "features/firstVisit";
 import { useEffect } from "react";
-// import { retrieveLaunchParams } from "@tma.js/sdk";
+ import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
 import {  getUserPanelData } from "store/apis";
 
@@ -21,8 +21,8 @@ const DashBoardPage = () => {
   const { activeTab, /*, initDataRow */ lang} = useAppSelector(
     (state) => state.appSlice
   );
-  //const { initDataRaw } = retrieveLaunchParams();
-  const initDataRaw = "test"
+  const { initDataRaw } = retrieveLaunchParams();
+  //const initDataRaw = "test"
   const { setInitDataRow } = appSlice.actions;
   const dispatch = useAppDispatch();
 
