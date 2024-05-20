@@ -16,6 +16,17 @@ export const Game = () => {
         'worm': worm
 
     }
+    function getIndValue(key: number): string {
+        let id = userPacks.names ? [key].find((x: string) => x.toLowerCase());
+        const indValues: { [id]: string } = {
+
+            'bread': bread,
+            'corn': corn,
+            'worm': worm
+        };
+
+        return indValues[id];
+    }
     const dispatch = useAppDispatch();
 
     const { userPacks, initDataRow } = useAppSelector((state) => state.appSlice);
@@ -31,28 +42,29 @@ export const Game = () => {
     return (
         <div className={s.conatiner}>
             <div className={s.fishhooks}>
-                {
-                    userPacks.names?.map((names, index) =>
-                        <>
-                            <div className={s.hook_item}>
 
-                                <img src={fh1} alt="" className={s.hooks} />
-                                <img src={baitItems[`${userPacks.names[index]}`]} alt={names} className={s.hook_bait} />
+                <div className={s.hook_item}>
 
-                            </div>
+                    <img src={fh1} alt="" className={s.hooks} />
 
-                            <div className={s.hook_item}>
-                                <img src={fh2} alt="" className={s.hooks} />
-                                <img src={baitItems[`${userPacks.names[index+1]}`]} alt="" className={s.hook_bait} />
-
-                            </div>
-                            <div className={s.hook_item}>
-                                <img src={fh3} alt="" className={s.hooks} />
-                                <img src={baitItems[`${userPacks.names[index+2]}`]} alt="" className={s.hook_bait} />
-                            </div>
-                        </>
+                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+                        <img src={bread} alt="" className={s.hook_bait} />
                     )}
+
+                </div>
+
+                <div className={s.hook_item}>
+                    <img src={fh2} alt="" className={s.hooks} />
+                    {userPacks.names?.find((x: string) => x.toLowerCase() == "bread") && (
+                        <img src={bread} alt="" className={s.hook_bait} />
+                    )}
+                </div>
+                <div className={s.hook_item}>
+                    <img src={fh3} alt="" className={s.hooks} />
+                    <img src={baitItems[`${userPacks.names[index + 2]}`]} alt="" className={s.hook_bait} />
+                </div>
+
             </div>
-        </div>
+        </div >
     );
 };
