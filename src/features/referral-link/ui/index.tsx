@@ -6,12 +6,12 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { Leaderboard } from "widgets/leaderboard";
 import { useEffect, useState } from "react";
 import { getRefData } from "store/apis";
+import { toast } from "react-toastify";
 
 export const ReferralLink = () => {
   const { t } = useTranslation();
-  const { youInvitedCount, refLeaderboard, initDataRow,refUrl } = useAppSelector(
-    (state) => state.appSlice
-  );
+  const { youInvitedCount, refLeaderboard, initDataRow, refUrl } =
+    useAppSelector((state) => state.appSlice);
   const dispatch = useAppDispatch();
   const [isBlinking, setIsBlinking] = useState(false);
   useEffect(() => {
@@ -21,23 +21,17 @@ export const ReferralLink = () => {
   }, [initDataRow]);
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(
-        refUrl
-    );
+    navigator.clipboard.writeText(refUrl);
     setIsBlinking(true);
     setTimeout(() => setIsBlinking(false), 500);
-};
+    toast.info(t("ref_link_copied"));
+  };
   return (
     <>
       <div className={s.container}>
         <p className={s.title}>{t("invite_title")}</p>
-        <div
-          onClick={handleCopyClick}
-          className={s.link}
-        >
-          <span
-            className={isBlinking ?  s.link_text :s.active}
-          >
+        <div onClick={handleCopyClick} className={s.link}>
+          <span className={isBlinking ? s.link_text : s.active}>
             {t("Copy_invite_Link")}
           </span>
         </div>
