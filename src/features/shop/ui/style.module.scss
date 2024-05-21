@@ -40,8 +40,10 @@
     padding: 14px;
     padding-top: 36px;
     z-index: 99;
+
     @media (max-height:800px) {
         top: 15%;
+        background-size: contain;
     }
 }
 
@@ -53,6 +55,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+
+    @media (max-height:800px) {
+        width: 300px;
+        background-size: contain;
+        height: 410px;
+    }
 }
 
 .shalf_items {
@@ -74,6 +82,12 @@
             left: -8px;
             position: absolute;
             z-index: 0;
+            @media (max-height:800px) {
+            min-width: 300px;
+                background-size: contain;
+                left: 0;
+                bottom: -5px;
+            }
         }
 
         .content {
@@ -86,11 +100,11 @@
             height: 128px;
             // padding: 0 13px;
             min-width: 338px;
+            @media (max-height:800px) {
+                min-width: 300px;
+                    
+                }
 
-            // width: 286px;
-            // min-width: 286px;
-            // max-width: 286px;
-            
         }
 
         .text {
@@ -103,12 +117,23 @@
             color: #fff;
             width: 116px;
             height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @media (max-height:750px) {
+                padding: 5px;
+                background-size: contain;
+            }
         }
     }
 }
 
 .img {
     width: 109px;
+
+    @media (max-height:800px) {
+        width: 90px;
+    }
 }
 
 .amount {
@@ -128,6 +153,7 @@
     height: 35px;
     margin-left: 26px;
 }
+
 .item_img {
     max-width: 90px;
 }

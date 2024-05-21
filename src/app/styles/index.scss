@@ -37,6 +37,8 @@ button {
   >div {
     position: relative;
     z-index: 1;
+    max-height: 100vh;
+    overflow: hidden;
   }
   .Toastify {
     position: absolute;

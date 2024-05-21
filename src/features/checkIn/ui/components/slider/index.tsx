@@ -46,11 +46,11 @@ export const Slider: React.FC = () => {
           {SLIDES.map((index) => (
             <div
               className={clsx(s.embla__slide, "shadow", {
-                [s.slide_disable]: !renderFish(index),
+                [s.slide_disable]: renderFish(index),
               })}
               key={index}
             >
-              {renderFish(index) && (
+              {!renderFish(index) && (
                 <img className={s.slide_fishes} src={fishes[index]} alt="" />
               )}
               <div className={s.position}>

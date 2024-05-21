@@ -7,6 +7,10 @@
     left: 0;
     right: 0;
     bottom: 7px;
+    z-index: 2;
+    @media (max-height: 800px) {
+        bottom: 0;
+    }
 }
 .menu_btn {
     background: url(./../../../shared/assets/bottom_nav_btn.svg) center center /cover no-repeat;
@@ -17,7 +21,7 @@
     align-items: center;
     justify-content: center;
     @media (max-height: 800px) {
-        transform: scale(.8);
+        // transform: scale(.8);
     }
 }
 .active {
