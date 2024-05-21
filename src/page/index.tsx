@@ -36,7 +36,7 @@ const DashBoardPage = () => {
   }, [initDataRaw]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-
+  console.log({ isError });
   const onLoadEffect = () => {
     setTimeout(() => {
       setLoading(false);
