@@ -61,6 +61,7 @@ interface DepositModalProps {
 }
 
 export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
+  const { t } = useTranslation();
   const { depositCall } = useContract();
 
   const { activeBtn, balance, initDataRow, userId, status, error } =
@@ -71,11 +72,11 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const [amountDeposit, setAmountDeposit] = useState("0");
   const [amountWithdraw, setAmountWithdraw] = useState("0");
   const [address, setAddress] = useState("0");
-
+  const [depositRequestCreated, setDepositRequestCreated] = useState(0);
   const depositHandler = () => {
     depositCall(toNano(amountDeposit), userId.toString());
-    toast.info("Deposited. TONs will receive soon");
-    console.log("Deposited");
+    toast.info(t("tons-deposited"));
+    setDepositRequestCreated(depositRequestCreated + 1);
     onSetState();
   };
 
@@ -84,17 +85,19 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
       withdraw({ tma: initDataRow, address: address, amount: +amountWithdraw })
     );
     onSetState();
-    toast.info("Withdraw requested");
+    toast.info(t("withdraw-requested"));
   };
 
   useEffect(() => {
-    if (status == "succeeded") {
-      toast.success("Deposit request created");
+    if (depositRequestCreated > 0) {
+      if (status == "succeeded") {
+        //toast.success("Deposit request created");
+      }
+      if (status === "failed") {
+        toast.error(error);
+      }
     }
-    if (status === "failed") {
-      toast.error(error);
-    }
-  }, [status]);
+  }, [status, depositRequestCreated]);
 
   return (
     <div className={clsx(s.dep_background, { [s.isopen]: isOpen })}>

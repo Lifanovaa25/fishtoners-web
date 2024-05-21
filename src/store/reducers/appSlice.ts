@@ -27,7 +27,7 @@ export type Status = "idle" | "loading" | "succeeded" | "failed";
 
 export const initialState = {
   initDataRow: "",
-  userId:0,
+  userId: 0,
   bobberValue: 0,
   fishValue: 0,
   packsCount: 0,
@@ -84,8 +84,8 @@ export const appSlice = createSlice({
           state.bobberValue = action.payload.value!.bobberValue!;
           state.fishValue = action.payload.value!.fishValue!;
           state.packsCount = action.payload.value!.packsCount!;
-          state.lang=action.payload.value!.languageCode!
-		  state.userId=action.payload.value!.userId
+          state.lang = action.payload.value!.languageCode!;
+          state.userId = action.payload.value!.userId;
         }
       )
       .addCase(getUserPanelData.rejected, (state, action: any) => {
@@ -97,7 +97,7 @@ export const appSlice = createSlice({
         getActiveUsersPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<UsersPacksVm>>) => {
           state.userPackNames = action.payload.value!.names!;
-		  state.packsCount = action.payload.value!.names!.length;
+          state.packsCount = action.payload.value!.names?.length ?? 0;
         }
       )
       .addCase(
@@ -160,7 +160,7 @@ export const appSlice = createSlice({
           state.packsForStore.find(
             (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
-		  state.packsCount+=1
+          state.packsCount += 1;
           state.status = "succeeded";
         }
       )
@@ -191,7 +191,6 @@ function processError(state: State, action: any, msg: string) {
     const apiError = action.payload as ApiError;
     state.error =
       apiError.errors.length > 0 ? apiError.errors[0].code : apiError.title;
-    //toast.error(apiError.errors.map((e) => e.description).join(", "));
   } else {
     state.error = action.error.message || msg;
   }
