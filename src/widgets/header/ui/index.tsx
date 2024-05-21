@@ -50,12 +50,11 @@ export const Header = () => {
             {fishValue ?? 0}
           </div>
 
-          <div className={s.points}>
+          <div className={balance.toString().length >3 ? s.fz20 : s.points }>
             <img width="23px" height="23px" src={ton} />
 
             {balance ?? 0}
           </div>
-
           <div onClick={onSetStateMenu} className={s.menu}>
             <div className={s.menu_item} />
             <div className={s.menu_item} />
