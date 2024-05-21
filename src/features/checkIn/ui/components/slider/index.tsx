@@ -7,9 +7,6 @@ import s from "./style.module.scss";
 
 import { fishes } from "../../assets/fishes";
 import clsx from "clsx";
-// import { useTranslation } from "react-i18next";
-// import { CURRENT_UNIXTIME, DAY_UNIXTIME } from "shared/config";
-// import { Button } from "shared/ui/button";
 import { GmClaim } from "../Gm-claim";
 import { useAppSelector } from "hooks/redux";
 
@@ -34,36 +31,42 @@ export const Slider: React.FC = () => {
     return !isTodayFishClaimed && index == userFishesCount;
   };
   const renderFish = (index: number) => {
-    return (
-      canClaim(index) || allfishes.find((x) => x.id! - 1 == index)?.claimed!
-    );
+    return !allfishes.find((x) => x.id! - 1 == index)?.claimed!;
   };
 
   return (
     <section className={s.slider}>
       <div className={s.embla__viewport} ref={emblaRef}>
         <div className={s.embla__container}>
-          {SLIDES.map((index) => (
-            <div
-              className={clsx(s.embla__slide, "shadow", {
-                [s.slide_disable]: renderFish(index),
-              })}
-              key={index}
-            >
-              {!renderFish(index) && (
-                <img className={s.slide_fishes} src={fishes[index]} alt="" />
-              )}
-              <div className={s.position}>
-                <GmClaim
-                  fishNumber={index}
-                  canClaim={canClaim(index)}
-                  isClaimed={
-                    allfishes.find((x) => x.id! - 1 == index)?.claimed!
-                  }
-                />
-              </div>
-            </div>
-          ))}
+          {SLIDES.map(
+            (index) =>
+              index >= userFishesCount - 1 && (
+                <div
+                  className={clsx(s.embla__slide, "shadow", {
+                    [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
+                      ?.claimed!,
+                  })}
+                  key={index}
+                >
+                  {renderFish(index) && (
+                    <img
+                      className={s.slide_fishes}
+                      src={fishes[index]}
+                      alt=""
+                    />
+                  )}
+                  <div className={s.position}>
+                    <GmClaim
+                      fishNumber={index}
+                      canClaim={canClaim(index)}
+                      isClaimed={
+                        allfishes.find((x) => x.id! - 1 == index)?.claimed!
+                      }
+                    />
+                  </div>
+                </div>
+              )
+          )}
         </div>
       </div>
 

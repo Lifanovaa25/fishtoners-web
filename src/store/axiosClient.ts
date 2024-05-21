@@ -8,7 +8,7 @@ import type {
 const createAxiosClient = (initDataRaw?: string) => {
   const axiosClient = axios.create({
     baseURL: "https://a26930-7253.x.d-f.pw",
-    timeout: 10000, // 10 секунд таймаут
+    timeout: 50000, // 5 секунд таймаут
   });
 
   if (initDataRaw) {

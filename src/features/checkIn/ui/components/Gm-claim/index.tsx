@@ -14,8 +14,6 @@ interface IProps {
   isClaimed: boolean;
 }
 
-const DAY = 3600 * 24 * 1000;
-
 export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
   const { t } = useTranslation();
   const { initDataRow, nextFishDate, userFishesCount } = useAppSelector(
@@ -24,8 +22,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
 
   const dispatch = useAppDispatch();
   const diff = nextFishDate.getTime() - new Date(Date.now()).getTime();
-  const add = (fishNumber - userFishesCount) * DAY;
-  const sub = userFishesCount == 0 ? DAY : 0;
+  const add = fishNumber - userFishesCount;
 
   const onClaim = () => {
     if (canClaim) {
@@ -38,25 +35,22 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
 
   return (
     <>
-      {!isClaimed && (
-        <button
-          onClick={onClaim}
-          className={clsx(s.collect_btn, { [s.gm_disable]: !canClaim })}
-        >
-          <span className={clsx(s.text, "shadow")}>
-            {!canClaim ? (
-              <span className={s.disable_text}>
-                Next check in
-                <div className={s.timer}>
-                  <TimerClaim remained={diff + add - sub} />
-                </div>
-              </span>
-            ) : (
-              t("Collect")
-            )}
-          </span>
-        </button>
-      )}
+      <button
+        onClick={onClaim}
+        className={clsx(s.collect_btn, { [s.gm_disable]: !canClaim })}
+      >
+        <span className={clsx(s.text, "shadow")}>
+          {isClaimed && (
+            <span className={s.disable_text}>
+              Next check in
+              <div className={s.timer}>
+                <TimerClaim remained={diff + add} />
+              </div>
+            </span>
+          )}
+          {(canClaim || !isClaimed) && t("Collect")}
+        </span>
+      </button>
     </>
   );
 };
