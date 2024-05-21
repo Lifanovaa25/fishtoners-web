@@ -4,7 +4,7 @@
     position: fixed;
     // width: 100%;
     // height: 100%;
-    top:0;
+    top:-100%;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -38,13 +38,13 @@
     right: 0;
     background: url(./assets/shop_bg.png) center center / cover no-repeat;
     margin: 0 auto;
-    top: 165px;
+    top: 150px;
     padding: 14px;
     padding-top: 36px;
     z-index: 99;
 
     @media (max-height:800px) {
-        top: 15%;
+        top: 10%;
         background-size: contain;
     }
 }
