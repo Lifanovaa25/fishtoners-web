@@ -14,7 +14,10 @@
     --slide-size: 94px;
 
     margin-bottom: 13px;
-
+    @media (max-height:850px) {
+        margin-bottom: 0;
+        margin-top: 10px;
+    }
     @media (max-height:813px) {
         transform: scale(.75);
         height: 47%;
