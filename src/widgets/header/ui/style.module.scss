@@ -86,7 +86,8 @@
     }
 }
 
-.points {
+.points,
+.fz20 {
     font-family: var(--fm-main);
     font-weight: 500;
     font-size: 25px;
@@ -148,4 +149,7 @@
     background-size: cover;
     // background-color: var(--main-color);
     // border-radius: 2px;
+}
+.fz20 {
+    font-size: 20px;
 }
