@@ -97,6 +97,7 @@ export const appSlice = createSlice({
         getActiveUsersPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<UsersPacksVm>>) => {
           state.userPackNames = action.payload.value!.names!;
+		  state.packsCount = action.payload.value!.names!.length;
         }
       )
       .addCase(
@@ -159,7 +160,7 @@ export const appSlice = createSlice({
           state.packsForStore.find(
             (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
-		  state.packsCount = state.userPackNames.length
+		  state.packsCount+=1
           state.status = "succeeded";
         }
       )

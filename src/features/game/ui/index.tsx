@@ -25,12 +25,12 @@ export const Game = () => {
 
     const dispatch = useAppDispatch();
  
-    const { userPackNames, initDataRow } = useAppSelector((state) => state.appSlice);
+    const { userPackNames, initDataRow, packsCount } = useAppSelector((state) => state.appSlice);
     useEffect(() => {
       if (initDataRow) {
         dispatch(getActiveUsersPack({ tma: initDataRow! }));
       }
-    }, [initDataRow, userPackNames]);
+    }, [initDataRow, userPackNames, packsCount]);
   
     return (
       <div className={s.conatiner}>
