@@ -64,8 +64,15 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const { t } = useTranslation();
   const { depositCall } = useContract();
 
-  const { activeBtn, balance, initDataRow, userId, status, error } =
-    useAppSelector((state) => state.appSlice);
+  const {
+    activeBtn,
+    balance,
+    initDataRow,
+    userId,
+    feeInPercents,
+    status,
+    error,
+  } = useAppSelector((state) => state.appSlice);
   const { setActiveBtn } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { connected } = useTonConnect();
@@ -201,18 +208,18 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                   />
                 </div>
 
-                {/*<div className={s.item}>
+                <div className={s.item}>
                   <label htmlFor="memo" className={s.inputLabel}>
-                    Memo:
+                    Fee: {feeInPercents}%
                   </label>
-                  <input
+                  {/*<input
                     name="memo"
                     className={s.input}
                     type="text"
                     placeholder=""
                     readOnly={false}
-                  />
-          </div>*/}
+                  />*/}
+                </div>
               </div>
 
               <button className={s.yellow_btn} onClick={withdrawHandler}>

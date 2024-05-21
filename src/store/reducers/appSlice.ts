@@ -32,6 +32,8 @@ export const initialState = {
   fishValue: 0,
   packsCount: 0,
   balance: 0,
+  feeInPercents: 0,
+
   userPackNames: [] as string[],
 
   youInvitedCount: 0,
@@ -86,6 +88,7 @@ export const appSlice = createSlice({
           state.packsCount = action.payload.value!.packsCount!;
           state.lang = action.payload.value!.languageCode!;
           state.userId = action.payload.value!.userId;
+		  state.feeInPercents = action.payload.value!.feeInPercents
         }
       )
       .addCase(getUserPanelData.rejected, (state, action: any) => {
