@@ -3,7 +3,7 @@ import { Buffer } from "buffer";
 import App from "app";
 
 import video from "./app/assets/videoBg.mp4";
-import poster from './app/assets/Background_prev.png'
+import poster from "./app/assets/Background_prev.png";
 import "shared/config/i18n";
 import { Provider } from "react-redux";
 import { setupStore } from "store/store";
@@ -21,7 +21,15 @@ root.render(
   <TonConnectUIProvider manifestUrl="https://fishtoners-web.vercel.app/tonconnect-manifest.json">
     <Provider store={store}>
       <div className="app">
-        <video autoPlay loop muted poster={poster} className="bgvideo" id="bgvideo">
+        <video
+          autoPlay
+          loop
+          muted
+          poster={poster}
+          playsInline
+          className="bgvideo"
+          id="bgvideo"
+        >
           <source src={video} type="video/mp4"></source>
         </video>
         <App />
