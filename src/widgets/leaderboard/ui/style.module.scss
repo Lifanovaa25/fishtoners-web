@@ -12,6 +12,10 @@
         padding: 0 8px;
 
     }
+    @media (max-height:591px) {
+        margin-top: -20px;
+        
+    }
 }
 
 .leaderboard_title {
