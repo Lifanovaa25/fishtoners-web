@@ -12,7 +12,9 @@
         padding: 0 8px;
 
     }
-    @media (max-height:591px) {
+    @media (max-height:667px) {
+        transform: scale(0.9);
+
         margin-top: -20px;
         
     }
