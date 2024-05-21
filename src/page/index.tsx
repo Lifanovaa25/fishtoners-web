@@ -39,7 +39,7 @@ const DashBoardPage = () => {
   return (
     <>
       <div className={s.page}>
-        {!localStorage.getItem("firstVisit") ? (
+        {!localStorage.getItem("firstVisit0") ? (
           <FirstVizit />
         ) : (
           <>

@@ -1,5 +1,3 @@
-// import { useUnit } from 'effector-react'
-
 import s from './style.module.scss'
 import title from 'shared/assets/title.png'
 import { useTranslation } from 'react-i18next';
@@ -8,7 +6,6 @@ import h2 from './assets/h2.svg'
 import h3 from './assets/h3.svg'
 import { useState } from 'react';
 export const FirstVizit = () => {
-    // const profile = useUnit($userProfile)
     const [close, setClose] = useState(false)
     const { t } = useTranslation();
 
