@@ -6,6 +6,10 @@
     @media (max-height: 800px) {
         margin-top: 0;
     }
+    @media (max-width: 390px ) {
+        transform: scale(0.9);
+        margin-top: -60px;
+    }
 }
 
 .leaderboard_title {
@@ -62,7 +66,5 @@
     height: 150px;
     margin: 0 auto;
     margin-top: 16px;
-    @media (max-width: 390px ) {
-        transform: scaleX(0.85);
-    }
+   
 }
