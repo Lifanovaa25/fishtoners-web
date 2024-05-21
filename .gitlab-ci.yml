@@ -1,0 +1,24 @@
+stages:
+  - build
+  - deploy
+
+docker-build-tma:
+  image: docker:latest
+  stage: build
+  tags:
+    - fishtoners
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" registry.gitlab.com
+  script:
+    - docker build -t registry.gitlab.com/av.pashintsev/fishtoners-tma:latest .
+    - docker push registry.gitlab.com/av.pashintsev/fishtoners-tma:latest
+  only:
+    - main
+
+docker-run-fishtoners-compose:
+  stage: deploy
+  trigger:
+    project: av.pashintsev/fishtoners-backend
+    branch: main
+  only:
+    - main
