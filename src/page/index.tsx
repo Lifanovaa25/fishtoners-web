@@ -13,7 +13,12 @@ import { FirstVizit } from "features/firstVisit";
 import { useEffect, useState } from "react";
 import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
-import { getLeaderboard, getUserFishes, getUserPanelData } from "store/apis";
+import {
+  getActiveUsersPack,
+  getLeaderboard,
+  getUserFishes,
+  getUserPanelData,
+} from "store/apis";
 
 const DashBoardPage = () => {
   const { activeTab, /*, initDataRow */ lang } = useAppSelector(
@@ -33,6 +38,7 @@ const DashBoardPage = () => {
       dispatch(getUserPanelData({ tma: initDataRaw! }));
       dispatch(getLeaderboard({ tma: initDataRaw! }));
       dispatch(getUserFishes({ tma: initDataRaw! }));
+      dispatch(getActiveUsersPack({ tma: initDataRaw! }));
     }
   }, [initDataRaw]);
   const [isLoading, setLoading] = useState(true);
