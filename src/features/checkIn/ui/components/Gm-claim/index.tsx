@@ -21,7 +21,7 @@ export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
   );
 
   const dispatch = useAppDispatch();
-  const diff = nextFishDate.getTime() //- new Date(Date.now()).getTime();
+  //const diff = nextFishDate.getTime() //- new Date(Date.now()).getTime();
   //const add = fishNumber - userFishesCount;
 
   const onClaim = () => {
@@ -40,10 +40,10 @@ export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
     dispatch(getUserFishes({ tma: initDataRow! }));
     return <span>reload page</span>;
   };
-  const TimerClaim = ({ remained }: { remained: number }) => {
+  const TimerClaim = ({ endDate }: { endDate: number }) => {
     return (
       <Countdown
-        date={Date.now() + remained + 1000}
+        date={endDate + 1000}
         renderer={renderer}
       ></Countdown>
     );
@@ -68,7 +68,7 @@ export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
             <span className={s.disable_text}>
               Next check in
               <div className={s.timer}>
-                <TimerClaim remained={diff/* + add*/} />
+                <TimerClaim endDate={nextFishDate.getTime()} />
               </div>
             </span>
           )}
