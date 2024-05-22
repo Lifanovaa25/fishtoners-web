@@ -24,7 +24,7 @@ export const Game = () => {
     pizza: pizza,
     potato: potato,
     leg: leg,
-    peppet: pepper,
+    pepper: pepper,
     cookie: cookie,
   };
   const getPicture = (name: string) => {

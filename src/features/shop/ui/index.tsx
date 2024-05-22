@@ -36,7 +36,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     pizza: pizza,
     potato: potato,
     leg: leg,
-    peppet: pepper,
+    pepper: pepper,
     cookie: cookie,
   };
   const getPicture = (name: string) => {
