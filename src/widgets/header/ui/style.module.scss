@@ -66,7 +66,7 @@
         width: 275px;
         height: 27px;
         position: relative;
-        padding: 7px 8px;
+        padding: 7px 15px;
 
         .indicator_img {
             position: absolute;
@@ -78,11 +78,11 @@
         .line {
             overflow: hidden;
             width: 0%;
-            max-width: 137px;
+            max-width: 229px;
             transition: all .5s;
 
             .line_img {
-                width: 137px;
+                width: 229px;
                 height: 13px;
             }
 
