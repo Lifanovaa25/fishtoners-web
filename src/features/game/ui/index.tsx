@@ -36,10 +36,10 @@ export const Game = () => {
     (state) => state.appSlice
   );
   useEffect(() => {
-    if (initDataRow) {
+    if (initDataRow == "") {
       dispatch(getActiveUsersPack({ tma: initDataRow! }));
     }
-  }, [initDataRow, packsCount]);
+  }, [initDataRow, userPackNames, packsCount]);
 
   return (
     <div className={s.conatiner}>
