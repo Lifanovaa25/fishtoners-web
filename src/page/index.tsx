@@ -11,7 +11,7 @@ import { Game } from "features/game";
 import { ReferralLink } from "features/referral-link";
 import { FirstVizit } from "features/firstVisit";
 import { useEffect, useState } from "react";
-// import { retrieveLaunchParams } from "@tma.js/sdk";
+import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
 import { getLeaderboard, getUserFishes, getUserPanelData } from "store/apis";
 
@@ -19,10 +19,10 @@ const DashBoardPage = () => {
   const { activeTab, /*, initDataRow */ lang } = useAppSelector(
     (state) => state.appSlice
   );
-  //const { initDataRaw } = retrieveLaunchParams();
+  const { initDataRaw } = retrieveLaunchParams();
   //console.log(initDataRaw)
-const initDataRaw =
-  "query_id=AAHVXm8TAAAAANVebxOf5Vpe&user=%7B%22id%22%3A326065877%2C%22first_name%22%3A%22Andrey%22%2C%22last_name%22%3A%22Vladimirovich%22%2C%22username%22%3A%22apashintsev%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1716371345&hash=e9c8d395d9f6e94457219b2e407dfdc55f556eebb00fc17a878cb1b11d82cf11";
+  //const initDataRaw =
+  //  "query_id=AAHVXm8TAAAAANVebxOf5Vpe&user=%7B%22id%22%3A326065877%2C%22first_name%22%3A%22Andrey%22%2C%22last_name%22%3A%22Vladimirovich%22%2C%22username%22%3A%22apashintsev%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1716371345&hash=e9c8d395d9f6e94457219b2e407dfdc55f556eebb00fc17a878cb1b11d82cf11";
   const { setInitDataRow } = appSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -41,7 +41,6 @@ const initDataRaw =
     setTimeout(() => {
       setLoading(false);
     }, 5000);
-
   };
   useEffect(onLoadEffect, []);
   return (
