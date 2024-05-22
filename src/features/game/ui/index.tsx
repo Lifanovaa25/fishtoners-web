@@ -8,6 +8,9 @@ import burger from "./assets/burger.gif";
 import pizza from "./assets/pizza.gif";
 import potato from "./assets/potato.gif";
 import worm from "./assets/worm.gif";
+import leg from "./assets/leg.gif";
+import pepper from "./assets/pepper.gif";
+import cookie from "./assets/cookie.gif";
 import { useEffect } from "react";
 import { getActiveUsersPack } from "store/apis";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
@@ -20,6 +23,9 @@ export const Game = () => {
     burger: burger,
     pizza: pizza,
     potato: potato,
+    leg: leg,
+    peppet: pepper,
+    cookie: cookie,
   };
   const getPicture = (name: string) => {
     return baitItems[name];
