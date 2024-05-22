@@ -10,6 +10,9 @@ import burger from "./assets/burger.gif";
 import pizza from "./assets/pizza.gif";
 import potato from "./assets/potato.gif";
 import brill from "./assets/brill.svg";
+import leg from "./assets/leg.gif";
+import pepper from "./assets/pepper.gif";
+import cookie from "./assets/cookie.gif";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect } from "react";
@@ -17,6 +20,7 @@ import { buyPack, getPacks } from "store/apis";
 import { toast } from "react-toastify";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
+import { PackVm } from "store/apiClient";
 interface ShopProps {
   onSetState: () => void;
   isOpen: boolean;
@@ -24,52 +28,20 @@ interface ShopProps {
 
 export const Shop = ({ onSetState, isOpen }: ShopProps) => {
   const { t } = useTranslation();
-  const first = [
-    {
-      id: 0,
-      img: corn,
-      text: "0.1 > 1.5 TON",
-      amount: "0,1",
-      name: "corn",
-    },
-    {
-      id: 2,
-      img: bread,
-      text: "0.5 > 0.75 TON",
-      amount: "0,5",
-      name: "bread",
-    },
-    {
-      id: 3,
-      img: worm,
-      text: "1 > 1.5 TON",
-      amount: "1",
-      name: "worm",
-    },
-  ];
-  const second = [
-    {
-      id: 4,
-      img: burger,
-      text: "0.1 > 1.5 TON",
-      amount: "0,1",
-      name: "burger",
-    },
-    {
-      id: 5,
-      img: pizza,
-      text: "0.5 > 0.75 TON",
-      amount: "0,5",
-      name: "pizza",
-    },
-    {
-      id: 6,
-      img: potato,
-      text: "1 > 1.5 TON",
-      amount: "1",
-      name: "potato",
-    },
-  ];
+  const baitItems: { [key: string]: string } = {
+    bread: bread,
+    corn: corn,
+    worm: worm,
+    burger: burger,
+    pizza: pizza,
+    potato: potato,
+    leg: leg,
+    peppet: pepper,
+    cookie: cookie,
+  };
+  const getPicture = (name: string) => {
+    return baitItems[name];
+  };
 
   var settings = {
     dots: false,
@@ -106,11 +78,9 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     }
   }, [status]);
 
-  const getPackData = (name: string) => {
-    return packsForStore.find(
-      (x) => x.name?.toLowerCase() == name.toLowerCase()
-    );
-  };
+  const slicedPacks = sliceArray(packsForStore.filter(x=>x.isAvailable!), 3);
+
+  const sortedSlicedPacks = sortSlicesByPrice(slicedPacks);
 
   return (
     <div className={clsx(s.shop_modal_background, { [s.is_open]: isOpen })}>
@@ -119,64 +89,38 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
           <img className={s.close_icon} src={close_modal} />
         </div>
         <div className={s.shop_bg}>
-          {" "}
           <div className={s.shalf_items}>
             <Slider
               {...settings}
               arrows={packsForStore.length > 3 ? true : false}
             >
-              <>
-                {first?.map((item, index) => (
-                  <div className={s.shelf_item} key={index}>
-                    <div className={s.content}>
-                      {getPackData(item.name)?.isAvailable && (
-                        <>
-                          <div className={s.img}>
-                            <img src={item.img} className={s.item_img} />
-                          </div>
-                          <div
-                            className={s.text}
-                            onClick={() => buyPackHandler(item.name)}
-                          >
-                            {`${getPackData(item.name)?.price} > ${getPackData(item.name)?.earn} TON`}
-                          </div>
-                          <div className={s.amount}>
-                            <img src={brill} alt="ton" />
-                            {getPackData(item.name)?.price}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </>
-              {packsForStore.length > 3 && (
+              {sortedSlicedPacks.map((packGroup) => (
                 <>
-                  {second?.map((item, index) => (
-                    <div className={s.shelf_item} key={index}>
+                  {packGroup.map((pack, pid) => (
+                    <div className={s.shelf_item} key={pid}>
                       <div className={s.content}>
-                        {getPackData(item.name)?.isAvailable && (
+                        {
                           <>
                             <div className={s.img}>
-                              <img src={item.img} className={s.item_img} />
+                              <img src={getPicture(pack.name!)} className={s.item_img} />
                             </div>
                             <div
                               className={s.text}
-                              onClick={() => buyPackHandler(item.name)}
+                              onClick={() => buyPackHandler(pack.name!)}
                             >
-                              {`${getPackData(item.name)?.price} > ${getPackData(item.name)?.earn} TON`}
+                              {`${pack?.price} > ${pack?.earn} TON`}
                             </div>
                             <div className={s.amount}>
                               <img src={brill} alt="ton" />
-                              {getPackData(item.name)?.price}
+                              {pack?.price}
                             </div>
                           </>
-                        )}
+                        }
                       </div>
                     </div>
                   ))}
                 </>
-              )}
+              ))}
             </Slider>
           </div>
         </div>
@@ -184,3 +128,18 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     </div>
   );
 };
+
+const sliceArray = (array: PackVm[], sliceSize: number): PackVm[][] => {
+  const result: PackVm[][] = [];
+  for (let i = 0; i < array.length; i += sliceSize) {
+    result.push(array.slice(i, i + sliceSize));
+  }
+  return result;
+};
+
+const sortSlicesByPrice = (slices: PackVm[][]): PackVm[][] => {
+  return slices.map((slice) =>
+    slice.sort((a, b) => (a.price ?? 0) - (b.price ?? 0))
+  );
+};
+

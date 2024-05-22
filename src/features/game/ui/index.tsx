@@ -46,7 +46,7 @@ export const Game = () => {
       <div className={s.fishhooks}>
         <div className={s.hook_item}>
           <img src={fh1} alt="" className={s.hooks} />
-          {userPackNames.length > 0 && (
+          {userPackNames?.length > 0 && (
             <img
               src={getPicture(userPackNames[0])}
               alt=""
@@ -57,7 +57,7 @@ export const Game = () => {
 
         <div className={s.hook_item}>
           <img src={fh2} alt="" className={s.hooks} />
-          {userPackNames.length > 1 && (
+          {userPackNames?.length > 1 && (
             <img
               src={getPicture(userPackNames[1])}
               alt=""
@@ -67,7 +67,7 @@ export const Game = () => {
         </div>
         <div className={s.hook_item}>
           <img src={fh3} alt="" className={s.hooks} />
-          {userPackNames.length > 2 && (
+          {userPackNames?.length > 2 && (
             <img
               src={getPicture(userPackNames[2])}
               alt=""
