@@ -159,12 +159,13 @@ export const appSlice = createSlice({
       .addCase(
         buyPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<string>>) => {
-          state.userPackNames?.push(action.payload.value!);
+          state.userPackNames.push(action.payload.value!);
           state.packsForStore.find(
             (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
           state.packsCount += 1;
           state.status = "succeeded";
+		  console.log({state})
         }
       )
       .addCase(buyPack.rejected, (state, action) => {
