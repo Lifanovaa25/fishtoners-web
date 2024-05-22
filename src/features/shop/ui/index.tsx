@@ -94,7 +94,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
               {...settings}
               arrows={packsForStore.length > 3 ? true : false}
             >
-              {sortedSlicedPacks.map((packGroup) => (
+              {sortedSlicedPacks.map((packGroup, gid) => (
                 <>
                   {packGroup.map((pack, pid) => (
                     <div className={s.shelf_item} key={pid}>
@@ -102,7 +102,10 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                         {
                           <>
                             <div className={s.img}>
-                              <img src={getPicture(pack.name!)} className={s.item_img} />
+                              <img
+                                src={getPicture(pack.name!)}
+                                className={s.item_img}
+                              />
                             </div>
                             <div
                               className={s.text}
@@ -119,6 +122,17 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                       </div>
                     </div>
                   ))}
+                  {packGroup.length < 3 &&
+                    Array.from({ length: 3 - packGroup.length }).map(
+                      (_, index) => (
+                        <div
+                          className={s.shelf_item}
+                          key={`empty-${gid}-${index}`}
+                        >
+                          <div className={s.content}></div>
+                        </div>
+                      )
+                    )}
                 </>
               ))}
             </Slider>
