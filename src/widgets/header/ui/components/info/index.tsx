@@ -6,7 +6,7 @@ import s from './style.module.scss'
 import { Modal } from "shared/ui/modal"
 
 import close_modal from '../../assets/close_modal.svg';
-import worms from 'shared/assets/worm.svg';
+import fish from 'shared/assets/fish_m.svg';
 import hooks from '../../assets/hooks.svg';
 import { skeletonGeneration } from "shared/lib/lazy"
 
@@ -77,7 +77,7 @@ export const InfoModal = ({
                                     <img
                                         width='22px'
                                         height='23px'
-                                        src={worms}
+                                        src={fish}
                                     />
                                 }
                             </span>
