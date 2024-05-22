@@ -166,7 +166,7 @@ export const appSlice = createSlice({
           )!.isAvailable = false;
           state.packsCount += 1;
           state.status = "succeeded";
-          console.log({ state });
+          //console.log({ state });
         }
       )
       .addCase(buyPack.rejected, (state, action) => {
