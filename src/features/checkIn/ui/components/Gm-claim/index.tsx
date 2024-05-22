@@ -37,7 +37,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
   const formatHours = (days: number, hours: number) =>
     formatTime(days * 24 + hours);
   const Completionist = () => {
-    dispatch(getUserFishes(initDataRow));
+    dispatch(getUserFishes({ tma: initDataRow! }));
     return <span>reload page</span>;
   };
   const TimerClaim = ({ remained }: { remained: number }) => {
