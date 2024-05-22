@@ -22,7 +22,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
 
   const dispatch = useAppDispatch();
   const diff = nextFishDate.getTime() - new Date(Date.now()).getTime();
-  const add = fishNumber - userFishesCount;
+  //const add = fishNumber - userFishesCount;
 
   const onClaim = () => {
     if (canClaim) {
@@ -68,7 +68,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
             <span className={s.disable_text}>
               Next check in
               <div className={s.timer}>
-                <TimerClaim remained={diff + add} />
+                <TimerClaim remained={diff /* + add*/} />
               </div>
             </span>
           )}
