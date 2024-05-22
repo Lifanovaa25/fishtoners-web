@@ -47,6 +47,7 @@
 
     @media (max-height:850px) {
         background-size: contain;
+        // min-height: 88px;
 
     }
 
@@ -61,7 +62,8 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-        width: 183px;
+        // width: 183px;
+        width: 70%;
         height: 27px;
         position: relative;
         padding: 7px 8px;
