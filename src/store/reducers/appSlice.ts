@@ -88,7 +88,7 @@ export const appSlice = createSlice({
           state.packsCount = action.payload.value!.packsCount!;
           state.lang = action.payload.value!.languageCode!;
           state.userId = action.payload.value!.userId;
-		  state.feeInPercents = action.payload.value!.feeInPercents
+          state.feeInPercents = action.payload.value!.feeInPercents;
         }
       )
       .addCase(getUserPanelData.rejected, (state, action: any) => {
@@ -159,13 +159,14 @@ export const appSlice = createSlice({
       .addCase(
         buyPack.fulfilled,
         (state, action: PayloadAction<ApiResponse<string>>) => {
+          state.userPackNames = state.userPackNames || [];
           state.userPackNames.push(action.payload.value!);
           state.packsForStore.find(
             (x) => x.name!.toLowerCase() == action.payload.value!
           )!.isAvailable = false;
           state.packsCount += 1;
           state.status = "succeeded";
-		  console.log({state})
+          console.log({ state });
         }
       )
       .addCase(buyPack.rejected, (state, action) => {
