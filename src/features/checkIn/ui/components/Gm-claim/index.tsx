@@ -21,7 +21,7 @@ export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
   );
 
   const dispatch = useAppDispatch();
-  const diff = nextFishDate.getTime() - new Date(Date.now()).getTime();
+  const diff = nextFishDate.getTime() //- new Date(Date.now()).getTime();
   //const add = fishNumber - userFishesCount;
 
   const onClaim = () => {
