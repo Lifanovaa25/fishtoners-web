@@ -14,9 +14,9 @@ interface IProps {
   isClaimed: boolean;
 }
 
-export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
+export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
   const { t } = useTranslation();
-  const { initDataRow, nextFishDate, userFishesCount } = useAppSelector(
+  const { initDataRow, nextFishDate } = useAppSelector(
     (state) => state.appSlice
   );
 
