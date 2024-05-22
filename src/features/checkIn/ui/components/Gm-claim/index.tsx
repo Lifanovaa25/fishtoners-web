@@ -43,7 +43,7 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
   const TimerClaim = ({ remained }: { remained: number }) => {
     return (
       <Countdown
-        date={Date.now() + remained}
+        date={Date.now() + remained + 1000}
         renderer={renderer}
       ></Countdown>
     );
