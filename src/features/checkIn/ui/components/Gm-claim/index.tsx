@@ -5,7 +5,7 @@ import s from "./style.module.scss";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { claimTodayReward } from "store/apis";
+import { claimTodayReward, getUserFishes } from "store/apis";
 import { FC } from "react";
 
 interface IProps {
@@ -33,6 +33,30 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
     }
   };
 
+  const formatTime = (time: number) => (time < 10 ? `0${time}` : time);
+  const formatHours = (days: number, hours: number) =>
+    formatTime(days * 24 + hours);
+  const Completionist = () => {
+    dispatch(getUserFishes(initDataRow));
+    return <span>reload page</span>;
+  };
+  const TimerClaim = ({ remained }: { remained: number }) => {
+    return (
+      <Countdown
+        date={Date.now() + remained}
+        renderer={renderer}
+      ></Countdown>
+    );
+  };
+  //@ts-ignore
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <Completionist />;
+    } else {
+      return ` ${formatHours(days, hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+    }
+  };
+
   return (
     <>
       <button
@@ -52,20 +76,5 @@ export const GmClaim: FC<IProps> = ({ fishNumber, canClaim, isClaimed }) => {
         </span>
       </button>
     </>
-  );
-};
-
-const formatTime = (time: number) => (time < 10 ? `0${time}` : time);
-const formatHours = (days: number, hours: number) =>
-  formatTime(days * 24 + hours);
-
-const TimerClaim = ({ remained }: { remained: number }) => {
-  return (
-    <Countdown
-      date={Date.now() + remained}
-      renderer={({ days, hours, minutes, seconds }) =>
-        ` ${formatHours(days, hours)}:${formatTime(minutes)}:${formatTime(seconds)}`
-      }
-    />
   );
 };

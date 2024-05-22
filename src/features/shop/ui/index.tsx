@@ -106,6 +106,12 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
     }
   }, [status]);
 
+  const getPackData = (name: string) => {
+    return packsForStore.find(
+      (x) => x.name?.toLowerCase() == name.toLowerCase()
+    );
+  };
+
   return (
     <div className={clsx(s.shop_modal_background, { [s.is_open]: isOpen })}>
       <div className={s.shop_modal_container}>
@@ -123,9 +129,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                 {first?.map((item, index) => (
                   <div className={s.shelf_item} key={index}>
                     <div className={s.content}>
-                      {packsForStore.find(
-                        (x) => x.name?.toLowerCase() == item.name.toLowerCase()
-                      )?.isAvailable && (
+                      {getPackData(item.name)?.isAvailable && (
                         <>
                           <div className={s.img}>
                             <img src={item.img} className={s.item_img} />
@@ -134,11 +138,11 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                             className={s.text}
                             onClick={() => buyPackHandler(item.name)}
                           >
-                            {item.text}
+                            {`${getPackData(item.name)?.price} > ${getPackData(item.name)?.earn} TON`}
                           </div>
                           <div className={s.amount}>
                             <img src={brill} alt="ton" />
-                            {item.amount}
+                            {getPackData(item.name)?.price}
                           </div>
                         </>
                       )}
@@ -151,10 +155,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                   {second?.map((item, index) => (
                     <div className={s.shelf_item} key={index}>
                       <div className={s.content}>
-                        {packsForStore.find(
-                          (x) =>
-                            x.name?.toLowerCase() == item.name.toLowerCase()
-                        )?.isAvailable && (
+                        {getPackData(item.name)?.isAvailable && (
                           <>
                             <div className={s.img}>
                               <img src={item.img} className={s.item_img} />
@@ -163,11 +164,11 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                               className={s.text}
                               onClick={() => buyPackHandler(item.name)}
                             >
-                              {item.text}
+                              {`${getPackData(item.name)?.price} > ${getPackData(item.name)?.earn} TON`}
                             </div>
                             <div className={s.amount}>
                               <img src={brill} alt="ton" />
-                              {item.amount}
+                              {getPackData(item.name)?.price}
                             </div>
                           </>
                         )}
@@ -176,7 +177,7 @@ export const Shop = ({ onSetState, isOpen }: ShopProps) => {
                   ))}
                 </>
               )}
-            </Slider>{" "}
+            </Slider>
           </div>
         </div>
       </div>

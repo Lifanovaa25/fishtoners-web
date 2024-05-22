@@ -14,7 +14,7 @@ export const ChangeLanguage = () => {
   const { setLanguage } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-const [isChecked, setIsChecked] =useState(true)
+  const [isChecked, setIsChecked] = useState(true);
   useEffect(() => {
     if (lang) {
       i18n.changeLanguage(lang ?? "en");
@@ -28,49 +28,50 @@ const [isChecked, setIsChecked] =useState(true)
     toast(t("notifications.language"), {
       type: "success",
     });
-    setIsChecked(false)
+    setIsChecked(false);
   };
 
   return (
     <div className={s.body}>
-    {isChecked &&
-    <> 
-    <div className={s.language}>
-        <button
-          className={clsx(s.choose, {
-            [s.not_choosed]: lang !== "ru",
-          })}
-          onClick={changeLanguage("ru")}
-        >
-          RU
-        </button>
+      {/*isChecked &&*/ (
+        <>
+          <div className={s.language}>
+            <button
+              className={clsx(s.choose, {
+                [s.not_choosed]: lang !== "ru",
+              })}
+              onClick={changeLanguage("ru")}
+            >
+              RU
+            </button>
 
-        <button
-          className={clsx(s.choose, { [s.not_choosed]: lang !== "en" })}
-          onClick={changeLanguage("en")}
-        >
-          ENG
-        </button>
-      </div>
+            <button
+              className={clsx(s.choose, { [s.not_choosed]: lang !== "en" })}
+              onClick={changeLanguage("en")}
+            >
+              ENG
+            </button>
+          </div>
 
-      <div className={s.language}>
-        <button
-          className={clsx(s.choose, { [s.not_choosed]: lang !== "ko" })}
-          onClick={changeLanguage("ko")}
-        >
-          KO
-        </button>
+          <div className={s.language}>
+            <button
+              className={clsx(s.choose, { [s.not_choosed]: lang !== "ko" })}
+              onClick={changeLanguage("ko")}
+            >
+              KO
+            </button>
 
-        <button
-          className={clsx(s.choose, {
-            [s.not_choosed]: lang !== "ua",
-          })}
-          onClick={changeLanguage("ua")}
-        >
-          UA
-        </button>
-      </div>
-      </>}
+            <button
+              className={clsx(s.choose, {
+                [s.not_choosed]: lang !== "ua",
+              })}
+              onClick={changeLanguage("ua")}
+            >
+              UA
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
