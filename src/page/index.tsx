@@ -11,7 +11,7 @@ import { Game } from "features/game";
 import { ReferralLink } from "features/referral-link";
 import { FirstVizit } from "features/firstVisit";
 import { useEffect, useState } from "react";
-import { retrieveLaunchParams } from "@tma.js/sdk";
+// import { retrieveLaunchParams } from "@tma.js/sdk";
 import { appSlice } from "store/reducers/appSlice";
 import { getLeaderboard, getUserFishes, getUserPanelData } from "store/apis";
 

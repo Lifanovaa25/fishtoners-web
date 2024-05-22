@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import i18n from "shared/config/i18n";
 
 import s from "./style.module.scss";
@@ -14,7 +14,7 @@ export const ChangeLanguage = () => {
   const { setLanguage } = appSlice.actions;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const [isChecked, setIsChecked] = useState(true);
+  // const [isChecked, setIsChecked] = useState(true);
   useEffect(() => {
     if (lang) {
       i18n.changeLanguage(lang ?? "en");
@@ -28,7 +28,7 @@ export const ChangeLanguage = () => {
     toast(t("notifications.language"), {
       type: "success",
     });
-    setIsChecked(false);
+    // setIsChecked(false);
   };
 
   return (
