@@ -39,7 +39,7 @@ export const Game = () => {
     if (initDataRow) {
       dispatch(getActiveUsersPack({ tma: initDataRow! }));
     }
-  }, [initDataRow, userPackNames, packsCount]);
+  }, [/*initDataRow,*/ userPackNames, packsCount]);
 
   return (
     <div className={s.conatiner}>
