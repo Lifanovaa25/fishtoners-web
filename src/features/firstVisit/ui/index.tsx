@@ -1,5 +1,5 @@
 import s from "./style.module.scss";
-import title from "shared/assets/title.png";
+//import title from "shared/assets/title.png";
 import { useTranslation } from "react-i18next";
 import h1 from "./assets/h1.svg";
 import h2 from "./assets/h2.svg";
