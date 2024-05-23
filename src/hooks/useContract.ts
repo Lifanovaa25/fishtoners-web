@@ -27,8 +27,7 @@ export function useContract() {
         $$type: "Deposit",
         user,
       };
-      const needToSend = fromNano(toNano("0.03") + amount);
-console.log({needToSend})
+
       contract?.send(
         sender,
         {
