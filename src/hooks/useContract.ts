@@ -31,7 +31,7 @@ export function useContract() {
       contract?.send(
         sender,
         {
-          value: toNano("0.03") + amount,
+          value: toNano("0.03") + toNano(amount),
         },
         message
       );
