@@ -17,7 +17,7 @@ export const LeaderboardItem = ({
     index, 
     avatar,
     full_name,
-    username,
+    //username,
     points
 }: LeaderboardItemProps) => (
     <div className={s.leaderboard_item}>
@@ -36,7 +36,7 @@ export const LeaderboardItem = ({
 
                 <div className={s.names}>
                     <span className={s.full_name}>{full_name.length > 8 ? full_name.slice(0, 8) + "..." : full_name}</span>
-                    <span className={s.username}>{username}</span>
+                    {/*<span className={s.username}>{username}</span>*/}
                 </div>
             </div>
 
