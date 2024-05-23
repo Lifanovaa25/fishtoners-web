@@ -22,7 +22,7 @@ export const FirstVizit = () => {
       <img src={h3} className={s.hook} />
 
       <div className={s.conatiner}>
-        <img className={s.title_img} src={title} />
+        {/*<img className={s.title_img} src={title} />*/}
 
         <div className={s.htp}>{t("How_to_play")}</div>
         <div className={s.rules_container}>
