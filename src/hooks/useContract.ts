@@ -1,4 +1,4 @@
-import { Address, OpenedContract, fromNano, toNano } from "ton-core";
+import { Address, OpenedContract,  toNano } from "ton-core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import { useTonConnect } from "./useTonConnect";
