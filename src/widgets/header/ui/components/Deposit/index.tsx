@@ -165,7 +165,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
                   TON
                 </div>
               </div>
-              {/*!connected && */<TonConnectButton />}
+              {!connected && <TonConnectButton />}
               {connected && (
                 <button className={s.yellow_btn} onClick={depositHandler}>
                   Deposit
