@@ -1,4 +1,4 @@
-import { Address, OpenedContract, toNano } from "ton-core";
+import { Address, OpenedContract, fromNano, toNano } from "ton-core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import { useTonConnect } from "./useTonConnect";
@@ -27,11 +27,12 @@ export function useContract() {
         $$type: "Deposit",
         user,
       };
-
+      const needToSend = fromNano(toNano("0.03") + amount);
+console.log({needToSend})
       contract?.send(
         sender,
         {
-          value: toNano("0.03") + toNano(amount),
+          value: toNano("0.03") + amount,
         },
         message
       );
