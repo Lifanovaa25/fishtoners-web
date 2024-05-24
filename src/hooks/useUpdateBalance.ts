@@ -25,10 +25,10 @@ export const useUpdateBalance = () => {
 
       setConnection(newConnection);
 
-      newConnection
+      /*newConnection
         .start()
         .then(() => console.log("Connected"))
-        .catch((err) => console.log("Connection failed: ", err));
+        .catch((err) => console.log("Connection failed: ", err));*/
     }
   }, [initDataRow]);
 
