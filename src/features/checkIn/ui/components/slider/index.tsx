@@ -30,41 +30,36 @@ export const Slider: React.FC = () => {
     //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
     return !isTodayFishClaimed && index == userFishesCount;
   };
-  const isClaimed = (index: number) => {
-    return allfishes.find((x) => x.id! == index + 1)?.claimed!;
-  };
 
   return (
     <section className={s.slider}>
       <div className={s.embla__viewport} ref={emblaRef}>
         <div className={s.embla__container}>
-          {SLIDES.map(
-            (index) =>
-              index + 1 >= userFishesCount &&
-              isTodayFishClaimed && (
-                <div
-                  className={clsx(s.embla__slide, "shadow", {
-                    [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
-                      ?.claimed!,
-                  })}
-                  key={index}
-                >
-                  {!isClaimed(index) && (
-                    <img
-                      className={s.slide_fishes}
-                      src={fishes[index]}
-                      alt=""
-                    />
-                  )}
-                  <div className={s.position}>
-                    <GmClaim
-                      canClaim={canClaim(index)}
-                      isClaimed={isClaimed(index)}
-                    />
-                  </div>
+          {allfishes
+            //.filter((x) => !x.claimed)
+            .map((fish, index) => (
+              <div
+                className={clsx(s.embla__slide, "shadow", {
+                  [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
+                    ?.claimed!,
+                })}
+                key={index}
+              >
+                {!fish.claimed && (
+                  <img
+                    className={s.slide_fishes}
+                    src={fishes[fish.id - 1]}
+                    alt=""
+                  />
+                )}
+                <div className={s.position}>
+                  <GmClaim
+                    canClaim={canClaim(index)}
+                    isClaimed={!fish.claimed}
+                  />
                 </div>
-              )
-          )}
+              </div>
+            ))}
         </div>
       </div>
 
