@@ -19,14 +19,16 @@ import {
   getUserFishes,
   getUserPanelData,
 } from "store/apis";
+import { useUpdateBalance } from "hooks/useUpdateBalance";
 
 const DashBoardPage = () => {
   const { activeTab, /*, initDataRow */ lang } = useAppSelector(
     (state) => state.appSlice
   );
   const { initDataRaw } = retrieveLaunchParams();
-const { setInitDataRow } = appSlice.actions;
+  const { setInitDataRow } = appSlice.actions;
   const dispatch = useAppDispatch();
+  useUpdateBalance();
 
   useEffect(() => {
     //console.log({initDataRaw})
@@ -46,7 +48,7 @@ const { setInitDataRow } = appSlice.actions;
       }
     }, 3000);
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, [initDataRaw, dispatch]);
 
   const [isLoading, setLoading] = useState(true);

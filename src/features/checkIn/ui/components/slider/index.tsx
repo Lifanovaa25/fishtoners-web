@@ -11,8 +11,6 @@ import { GmClaim } from "../Gm-claim";
 import { useAppSelector } from "hooks/redux";
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: "auto" };
-//const SLIDE_COUNT = 14;
-//const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
@@ -27,7 +25,7 @@ export const Slider: React.FC = () => {
   } = usePrevNextButtons(emblaApi);
 
   const canClaim = (id: number) => {
-    //может забрать рыбку если сегодня ещё не забирал и если ид (с 1) этой рыбки соответствует количеству рыб у него
+    //может забрать рыбку если сегодня ещё не забирал и если ид (с 1) этой рыбки соответствует количеству рыб у него +1
     return !isTodayFishClaimed && id == userFishesCount + 1;
   };
 
@@ -36,7 +34,6 @@ export const Slider: React.FC = () => {
       <div className={s.embla__viewport} ref={emblaRef}>
         <div className={s.embla__container}>
           {allfishes
-            //.filter((x) => !x.claimed)
             .filter((x) =>
               isTodayFishClaimed
                 ? x.id > userFishesCount - 1

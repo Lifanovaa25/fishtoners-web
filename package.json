@@ -12,6 +12,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.0.27",
+    "@microsoft/signalr": "^8.0.0",
     "@orbs-network/ton-access": "^2.3.3",
     "@reduxjs/toolkit": "^2.2.4",
     "@tma.js/sdk": "^2.1.0",
