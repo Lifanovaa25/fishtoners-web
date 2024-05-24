@@ -4,8 +4,10 @@ import * as SignalR from "@aspnet/signalr";
 import { useAppDispatch, useAppSelector } from "./redux";
 import { toast } from "react-toastify";
 import { appSlice } from "store/reducers/appSlice";
+import { useTranslation } from "react-i18next";
 
 export const useUpdateBalance = () => {
+  const { t } = useTranslation();
   const { setBalance } = appSlice.actions;
   const { initDataRow } = useAppSelector((state) => state.appSlice);
   const dispatch = useAppDispatch();
@@ -38,7 +40,7 @@ export const useUpdateBalance = () => {
               console.log({ balance });
               console.log({ userId });
               dispatch(setBalance(balance));
-              toast.success("Баланс пополнен успешно!");
+              toast.info(t("tons-deposited"));
             }
           );
         })
