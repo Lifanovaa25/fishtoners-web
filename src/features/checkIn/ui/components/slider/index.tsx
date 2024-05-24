@@ -30,8 +30,8 @@ export const Slider: React.FC = () => {
     //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
     return !isTodayFishClaimed && index == userFishesCount;
   };
-  const renderFish = (index: number) => {
-    return !allfishes.find((x) => x.id! == index + 1)?.claimed!;
+  const isClaimed = (index: number) => {
+    return allfishes.find((x) => x.id! == index + 1)?.claimed!;
   };
 
   return (
@@ -40,7 +40,7 @@ export const Slider: React.FC = () => {
         <div className={s.embla__container}>
           {SLIDES.map(
             (index) =>
-              index >= userFishesCount - 1 && (
+              index >= userFishesCount && (
                 <div
                   className={clsx(s.embla__slide, "shadow", {
                     [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
@@ -48,7 +48,7 @@ export const Slider: React.FC = () => {
                   })}
                   key={index}
                 >
-                  {renderFish(index) && (
+                  {!isClaimed(index) && (
                     <img
                       className={s.slide_fishes}
                       src={fishes[index]}
@@ -58,9 +58,7 @@ export const Slider: React.FC = () => {
                   <div className={s.position}>
                     <GmClaim
                       canClaim={canClaim(index)}
-                      isClaimed={
-                        allfishes.find((x) => x.id! == index + 1)?.claimed!
-                      }
+                      isClaimed={isClaimed(index)}
                     />
                   </div>
                 </div>
