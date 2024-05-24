@@ -11,9 +11,10 @@ import { FC } from "react";
 interface IProps {
   canClaim: boolean;
   isClaimed: boolean;
+  renderTimer: boolean;
 }
 
-export const GmClaim: FC<IProps> = ({ canClaim, isClaimed }) => {
+export const GmClaim: FC<IProps> = ({ canClaim, isClaimed, renderTimer }) => {
   const { t } = useTranslation();
   const { initDataRow, nextFishDate } = useAppSelector(
     (state) => state.appSlice
@@ -56,7 +57,7 @@ export const GmClaim: FC<IProps> = ({ canClaim, isClaimed }) => {
         className={clsx(s.collect_btn, { [s.gm_disable]: !canClaim })}
       >
         <span className={clsx(s.text, "shadow")}>
-          {isClaimed && (
+          {(isClaimed || renderTimer) && (
             <span className={s.disable_text}>
               Next check in
               <div className={s.timer}>

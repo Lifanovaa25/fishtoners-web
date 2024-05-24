@@ -40,7 +40,7 @@ export const Slider: React.FC = () => {
         <div className={s.embla__container}>
           {SLIDES.map(
             (index) =>
-              index >= userFishesCount && (
+              index + 1 >= userFishesCount && (
                 <div
                   className={clsx(s.embla__slide, "shadow", {
                     [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
@@ -59,6 +59,7 @@ export const Slider: React.FC = () => {
                     <GmClaim
                       canClaim={canClaim(index)}
                       isClaimed={isClaimed(index)}
+                      renderTimer={index == userFishesCount}
                     />
                   </div>
                 </div>
