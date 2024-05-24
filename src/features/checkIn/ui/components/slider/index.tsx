@@ -54,7 +54,7 @@ export const Slider: React.FC = () => {
                 <div className={s.position}>
                   <GmClaim
                     canClaim={canClaim(index)}
-                    isClaimed={!fish.claimed}
+                    isClaimed={fish.claimed}
                   />
                 </div>
               </div>
