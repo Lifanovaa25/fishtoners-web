@@ -28,7 +28,7 @@ export const Slider: React.FC = () => {
 
   const canClaim = (index: number) => {
     //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
-    return !isTodayFishClaimed && index + 1 == userFishesCount;
+    return !isTodayFishClaimed && index == userFishesCount;
   };
   const isClaimed = (index: number) => {
     return allfishes.find((x) => x.id! == index + 1)?.claimed!;
