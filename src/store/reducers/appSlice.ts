@@ -80,6 +80,7 @@ export const appSlice = createSlice({
       state.lang = action.payload;
     },
     setBalance(state, action: PayloadAction<number>) {
+      console.log("set balance to " + action.payload);
       state.balance = action.payload;
     },
   },
