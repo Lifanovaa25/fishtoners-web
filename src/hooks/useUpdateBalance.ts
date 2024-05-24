@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 import * as SignalR from "@aspnet/signalr";
-import { /*useAppDispatch,*/ useAppSelector } from "./redux";
+import { useAppDispatch, useAppSelector } from "./redux";
 import { toast } from "react-toastify";
-//import { appSlice } from "store/reducers/appSlice";
+import { appSlice } from "store/reducers/appSlice";
 
 export const useUpdateBalance = () => {
-  //const { setBalance } = appSlice.actions;
+  const { setBalance } = appSlice.actions;
   const { initDataRow } = useAppSelector((state) => state.appSlice);
-  //const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [connection, setConnection] = useState<HubConnection>();
 
   useEffect(() => {
@@ -24,11 +24,6 @@ export const useUpdateBalance = () => {
         .build();
 
       setConnection(newConnection);
-
-      /*newConnection
-        .start()
-        .then(() => console.log("Connected"))
-        .catch((err) => console.log("Connection failed: ", err));*/
     }
   }, [initDataRow]);
 
@@ -37,13 +32,15 @@ export const useUpdateBalance = () => {
       connection
         .start()
         .then(() => {
-          connection.on("PaymentConfirmed", (...args: any[]) => {
-            console.log({ args });
-            //console.log({ balance });
-            //console.log({ userId });
-            //dispatch(setBalance(balance));
-            toast.success("Баланс пополнен успешно!");
-          });
+          connection.on(
+            "PaymentConfirmed",
+            (balance: number, userId: number) => {
+              console.log({ balance });
+              console.log({ userId });
+              dispatch(setBalance(balance));
+              toast.success("Баланс пополнен успешно!");
+            }
+          );
         })
         .catch((e: any) => console.log("Connection failed: ", e));
     }
