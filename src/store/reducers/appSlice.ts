@@ -55,6 +55,9 @@ export const initialState = {
 
   status: "idle" as Status,
   error: "",
+
+  statusWD: "idle" as Status,
+  errorW: "",
 };
 
 type State = typeof initialState;
@@ -182,7 +185,7 @@ export const appSlice = createSlice({
         withdraw.fulfilled,
         (state, action: PayloadAction<ApiResponse<number>>) => {
           state.balance = action.payload.value!;
-          state.status = "succeeded";
+          state.statusWD = "succeeded";
         }
       )
       .addCase(withdraw.rejected, (state, action) => {

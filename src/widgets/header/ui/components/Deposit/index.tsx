@@ -70,7 +70,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
     initDataRow,
     userId,
     feeInPercents,
-    status,
+    statusWD,
     error,
   } = useAppSelector((state) => state.appSlice);
   const { setActiveBtn } = appSlice.actions;
@@ -97,10 +97,10 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
 
   useEffect(() => {
     if (depositRequestCreated > 0) {
-      if (status == "succeeded") {
-        //toast.success("Deposit request created");
+      if (statusWD == "succeeded") {
+        toast.success("Deposit request created");
       }
-      if (status === "failed") {
+      if (statusWD === "failed") {
         toast.error(error);
       }
     }
