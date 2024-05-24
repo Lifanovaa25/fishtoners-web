@@ -39,7 +39,7 @@ export const Slider: React.FC = () => {
             //.filter((x) => !x.claimed)
             .filter((x) =>
               isTodayFishClaimed
-                ? x.id - 1 > userFishesCount
+                ? x.id > userFishesCount
                 : x.id > userFishesCount
             )
             .map((fish, index) => (
