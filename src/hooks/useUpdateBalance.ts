@@ -23,6 +23,11 @@ export const useUpdateBalance = () => {
       .build();
 
     setConnection(newConnection);
+
+    newConnection
+      .start()
+      .then(() => console.log("Connected"))
+      .catch((err) => console.log("Connection failed: ", err));
   }, []);
 
   useEffect(() => {
