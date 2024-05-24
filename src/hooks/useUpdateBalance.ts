@@ -38,8 +38,9 @@ export const useUpdateBalance = () => {
       connection
         .start()
         .then(() => {
-          connection.on("PaymentConfirmed", (balance) => {
+          connection.on("PaymentConfirmed", (balance, userId) => {
             console.log({ balance });
+            console.log({ userId });
             dispatch(setBalance(balance));
             toast.success("Баланс пополнен успешно!");
           });
