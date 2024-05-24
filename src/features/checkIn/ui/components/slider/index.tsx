@@ -26,9 +26,9 @@ export const Slider: React.FC = () => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  const canClaim = (index: number) => {
-    //может забрать рыбку если сегодня ещё не забирал и если индекс (с 0) этой рыбки соответствует количеству рыб у него
-    return !isTodayFishClaimed && index == userFishesCount;
+  const canClaim = (id: number) => {
+    //может забрать рыбку если сегодня ещё не забирал и если ид (с 1) этой рыбки соответствует количеству рыб у него
+    return !isTodayFishClaimed && id == userFishesCount + 1;
   };
 
   return (
@@ -58,7 +58,7 @@ export const Slider: React.FC = () => {
                 )}
                 <div className={s.position}>
                   <GmClaim
-                    canClaim={canClaim(index)}
+                    canClaim={canClaim(fish.id)}
                     isClaimed={fish.claimed}
                   />
                 </div>
