@@ -44,7 +44,7 @@ const DashBoardPage = () => {
   const onLoadEffect = () => {
     setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 3000);
   };
   useEffect(onLoadEffect, []);
   return (
