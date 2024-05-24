@@ -59,7 +59,6 @@ export const Slider: React.FC = () => {
                     <GmClaim
                       canClaim={canClaim(index)}
                       isClaimed={isClaimed(index)}
-                      renderTimer={index == userFishesCount}
                     />
                   </div>
                 </div>
