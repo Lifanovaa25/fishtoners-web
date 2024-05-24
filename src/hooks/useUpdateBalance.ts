@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 import * as SignalR from "@aspnet/signalr";
-import { useAppDispatch, useAppSelector } from "./redux";
+import { /*useAppDispatch,*/ useAppSelector } from "./redux";
 import { toast } from "react-toastify";
-import { appSlice } from "store/reducers/appSlice";
+//import { appSlice } from "store/reducers/appSlice";
 
 export const useUpdateBalance = () => {
-  const { setBalance } = appSlice.actions;
+  //const { setBalance } = appSlice.actions;
   const { initDataRow } = useAppSelector((state) => state.appSlice);
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
   const [connection, setConnection] = useState<HubConnection>();
 
   useEffect(() => {
