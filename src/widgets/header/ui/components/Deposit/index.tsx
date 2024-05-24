@@ -82,7 +82,7 @@ export const DepositModal = ({ onSetState, isOpen }: DepositModalProps) => {
   const [depositRequestCreated, setDepositRequestCreated] = useState(0);
   const depositHandler = () => {
     depositCall(toNano(amountDeposit), userId.toString());
-    toast.info(t("tons-deposited"));
+    toast.info(t("tons-deposited-request"));
     setDepositRequestCreated(depositRequestCreated + 1);
     onSetState();
   };

@@ -51,6 +51,7 @@
   "incorrect-address-format": "Incorrect address format",
   "ref_link_copied": "Referal link has been copied",
   "bait-bought": "Bait bought",
-  "tons-deposited": "Deposited. TONs will receive soon",
+  "tons-deposited": "Deposited",
+  "tons-deposited-request": "Deposit request created. TONs will receive soon",
   "withdraw-requested": "Withdraw requested"
 }
