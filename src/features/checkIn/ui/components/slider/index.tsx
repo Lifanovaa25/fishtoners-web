@@ -48,7 +48,7 @@ export const Slider: React.FC = () => {
                   })}
                   key={index}
                 >
-                  {renderFish(index + 1) && (
+                  {renderFish(index) && (
                     <img
                       className={s.slide_fishes}
                       src={fishes[index]}
