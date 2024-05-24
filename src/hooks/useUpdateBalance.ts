@@ -12,23 +12,26 @@ export const useUpdateBalance = () => {
   const [connection, setConnection] = useState<HubConnection>();
 
   useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl("https://bhjkoihtfge89y23tghio.xyz/balance", {
-        withCredentials: false,
-        skipNegotiation: true,
-        transport: SignalR.HttpTransportType.WebSockets,
-        accessTokenFactory: () => initDataRow!,
-      })
-      .withAutomaticReconnect()
-      .build();
+    if (initDataRow) {
+      console.log({ initDataRow });
+      const newConnection = new HubConnectionBuilder()
+        .withUrl("https://bhjkoihtfge89y23tghio.xyz/balance", {
+          withCredentials: false,
+          skipNegotiation: true,
+          transport: SignalR.HttpTransportType.WebSockets,
+          accessTokenFactory: () => initDataRow!,
+        })
+        .withAutomaticReconnect()
+        .build();
 
-    setConnection(newConnection);
+      setConnection(newConnection);
 
-    newConnection
-      .start()
-      .then(() => console.log("Connected"))
-      .catch((err) => console.log("Connection failed: ", err));
-  }, []);
+      newConnection
+        .start()
+        .then(() => console.log("Connected"))
+        .catch((err) => console.log("Connection failed: ", err));
+    }
+  }, [initDataRow]);
 
   useEffect(() => {
     if (connection) {
