@@ -42,7 +42,7 @@ const DashBoardPage = () => {
     }
   }, [initDataRaw]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const intervalId = setInterval(() => {
       if (initDataRaw) {
         dispatch(getUserPanelData({ tma: initDataRaw! }));
@@ -50,7 +50,7 @@ const DashBoardPage = () => {
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [initDataRaw, dispatch]);
+  }, [initDataRaw, dispatch]);*/
 
   const [isLoading, setLoading] = useState(true);
 
