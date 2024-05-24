@@ -31,7 +31,7 @@ export const Slider: React.FC = () => {
     return !isTodayFishClaimed && index == userFishesCount;
   };
   const renderFish = (index: number) => {
-    return !allfishes.find((x) => x.id! - 1 == index)?.claimed!;
+    return !allfishes.find((x) => x.id! == index + 1)?.claimed!;
   };
 
   return (
@@ -48,7 +48,7 @@ export const Slider: React.FC = () => {
                   })}
                   key={index}
                 >
-                  {renderFish(index) && (
+                  {renderFish(index + 1) && (
                     <img
                       className={s.slide_fishes}
                       src={fishes[index]}
@@ -57,8 +57,8 @@ export const Slider: React.FC = () => {
                   )}
                   <div className={s.position}>
                     <GmClaim
-                      fishNumber={index}
-                      canClaim={canClaim(index)}
+                      fishNumber={index + 1}
+                      canClaim={canClaim(index + 1)}
                       isClaimed={
                         allfishes.find((x) => x.id! - 1 == index)?.claimed!
                       }
