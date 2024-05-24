@@ -9,12 +9,11 @@ import { claimTodayReward, getUserFishes } from "store/apis";
 import { FC } from "react";
 
 interface IProps {
-  fishNumber: number;
   canClaim: boolean;
   isClaimed: boolean;
 }
 
-export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
+export const GmClaim: FC<IProps> = ({ canClaim, isClaimed }) => {
   const { t } = useTranslation();
   const { initDataRow, nextFishDate } = useAppSelector(
     (state) => state.appSlice
@@ -41,12 +40,7 @@ export const GmClaim: FC<IProps> = ({  canClaim, isClaimed }) => {
     return <span>reload page</span>;
   };
   const TimerClaim = ({ endDate }: { endDate: number }) => {
-    return (
-      <Countdown
-        date={endDate + 1000}
-        renderer={renderer}
-      ></Countdown>
-    );
+    return <Countdown date={endDate + 1000} renderer={renderer}></Countdown>;
   };
   //@ts-ignore
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
