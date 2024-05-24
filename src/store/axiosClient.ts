@@ -1,13 +1,10 @@
 import axios from "axios";
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from "axios";
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 const createAxiosClient = (initDataRaw?: string) => {
   const axiosClient = axios.create({
-    baseURL: "https://a26930-7253.x.d-f.pw"/*import.meta.env.VITE_APP_BACKEND_URI!*/,
+    baseURL:
+      "https://bhjkoihtfge89y23tghio.xyz" /*import.meta.env.VITE_APP_BACKEND_URI!*/,
     timeout: 50000, // 5 секунд таймаут
   });
 
@@ -23,12 +20,12 @@ const handleRequest = async <T>(
   options: AxiosRequestConfig
 ): Promise<T> => {
   try {
-    const response = await instance.request<T>(options); 
+    const response = await instance.request<T>(options);
     return processResponse(response);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      const apiError: ApiError = error.response.data;	  
-      throw  new ApiException(
+      const apiError: ApiError = error.response.data;
+      throw new ApiException(
         error.message,
         error.response.status,
         JSON.stringify(error.response.data),

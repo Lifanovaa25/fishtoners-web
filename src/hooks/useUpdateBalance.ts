@@ -13,7 +13,7 @@ export const useUpdateBalance = () => {
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://a26930-7253.x.d-f.pw/balance", {
+      .withUrl("https://bhjkoihtfge89y23tghio.xyz/balance", {
         withCredentials: false,
         skipNegotiation: true,
         transport: SignalR.HttpTransportType.WebSockets,
