@@ -40,7 +40,7 @@ export const GmClaim: FC<IProps> = ({ canClaim, isClaimed }) => {
     return <span>reload page</span>;
   };
   const TimerClaim = ({ endDate }: { endDate: number }) => {
-    return <Countdown date={endDate + 1000} renderer={renderer}></Countdown>;
+    return <Countdown date={endDate + 500} renderer={renderer}></Countdown>;
   };
   //@ts-ignore
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
