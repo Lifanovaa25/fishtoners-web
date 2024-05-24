@@ -7,7 +7,7 @@ import type {
 
 const createAxiosClient = (initDataRaw?: string) => {
   const axiosClient = axios.create({
-    baseURL: "https://a26930-7253.x.d-f.pw",
+    baseURL: import.meta.env.VITE_APP_BACKEND_URI!,
     timeout: 50000, // 5 секунд таймаут
   });
 

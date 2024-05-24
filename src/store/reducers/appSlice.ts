@@ -76,6 +76,9 @@ export const appSlice = createSlice({
     setLanguage(state, action: PayloadAction<Lang>) {
       state.lang = action.payload;
     },
+    setBalance(state, action: PayloadAction<number>) {
+      state.balance = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

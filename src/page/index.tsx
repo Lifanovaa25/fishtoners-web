@@ -26,6 +26,7 @@ const DashBoardPage = () => {
     (state) => state.appSlice
   );
   const { initDataRaw } = retrieveLaunchParams();
+
   const { setInitDataRow } = appSlice.actions;
   const dispatch = useAppDispatch();
   useUpdateBalance();
