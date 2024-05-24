@@ -11,8 +11,8 @@ import { GmClaim } from "../Gm-claim";
 import { useAppSelector } from "hooks/redux";
 
 const OPTIONS: EmblaOptionsType = { slidesToScroll: "auto" };
-const SLIDE_COUNT = 14;
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+//const SLIDE_COUNT = 14;
+//const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export const Slider: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
