@@ -40,7 +40,7 @@ export const Slider: React.FC = () => {
         <div className={s.embla__container}>
           {SLIDES.map(
             (index) =>
-              index + 1 >= userFishesCount && (
+              (/*index + 1 >= userFishesCount && isClaimed ) &&*/ (
                 <div
                   className={clsx(s.embla__slide, "shadow", {
                     [s.slide_disable]: allfishes.find((x) => x.id! - 1 == index)
